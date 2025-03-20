@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // 配置 @ 作为 src 目录的别名
+    "allowSyntheticDefaultImports": true,
+    "types": ["node", "vue"],
+    "baseUrl": "./", // 设置基础路径
+    "paths": {
+      "@/*": ["src/*"] // 设置 @ 别名指向 src 目录
+    },
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["vite.config.ts"]
+}
