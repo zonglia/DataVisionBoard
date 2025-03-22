@@ -1,5 +1,5 @@
 <template>
-    <dv-scroll-board :config="config" style="width: 6.25rem; height: 3.875rem" />
+  <dv-scroll-board :config="config" style="width: 6.5rem; height: 3.875rem" />
 </template>
 
 <script setup lang="ts">
@@ -28,6 +28,21 @@ const config = reactive({
   columnWidth: [50],
   align: ["center"],
 });
+
+// const config = reactive({
+//   header: ["工号", "用户名称", "工位类别", "在岗课别"],
+//   data: [
+//     ["029541", "冉华宣", "电镀辅助", "添加铜粉", "B4"],
+//     ["041302", "李明龙", "", "", "B4"],
+//     ["036746", "姚增伟", "", "", "B4"],
+//     ["044378", "汪威", "", "", "B4"],
+//     ["018270", "孙红建", "", "", "B4"],
+//     ["055210", "高军", "", "", "B4"],
+//   ],
+//   index: true,
+//   columnWidth: [50],
+//   align: ["center"],
+// });
 </script>
 
 <style scoped lang="scss"></style>

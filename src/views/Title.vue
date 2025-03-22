@@ -1,12 +1,12 @@
 <template>
   <div class="title">
-    <dv-decoration8 style="width: 5rem; height: 0.625rem" />
+    <dv-decoration8 style="width: 10rem; height: 0.625rem;" />
     <div>
       <h2>数据大屏</h2>
       <dv-decoration5 :dur="2" style="width: 8rem; height: 0.5rem" />
     </div>
 
-    <dv-decoration8 :reverse="true" style="width: 5rem; height: 0.625rem" />
+    <dv-decoration8 :reverse="true" style="width: 10rem; height: 0.625rem" />
   </div>
 </template>
 
