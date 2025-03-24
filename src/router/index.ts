@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/layout/index.vue' // 主布局组件，用于嵌套路由展示
+import Drilling from '../components/Drilling.vue';
+import ElectroPlating from '../components/ElectroPlating.vue';
+import DroughtPrevention from '../components/DroughtPrevention.vue';
 
 
 // 公共路由
@@ -16,6 +19,18 @@ export const constantRoutes = [
                 meta: { title: '首页', icon: 'dashboard', affix: true } // 路由元信息
             }
         ]
+    },
+    {
+        path: '/drilling',
+        component: Drilling,
+    },
+    {
+        path: '/electroPlating',
+        component: ElectroPlating,
+    },
+    {
+        path: '/droughtPrevention',
+        component: DroughtPrevention,
     }
 ]
 

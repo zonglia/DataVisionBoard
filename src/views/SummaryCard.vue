@@ -10,7 +10,7 @@
         "
       >
         <div style="padding: 20px">
-          <scrollboard />
+          <Test />
         </div>
       </dv-border-box1>
 
@@ -29,7 +29,7 @@
         "
       >
         <div style="padding: 20px">
-          <scrollboard />
+          <DeviceAlarmLog />
         </div>
       </dv-border-box1>
     </div>
@@ -40,8 +40,10 @@
 </template>
 
 <script setup lang="ts">
+import Test from "./chart/test.vue";
 import scrollboard from "./chart/scrollboard.vue";
 import ProductionRate from "./chart/ProductionRate.vue";
+import DeviceAlarmLog from "./chart/DeviceAlarmLog.vue";
 </script>
 
 <style scoped lang="scss">
