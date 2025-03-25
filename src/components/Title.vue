@@ -1,12 +1,12 @@
 <template>
   <div class="title">
-    <div><dv-decoration8 style="width: 100%; height: 50%" /></div>
+    <div><dv-decoration8 style="width: 100%;height: 45%;" /></div>
     <div class="title-content">
       <h2>{{ title }}</h2>
-      <dv-decoration5 :dur="2" style="width: 60%; height: 50%" />
+      <dv-decoration5 :dur="2" style="width: 60%; height: 30%" />
     </div>
     <div>
-      <dv-decoration8 :reverse="true" style="height: 50%;"/>
+      <dv-decoration8 :reverse="true" style="height: 45%;"/>
     </div>
   </div>
 </template>
@@ -26,7 +26,6 @@ defineProps({
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  padding: 0;
   > div {
     width: 100%;
     height: 100%;
@@ -45,4 +44,9 @@ defineProps({
     }
   }
 }
+
+:deep(.dv-decoration-8){
+height: 100%;
+}
+
 </style>

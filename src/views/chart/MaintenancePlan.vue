@@ -1,11 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board
-      :config="config"
-      style="width: 6.3rem; height: 2.75rem"
-      @mouseover="mouseoverHandler"
-      @click="clickHandler"
-    />
+    <dv-scroll-board :config="config" style="width: 100%; height: 3.7rem" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -33,13 +28,27 @@ const config = reactive({
   index: true,
   columnWidth: [50],
   align: ["center"],
+  rowNum: [5],
+  headerBGC: ["transparent"],
+  oddRowBGC: ["transparent"],
 });
-
-const mouseoverHandler = (e: any) => {
-  console.log(e);
-};
-
-const clickHandler = (e: any) => {
-  console.log(e);
-};
 </script>
+
+<style scoped lang="scss">
+:deep(.dv-scroll-board) {
+  .header {
+    background-color: transparent !important;
+    .header-item {
+      text-align: center;
+    }
+  }
+
+  .rows {
+    .row-item {
+      .ceil {
+        text-align: center;
+      }
+    }
+  }
+}
+</style>

@@ -15,6 +15,7 @@ declare module 'vue' {
     ElCol: typeof import('element-plus/es')['ElCol']
     ElectroPlating: typeof import('./src/components/ElectroPlating.vue')['default']
     ElRow: typeof import('element-plus/es')['ElRow']
+    JiangXiN2: typeof import('./src/components/JiangXiN2.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Title: typeof import('./src/components/Title.vue')['default']

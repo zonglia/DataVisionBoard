@@ -2,6 +2,7 @@
   <el-button type="primary" @click="ToElectroPlating">电镀车间</el-button>
   <el-button type="primary" @click="ToDrilling">开料钻孔成型</el-button>
   <el-button type="primary" @click="ToDroughtPrevention">防焊车间</el-button>
+  <el-button type="primary" @click="ToJiangXiN2">江西N2工厂</el-button>
 </template>
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
@@ -17,5 +18,8 @@ const ToElectroPlating = () => {
 };
 const ToDroughtPrevention = () => {
   router.push("/droughtPrevention"); // 等同于 <router-link to="/home">
+};
+const ToJiangXiN2 = () => {
+  router.push("/jiangXiN2"); // 等同于 <router-link to="/home">
 };
 </script>

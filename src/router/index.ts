@@ -3,6 +3,7 @@ import Layout from '@/layout/index.vue' // 主布局组件，用于嵌套路由�
 import Drilling from '../components/Drilling.vue';
 import ElectroPlating from '../components/ElectroPlating.vue';
 import DroughtPrevention from '../components/DroughtPrevention.vue';
+import JiangXiN2 from '../components/JiangXiN2.vue'
 
 
 // 公共路由
@@ -31,7 +32,14 @@ export const constantRoutes = [
     {
         path: '/droughtPrevention',
         component: DroughtPrevention,
+    },
+
+    {
+        path: '/jiangXiN2',
+        component: JiangXiN2,
     }
+
+
 ]
 
 const router = createRouter({

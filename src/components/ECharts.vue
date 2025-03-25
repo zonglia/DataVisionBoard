@@ -24,7 +24,7 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: "400px",
+    default: "500px",
   },
   autoResize: {
     // 响应式配置
