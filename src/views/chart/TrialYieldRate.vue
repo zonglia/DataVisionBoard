@@ -1,6 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 10rem" />
+    <dv-scroll-board :config="config" style="height: 9rem" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -38,12 +38,14 @@ const config = reactive({
   rowNum: [15],
   headerBGC: ["transparent"],
   oddRowBGC: ["transparent"],
+  evenRowBGC: ["#026CCA"],
 });
 </script>
 
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
   .header {
+      font-size: 0.25rem;
     background-color: transparent !important;
     .header-item {
       text-align: center;
@@ -52,6 +54,7 @@ const config = reactive({
 
   .rows {
     .row-item {
+      font-size: 0.15rem;
       .ceil {
         text-align: center;
       }

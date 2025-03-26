@@ -8,13 +8,14 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Carousel: typeof import('./src/components/Carousel.vue')['default']
     Drilling: typeof import('./src/components/Drilling.vue')['default']
     DroughtPrevention: typeof import('./src/components/DroughtPrevention.vue')['default']
     ECharts: typeof import('./src/components/ECharts.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCol: typeof import('element-plus/es')['ElCol']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElectroPlating: typeof import('./src/components/ElectroPlating.vue')['default']
-    ElRow: typeof import('element-plus/es')['ElRow']
     JiangXiN2: typeof import('./src/components/JiangXiN2.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

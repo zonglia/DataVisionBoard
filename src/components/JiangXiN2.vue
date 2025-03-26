@@ -3,32 +3,32 @@
     <div class="jiangXiN2-container">
       <!-- 标题 -->
       <div class="jiangXiN2-title">
-        <Title title="江西N2工厂智能看板" />
+        <Title title="江西N2工厂智能展示" />
       </div>
 
       <div class="jiangXiN2-main-container">
         <div class="jiangXiN2-main">
           <div>
-            <dv-border-box8>
-              <div style="padding: 3px">
+            <dv-border-box12>
+              <div style="padding: 0.12rem; box-sizing: border-box">
                 <div
                   style="
                     width: 100%;
                     display: flex;
                     justify-content: center;
-                    margin-bottom: 20px;
+                    margin-bottom: 0.2rem;
                   "
                 >
                   <dv-decoration-11 style="width: 200px; height: 60px">
                     <div color-green font-600 bg="~ dark/0">
-                      工厂设备保养记录设备维护
+                      工厂设备保养/设备维护管控
                     </div>
                   </dv-decoration-11>
                 </div>
 
                 <MaintenancePlan />
               </div>
-            </dv-border-box8>
+            </dv-border-box12>
           </div>
           <div>
             <dv-border-box12>
@@ -36,7 +36,7 @@
                 <div
                   style="
                     width: 100%;
-                    margin-bottom: 20px;
+                    margin-bottom: 0.2rem;
                     display: flex;
                     justify-content: center;
                   "
@@ -64,24 +64,27 @@ import TrialYieldRate from "../views/chart/TrialYieldRate.vue";
 .jiangXiN2-container {
   width: 100%;
   height: 100%;
-  background: url(../assets/image/bg.png) no-repeat center;
+  background: url(../assets/image/bg5.jpg) no-repeat center;
   background-size: cover;
   .jiangXiN2-title {
-    height: 10%;
+    height: 15%;
+    // margin-bottom: 0.1rem;
   }
   .jiangXiN2-main-container {
     width: 100%;
-    height: 90%;
-    padding: 40px;
+    height: 85%;
+    padding-top: 0.25rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-bottom: 0.6rem;
     box-sizing: border-box; // 使 padding 包含在设定高度内
     .jiangXiN2-main {
       height: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 20px;
+
       > div {
-        height: 100%;
-        width: 100%;
       }
       > div:nth-child(1) {
       }

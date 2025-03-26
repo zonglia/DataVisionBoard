@@ -1,12 +1,12 @@
 <template>
   <div class="title">
-    <div><dv-decoration8 style="width: 100%;height: 45%;" /></div>
+    <div><dv-decoration8 style="width: 100%; height: 55%" /></div>
     <div class="title-content">
       <h2>{{ title }}</h2>
       <dv-decoration5 :dur="2" style="width: 60%; height: 30%" />
     </div>
     <div>
-      <dv-decoration8 :reverse="true" style="height: 45%;"/>
+      <dv-decoration8 :reverse="true" style="height: 55%" />
     </div>
   </div>
 </template>
@@ -38,15 +38,24 @@ defineProps({
     align-items: center; // 水平居中
     h2 {
       margin: 0; // 清除默认边距
-      padding: 0 10px; // 添加文字内边距
-      padding-top:.2rem;
-      font-size: .3rem;
+      padding-top: 0.5rem;
+      font-size: 0.5rem;
+      letter-spacing: 0.1rem;
     }
   }
 }
 
-:deep(.dv-decoration-8){
-height: 100%;
+:deep(.dv-decoration-8) {
+  polyline {
+    stroke: #02f2f6;
+    stroke-width: 2;
+  }
 }
 
+:deep(.dv-decoration-5) {
+  polyline {
+    stroke: #02f2f6;
+    stroke-width: 2;
+  }
+}
 </style>

@@ -9,25 +9,15 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-  title: {
-    text: "成型总报废率",
-    left: 100,
-    top: 0,
-    textStyle: {
-      color: "#fff",
-      fontSize: 18,
-    },
-  },
-
   tooltip: {
     trigger: "axis",
     axisPointer: { type: "cross" },
   },
 
   legend: {
-    data: ["报废目标(%)", "报废率(%)"],
-    top: 23,
-    right: 15,
+    data: ["比率(%)", "累计比率(%)"],
+    top: 50,
+    right: 0,
     textStyle: {
       color: "#fff",
     },
@@ -36,18 +26,16 @@ const chartOptions = ref({
   xAxis: {
     type: "category",
     data: [
-      "24W45",
-      "24W46",
-      "24W47",
-      "24W48",
-      "24M11",
-      "24W49",
-      "24W50",
-      "24W51",
-      "24W52",
-      "24M12",
+      "成型外力损伤",
+      "成型板损报废",
+      "成型定位孔损",
+      "成型烧焦",
+      "成型多捞",
     ],
-    axisLabel: { rotate: 45, color: "#fff" },
+    axisLabel: {
+      color: "#fff", // 字体颜色
+      fontSize: 6, // 字体大小（单位：像素）
+    },
   },
 
   yAxis: {
@@ -60,27 +48,29 @@ const chartOptions = ref({
 
   series: [
     {
-      name: "报废目标(%)",
-      type: "line",
+      name: "比率(%)",
+      type: "bar",
       smooth: true,
-      data: [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+      data: [59.66, 19.41, 11.29, 4.84, 4.8],
       itemStyle: { color: "#ff7f50" },
     },
     {
-      name: "报废率(%)",
+      name: "累计比率(%)",
       type: "line",
-      smooth: true,
-      data: [0.31, 0.11, 0.04, 0.06, 0.09, 0.17, 0.13, 0.25, 0.21, 0.18],
+      data: [59.66, 79.07, 90.36, 95.2, 100],
       itemStyle: { color: "#6495ed" },
     },
   ],
 
   grid: {
     containLabel: true,
+    // left: "3%",
+    // right: "5%", // 调整右侧间距
+    // bottom: "15%", // 增加底部间距适应旋转标签
+    top: "20%",
+    bottom: "0%",
     left: "0%",
     right: "0%",
-    bottom: "0%",
-    top: "20%",
   },
 });
 </script>

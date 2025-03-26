@@ -10,7 +10,7 @@ import { ref } from "vue";
 
 const chartOptions = ref({
   title: {
-    text: "成型总报废率",
+    text: "C1钻孔总报废率",
     left: 100,
     top: 0,
     textStyle: {
@@ -70,7 +70,7 @@ const chartOptions = ref({
       name: "报废率(%)",
       type: "line",
       smooth: true,
-      data: [0.31, 0.11, 0.04, 0.06, 0.09, 0.17, 0.13, 0.25, 0.21, 0.18],
+      data: [0.48, 0.14, 0.23, 0.23, 0.24, 0.29, 0.0, 0.13, 0.0, 0.39],
       itemStyle: { color: "#6495ed" },
     },
   ],
