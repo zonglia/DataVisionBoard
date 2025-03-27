@@ -8,6 +8,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BbtAvi: typeof import('./src/components/bbtAvi.vue')['default']
+    BBTAvi: typeof import('./src/components/BBTAvi.vue')['default']
+    BBTAVI: typeof import('./src/components/BBTAVI.vue')['default']
     Carousel: typeof import('./src/components/Carousel.vue')['default']
     Drilling: typeof import('./src/components/Drilling.vue')['default']
     DroughtPrevention: typeof import('./src/components/DroughtPrevention.vue')['default']
@@ -15,10 +18,14 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
     ElectroPlating: typeof import('./src/components/ElectroPlating.vue')['default']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     JiangXiN2: typeof import('./src/components/JiangXiN2.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Title: typeof import('./src/components/Title.vue')['default']
+    Title2: typeof import('./src/components/Title2.vue')['default']
   }
 }

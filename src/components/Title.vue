@@ -1,12 +1,15 @@
 <template>
   <div class="title">
-    <div><dv-decoration8 style="width: 100%; height: 55%" /></div>
+    <div><dv-decoration8 style="width: 100%; height: 1.3rem" /></div>
     <div class="title-content">
       <h2>{{ title }}</h2>
-      <dv-decoration5 :dur="2" style="width: 60%; height: 30%" />
+      <dv-decoration5 :dur="2" style="width: 50%; height: 0.5rem" />
     </div>
     <div>
-      <dv-decoration8 :reverse="true" style="height: 55%" />
+      <dv-decoration8
+        :reverse="true"
+        style="width: 100%; height: 1.3rem; float: right"
+      />
     </div>
   </div>
 </template>
@@ -24,24 +27,33 @@ defineProps({
 .title {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  > div {
-    width: 100%;
-    height: 100%;
+  display: flex; // 启用弹性布局
+  justify-content: space-between; // 子元素均匀分布（两侧贴边，中间居中）
+  > div:nth-child(1) {
+    flex: 2;
+  }
+  > div:nth-child(2) {
+    flex: 6;
+    display: flex; /* 启用弹性布局 */
+    flex-direction: column; /* 子元素垂直排列 */
+    align-items: center; /* 水平居中 */
+    justify-content: center; /* 垂直居中（若需整体居中） */
+  }
+  > div:nth-child(3) {
+    flex: 2;
   }
   .title-content {
     // background-color: red;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; // 垂直居中
-    align-items: center; // 水平居中
+    text-align: center;
     h2 {
       margin: 0; // 清除默认边距
+      font-size: 0.3rem;
       padding-top: 0.5rem;
-      font-size: 0.5rem;
       letter-spacing: 0.1rem;
     }
+  }
+  > div {
+    width: 100%;
   }
 }
 

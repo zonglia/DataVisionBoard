@@ -1,8 +1,19 @@
 <template>
-  <el-button type="primary" @click="ToElectroPlating">电镀车间</el-button>
-  <el-button type="primary" @click="ToDrilling">钻孔、成型</el-button>
-  <el-button type="primary" @click="ToDroughtPrevention">防焊车间</el-button>
-  <el-button type="primary" @click="ToJiangXiN2">江西N2工厂智能展示</el-button>
+  <div class="index-container">
+    <el-button type="primary" @click="ToJiangXiN2"
+      >江西N2工厂智能展示</el-button
+    >
+    <el-button type="primary" @click="ToDrilling"
+      >钻孔、成型车间智能管理看板</el-button
+    >
+    <el-button type="primary" @click="ToBBTAVI"
+      >BBT AVI 包装 车间智能化电子化管控</el-button
+    >
+
+    <el-button type="primary" @click="ToElectroPlating">电镀车间</el-button>
+
+    <el-button type="primary" @click="ToDroughtPrevention">防焊车间</el-button>
+  </div>
 </template>
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
@@ -22,4 +33,14 @@ const ToDroughtPrevention = () => {
 const ToJiangXiN2 = () => {
   router.push("/jiangXiN2"); // 等同于 <router-link to="/home">
 };
+const ToBBTAVI = () => {
+  router.push("/bbtAvi"); // 等同于 <router-link to="/home">
+};
 </script>
+
+<style scoped lang="scss">
+.index-container {
+  width: 100vw;
+  height: 100vh;
+}
+</style>

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <ECharts :options="chartOptions" height="2.75rem" />
+    <ECharts :options="chartOptions" height="2.6rem" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
+import * as echarts from "echarts";
 
 const chartOptions = ref({
   tooltip: {
@@ -52,13 +53,34 @@ const chartOptions = ref({
       type: "bar",
       smooth: true,
       data: [64.22, 19.34, 13.78, 1.33, 1.33],
-      itemStyle: { color: "#ff7f50" },
+      itemStyle: {
+        color: new echarts.graphic.LinearGradient(
+          0,
+          0,
+          0,
+          1, // 渐变方向：从上到下（参数顺序：右、下、左、上）[5,7](@ref)
+          [
+            {
+              offset: 0,
+              color: "#005eaa",
+            },
+            {
+              offset: 0.5,
+              color: "#339ca8",
+            },
+            {
+              offset: 1,
+              color: "#cda819",
+            },
+          ]
+        ),
+      },
     },
     {
       name: "累计比率(%)",
       type: "line",
       data: [64.22, 83.56, 97.34, 98.67, 100],
-      itemStyle: { color: "#6495ed" },
+      itemStyle: { color: "#cda819" },
     },
   ],
 

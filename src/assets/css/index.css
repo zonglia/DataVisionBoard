@@ -5,4 +5,7 @@ html,body,#app{
     padding: 0;
     margin: 0;
     color: aliceblue;
+    font-family: "Hiragino Sans GB";
+    background: url(@/assets/image/bg5.jpg) no-repeat center;
+    background-size: cover;
 }

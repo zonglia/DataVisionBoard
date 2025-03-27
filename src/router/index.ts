@@ -4,6 +4,7 @@ import Drilling from '../components/Drilling.vue';
 import ElectroPlating from '../components/ElectroPlating.vue';
 import DroughtPrevention from '../components/DroughtPrevention.vue';
 import JiangXiN2 from '../components/JiangXiN2.vue'
+import BBTAVI from '@/components/BBTAVI.vue'
 
 
 // 公共路由
@@ -37,6 +38,10 @@ export const constantRoutes = [
     {
         path: '/jiangXiN2',
         component: JiangXiN2,
+    },
+    {
+        path: '/bbtAvi',
+        component: BBTAVI,
     }
 
 
