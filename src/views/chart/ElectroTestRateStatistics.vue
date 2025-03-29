@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ECharts :options="chartOptions" height="3.62rem"/>
+    <ECharts :options="chartOptions" height="4.68rem" />
   </div>
 </template>
 
@@ -10,12 +10,12 @@ import { ref } from "vue";
 
 const chartOptions = ref({
   title: {
-    text: "C1钻孔总报废率",
-    left: 100,
+    text: "电测良率趋势",
+    left: 70,
     top: 0,
     textStyle: {
       color: "#fff",
-      fontSize: 18,
+      fontSize: 11,
     },
   },
 
@@ -25,7 +25,7 @@ const chartOptions = ref({
   },
 
   legend: {
-    data: ["报废目标(%)", "报废率(%)"],
+    data: ["BBT良率", "AVI良率"],
     top: 23,
     right: 15,
     textStyle: {
@@ -36,42 +36,40 @@ const chartOptions = ref({
   xAxis: {
     type: "category",
     data: [
-      "24W45",
-      "24W46",
-      "24W47",
-      "24W48",
-      "24M11",
-      "24W49",
-      "24W50",
-      "24W51",
-      "24W52",
-      "24M12",
+      "12/16",
+      "12/17",
+      "12/18",
+      "12/19",
+      "12/20",
     ],
-    axisLabel: { rotate: 45, color: "#fff" },
+    axisLabel: { rotate: 0, color: "red", fontSize: 10 },
   },
 
   yAxis: {
     type: "value",
     name: "百分比(%)",
+    min: 90, // 强制最小值为 75%
+    max: 100, // 强制最大值为 105%
+    minInterval: 1, // 最小刻度间隔为 5%（避免过密）
     position: "left",
-    axisLabel: { formatter: "{value} %", color: "#ff0000" },
+    axisLabel: { formatter: "{value} %", color: "#ff0000",fontSize: 10 },
     axisLine: { show: true },
   },
 
   series: [
     {
-      name: "报废目标(%)",
+      name: "BBT良率",
       type: "line",
       smooth: true,
-      data: [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
-      itemStyle: { color: "#ff7f50" },
+      data: [93.7, 94.0, 94.9, 95.8, 95.6],
+      itemStyle: { color: "#6495ed" },
     },
     {
-      name: "报废率(%)",
+      name: "AVI良率",
       type: "line",
       smooth: true,
-      data: [0.48, 0.14, 0.23, 0.23, 0.24, 0.29, 0.0, 0.13, 0.0, 0.39],
-      itemStyle: { color: "#6495ed" },
+      data: [99.0, 98.9, 99.1, 99.1, 99.3],
+      itemStyle: { color: "#ff7f50" },
     },
   ],
 

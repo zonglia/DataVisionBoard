@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/layout/index.vue' // 主布局组件，用于嵌套路由展示
 import Drilling from '../components/Drilling.vue';
-import ElectroPlating from '../components/ElectroPlating.vue';
+import Test from '../components/Test.vue';
 import DroughtPrevention from '../components/DroughtPrevention.vue';
 import JiangXiN2 from '../components/JiangXiN2.vue'
 import BBTAVI from '@/components/BBTAVI.vue'
+import AOI from '../components/AOI.vue';
+import ElectroPlating from '../components/ElectroPlating.vue';
 
 
 // 公共路由
@@ -31,6 +33,10 @@ export const constantRoutes = [
         component: ElectroPlating,
     },
     {
+        path: '/test',
+        component: Test,
+    },
+    {
         path: '/droughtPrevention',
         component: DroughtPrevention,
     },
@@ -42,7 +48,12 @@ export const constantRoutes = [
     {
         path: '/bbtAvi',
         component: BBTAVI,
+    },
+    {
+        path: '/aoi',
+        component: AOI,
     }
+
 
 
 ]

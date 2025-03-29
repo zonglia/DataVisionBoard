@@ -5,6 +5,7 @@ import DataVVue3 from '@kjgl77/datav-vue3'
 import './assets/css/index.css' // index样式
 import 'lib-flexible/flexible'
 
+
 const app = createApp(App)
 app.use(router) // 使用路由
 app.use(DataVVue3)

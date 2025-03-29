@@ -10,9 +10,12 @@
       >BBT AVI 包装 车间智能化电子化管控</el-button
     >
 
+    <el-button type="primary" @click="ToAOI">AOI</el-button>
+
     <el-button type="primary" @click="ToElectroPlating">电镀车间</el-button>
 
     <el-button type="primary" @click="ToDroughtPrevention">防焊车间</el-button>
+    <el-button type="primary" @click="ToTest">测试</el-button>
   </div>
 </template>
 <script lang="ts" setup>
@@ -35,6 +38,14 @@ const ToJiangXiN2 = () => {
 };
 const ToBBTAVI = () => {
   router.push("/bbtAvi"); // 等同于 <router-link to="/home">
+};
+
+const ToAOI = () => {
+  router.push("/aoi"); // 等同于 <router-link to="/home">
+};
+
+const ToTest = () => {
+  router.push("/test"); // 等同于 <router-link to="/home">
 };
 </script>
 

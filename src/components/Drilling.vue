@@ -29,30 +29,53 @@
             /></dv-border-box10>
           </div>
           <div>
-            <dv-border-box10 style="height: 4.1rem">
-              <div
-                style="
-                  font-size: 0.25rem;
-                  width: 100%;
-                  text-align: center;
-                  letter-spacing: 0.1rem;
-                "
+            <div>
+              <dv-border-box10 style="height: 4.1rem">
+                <div
+                  style="
+                    font-size: 0.25rem;
+                    width: 100%;
+                    text-align: center;
+                    letter-spacing: 0.1rem;
+                  "
+                >
+                  钻机Run-out测量记录(<20um)
+                </div>
+                <DrillingMachineRecords />
+              </dv-border-box10>
+            </div>
+            <div>
+              <el-table
+                height="1.4rem"
+                :data="tableData"
+                :row-style="rowStyle"
+                :cell-style="cellStyle"
+                :header-cell-style="headerStyle"
+                stripe
               >
-                钻机Run-out测量记录(<20um)
-              </div>
-              <DrillingMachineRecords />
-            </dv-border-box10>
-
-            <el-table :data="tableData" style="width: 100%" height="1.38rem">
-              <el-table-column type="index" index="2"> </el-table-column>
-              <el-table-column prop="workspace" label="车间"> </el-table-column>
-              <el-table-column prop="stTempeHumidity" label="标准温湿度">
-              </el-table-column>
-              <el-table-column prop="actualTempe" label="实际温度">
-              </el-table-column>
-              <el-table-column prop="actualHumidity" label="实际湿度">
-              </el-table-column>
-            </el-table>
+                <el-table-column type="index" index="2"> </el-table-column>
+                <el-table-column prop="workspace" label="车间">
+                </el-table-column>
+                <el-table-column
+                  prop="stTempeHumidity"
+                  label="标准温湿度"
+                  min-width="100"
+                >
+                </el-table-column>
+                <el-table-column
+                  prop="actualTempe"
+                  label="实际温度"
+                  min-width="50"
+                >
+                </el-table-column>
+                <el-table-column
+                  prop="actualHumidity"
+                  label="实际湿度"
+                  min-width="50"
+                >
+                </el-table-column>
+              </el-table>
+            </div>
           </div>
           <div>
             <div><ProductionRate /></div>
@@ -91,15 +114,34 @@
               </dv-border-box10>
             </div>
             <div>
-              <el-table :data="tableData" style="width: 100%" height="1.38rem">
+              <el-table
+                height="1.4rem"
+                :data="tableData"
+                :row-style="rowStyle"
+                :cell-style="cellStyle"
+                :header-cell-style="headerStyle"
+                stripe
+              >
                 <el-table-column type="index" index="2"> </el-table-column>
                 <el-table-column prop="workspace" label="车间">
                 </el-table-column>
-                <el-table-column prop="stTempeHumidity" label="标准温湿度">
+                <el-table-column
+                  prop="stTempeHumidity"
+                  label="标准温湿度"
+                  min-width="100"
+                >
                 </el-table-column>
-                <el-table-column prop="actualTempe" label="实际温度">
+                <el-table-column
+                  prop="actualTempe"
+                  label="实际温度"
+                  min-width="50"
+                >
                 </el-table-column>
-                <el-table-column prop="actualHumidity" label="实际湿度">
+                <el-table-column
+                  prop="actualHumidity"
+                  label="实际湿度"
+                  min-width="50"
+                >
                 </el-table-column>
               </el-table>
             </div>
@@ -198,6 +240,25 @@ const tableData = ref([
     actualHumidity: "55%",
   },
 ]);
+
+const rowStyle = ref({
+  color: "red",
+  // height: "10px",
+  padding: "0",
+  // background: "rgba(2, 108, 202, 0.7)",
+});
+
+const cellStyle = ref({
+  padding: "0",
+  fontSize: ".13rem",
+});
+
+const headerStyle = ref({
+  background: "rgba(2, 108, 202, 0.5)",
+  padding: "0",
+  fontSize: "0.1rem",
+  color: "#fff",
+});
 </script>
 
 <style scoped lang="scss">
@@ -208,7 +269,7 @@ const tableData = ref([
   background-size: cover;
   display: grid;
   grid-template-rows: 1.5fr 8.5fr;
-  row-gap: .25rem;
+  row-gap: 0.25rem;
   box-sizing: border-box;
   min-height: 0; // 允许子项压缩
   .drilling-main-container {
@@ -243,32 +304,40 @@ const tableData = ref([
       > div:nth-child(3) {
         // background-color: #bfa;
       }
+      > div:nth-child(4) {
+        display: grid;
+        grid-template-rows: 3fr 1fr;
+        > div:nth-child(2) {
+          height: 100%;
+          background-color: red;
+        }
+      }
       > div:nth-child(8) {
         display: grid;
         grid-template-rows: 3fr 1fr;
         row-gap: 0;
         > div:nth-child(2) {
           height: 100%;
-          background-color: #bfa;
+          background-color: yellow;
         }
       }
     }
   }
 }
 
-:deep(.el-table__body) {
-  tr {
-    td {
-      background-color: rgba(2, 108, 202, 0.7);
-      padding: 0;
-      border-spacing: 0;
-      height: 35px;
-      color: #fff;
-      text-align: center;
-    }
-    > :nth-child(3) {
-      font-size: 0.09rem;
-    }
-  }
-}
+// :deep(.el-table__body) {
+//   tr {
+//     td {
+//       background-color: rgba(2, 108, 202, 0.7);
+//       padding: 0;
+//       border-spacing: 0;
+//       height: 35px;
+//       color: #fff;
+//       text-align: center;
+//     }
+//     > :nth-child(3) {
+//       font-size: 0.09rem;
+//     }
+//   }
+// }
 </style>

@@ -23,6 +23,9 @@ importers:
       lib-flexible:
         specifier: ^0.3.2
         version: 0.3.2
+      v-fit-columns:
+        specifier: ^0.2.0
+        version: 0.2.0
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
@@ -903,6 +906,9 @@ packages:
     resolution: {integrity: sha512-Qp+iiD+qCRnUek+nDoYvtWX7tfnYyXsrOnJ452FRTgOyKmTM7TUJ3l+PLPJOOWPTUyKISKp4isC5JJPSXUjGgw==}
     engines: {node: '>=18.12.0'}
 
+  v-fit-columns@0.2.0:
+    resolution: {integrity: sha512-xR0jIFmTyJeg4VZgEx7z8BIijZnHQegtbwAhG3L3TmyAoq/TXk7H6vzFLNxAVzOj9pSpO/0B2mf7jmuO2nE4Ag==}
+
   vite@6.2.2:
     resolution: {integrity: sha512-yW7PeMM+LkDzc7CgJuRLMW2Jz0FxMOsVJ8Lv3gpgW9WLcb9cTW+121UEr1hvmfR7w3SegR5ItvYyzVz1vxNJgQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -1769,6 +1775,8 @@ snapshots:
     dependencies:
       acorn: 8.14.1
       webpack-virtual-modules: 0.6.2
+
+  v-fit-columns@0.2.0: {}
 
   vite@6.2.2(@types/node@22.13.10)(sass@1.86.0):
     dependencies:

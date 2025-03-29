@@ -37,15 +37,16 @@ const config = reactive({
   align: ["center"],
   rowNum: [15],
   headerBGC: ["transparent"],
-  oddRowBGC: ["transparent"],
-  evenRowBGC: ["#026CCA"],
+
+  evenRowBGC: ["transparent"],
+  oddRowBGC: ["#026CCA"],
 });
 </script>
 
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
   .header {
-      font-size: 0.25rem;
+    font-size: 0.25rem;
     background-color: transparent !important;
     .header-item {
       text-align: center;
