@@ -29,15 +29,17 @@
           :src="imgSrc2"
         />
       </div>
-      <div>
-        <div>
-          <dv-decoration7 style="width: 3.5rem; height: 30px">
-            <div color-white font-300>线路AOI设备保养周期记录</div>
-          </dv-decoration7>
-        </div>
-        <div>
-          <AOIMaintenance />
-        </div>
+      <div >
+
+          <div>
+            <dv-decoration7 style="width: 3.5rem; height: 30px">
+              <div color-white font-300>线路AOI设备保养周期记录</div>
+            </dv-decoration7>
+          </div>
+          <div>
+            <AOIMaintenance />
+          </div>
+
       </div>
       <!-- 白油板统计 -->
       <div>
@@ -50,19 +52,6 @@
         <div>
           <div>
             <AOIWhiteOilBoard />
-          </div>
-          <div>
-            <!-- <span>投入数</span>
-
-            <span>300</span>
-
-            <span>合格数</span>
-
-            <span>298</span>
-
-            <span>合格率</span>
-
-            <span> 99.3%</span> -->
           </div>
         </div>
       </div>
@@ -140,9 +129,7 @@ const tableData = ref([
 
 const rowStyle = ref({
   color: "red",
-  // height: "10px",
   padding: "0",
-  // background: "rgba(2, 108, 202, 0.7)",
 });
 
 const cellStyle = ref({
@@ -212,10 +199,8 @@ const headerStyle = ref({
       }
     }
     > div:nth-child(6) {
-
     }
-     > div:nth-child(7) {
-      background-color: aqua;
+    > div:nth-child(7) {
     }
     > div:nth-child(8) {
       display: flex;

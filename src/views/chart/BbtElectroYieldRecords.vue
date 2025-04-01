@@ -1,6 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 5.6rem" />
+    <dv-scroll-board :config="config" style="height: 7rem;" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -26,27 +26,28 @@ const config = reactive({
     ["12/16", "02S71044G", "937", "878", "93.7%", "928", "99.0%"],
   ],
   index: true,
-  columnWidth: [50],
-  align: ["center"],
-  rowNum: [5],
+  align: ["left"],
+  rowNum: [10],
   headerBGC: ["transparent"],
-  oddRowBGC: ["transparent"],
-  evenRowBGC: ["#026CCA80"],
+  evenRowBGC: ["transparent"],
+  oddRowBGC: ["#026CCA80"],
 });
 </script>
 
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
-
   .header {
     font-size: 0.15rem;
     background-color: transparent !important;
+    > div {
+      width: 13.5% !important;
+    }
+    > :nth-child(1) {
+      width: 5.5% !important;
+    }
     > :nth-child(5) {
     }
     .header-item {
-      text-align: center;
-      padding-left: 0;
-      padding-right: 0;
     }
   }
 
@@ -54,8 +55,14 @@ const config = reactive({
     .row-item {
       padding: 0;
       font-size: 0.2rem;
+      > div {
+        width: 13.5% !important;
+      }
+      > :nth-child(1) {
+        width: 5.5% !important;
+      }
       .ceil {
-        text-align: center;
+        padding: 0;
       }
     }
   }

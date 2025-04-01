@@ -13,24 +13,31 @@
           <div>
             <Carousel :imgList="imgList" />
           </div>
-          <div>
-            <dv-border-box10 style="height: 5.48rem">
+          <div style="box-sizing: border-box">
+            <dv-border-box12
+              style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+            >
               <div
                 style="
                   font-size: 0.25rem;
-                  width: 100%;
                   text-align: center;
                   letter-spacing: 0.1rem;
                 "
               >
                 钻孔设备保养周期记录
               </div>
-              <DrillingMaintenance
-            /></dv-border-box10>
+              <DrillingMaintenance />
+            </dv-border-box12>
           </div>
           <div>
             <div>
-              <dv-border-box10 style="height: 4.1rem">
+              <dv-border-box12
+                style="
+                  height: 4.1rem;
+                  padding: 0.078rem;
+                  box-sizing: border-box;
+                "
+              >
                 <div
                   style="
                     font-size: 0.25rem;
@@ -42,10 +49,10 @@
                   钻机Run-out测量记录(<20um)
                 </div>
                 <DrillingMachineRecords />
-              </dv-border-box10>
+              </dv-border-box12>
             </div>
             <div>
-              <el-table
+              <!-- <el-table
                 height="1.4rem"
                 :data="tableData"
                 :row-style="rowStyle"
@@ -74,7 +81,7 @@
                   min-width="50"
                 >
                 </el-table-column>
-              </el-table>
+              </el-table> -->
             </div>
           </div>
           <div>
@@ -83,7 +90,9 @@
           </div>
           <div><DrillingCpkCarousel /></div>
           <div>
-            <dv-border-box10 style="height: 5.48rem">
+            <dv-border-box12
+              style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+            >
               <div
                 style="
                   font-size: 0.25rem;
@@ -95,14 +104,20 @@
                 成型设备保养周期记录
               </div>
               <DrillingMaintenance />
-            </dv-border-box10>
+            </dv-border-box12>
           </div>
           <div>
             <div>
-              <dv-border-box10 style="height: 4.1rem">
+              <dv-border-box12
+                style="
+                  height: 4.1rem;
+                  padding: 0.078rem;
+                  box-sizing: border-box;
+                "
+              >
                 <div
                   style="
-                    font-size: 0.23rem;
+                    font-size: 0.21rem;
                     width: 100%;
                     text-align: center;
                     letter-spacing: 0.1rem;
@@ -111,10 +126,10 @@
                   成型机Run-out测量记录(<20um)
                 </div>
                 <FormingMachineRecords />
-              </dv-border-box10>
+              </dv-border-box12>
             </div>
             <div>
-              <el-table
+              <!-- <el-table
                 height="1.4rem"
                 :data="tableData"
                 :row-style="rowStyle"
@@ -143,12 +158,13 @@
                   min-width="50"
                 >
                 </el-table-column>
-              </el-table>
+              </el-table> -->
             </div>
           </div>
         </div>
-      </div></div
-  ></dv-full-screen-container>
+      </div>
+    </div></dv-full-screen-container
+  >
 </template>
 
 <script setup lang="ts">
@@ -265,16 +281,35 @@ const headerStyle = ref({
 .drilling-container {
   width: 100%;
   height: 100%;
-  background: url(../assets/image/bg5.jpg) no-repeat center;
-  background-size: cover;
   display: grid;
-  grid-template-rows: 1.5fr 8.5fr;
-  row-gap: 0.25rem;
+  grid-template-rows: 2fr 8fr;
+  // row-gap: 0.25rem;
   box-sizing: border-box;
   min-height: 0; // 允许子项压缩
+
+  background: url(../assets/image/bg6.jpg) no-repeat center;
+  background-size: cover;
+  position: relative; // 新增定位
+  // 新增模糊背景层
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../assets/image/bg6.jpg) no-repeat center;
+    background-size: cover;
+    filter: blur(4px); // 模糊强度
+    z-index: 0; // 置于底层
+  }
+  // 保证内容层在模糊层之上
+  > * {
+    position: relative;
+    z-index: 1;
+  }
   .drilling-main-container {
     height: 100%;
-
     box-sizing: border-box;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
@@ -309,7 +344,6 @@ const headerStyle = ref({
         grid-template-rows: 3fr 1fr;
         > div:nth-child(2) {
           height: 100%;
-          background-color: red;
         }
       }
       > div:nth-child(8) {
@@ -318,7 +352,6 @@ const headerStyle = ref({
         row-gap: 0;
         > div:nth-child(2) {
           height: 100%;
-          background-color: yellow;
         }
       }
     }

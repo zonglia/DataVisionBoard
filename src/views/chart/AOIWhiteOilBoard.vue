@@ -1,9 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board
-      :config="config"
-      style="height: 4.84rem;"
-    />
+    <dv-scroll-board :config="config" style="height: 4.84rem" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -31,40 +28,58 @@ const config = reactive({
 
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
-  white-space: normal; /* 允许换行 */
-  overflow-wrap: break-word; /* 优先保持单词完整 */
   .header {
-    font-size: 0.13rem;
+    padding: 0;
+    font-size: 0.2rem;
     background-color: transparent !important;
     > div {
-      width: 15% !important;
+      width: 18.5% !important;
     }
     > :nth-child(1) {
       width: 10% !important;
     }
+    > div:nth-child(4) {
+      width: 16% !important;
+    }
+    > :nth-child(5) {
+      font-size: 0.16rem;
+    }
+    > :nth-child(6) {
+      font-size: 0.16rem;
+    }
     .header-item {
-      text-align: center;
+      // text-align: center;
       padding-left: 0;
       padding-right: 0;
     }
   }
 
   .rows {
+    padding: 0;
     .row-item {
       padding: 0;
-      font-size: 0.13rem;
+      font-size: 0.14rem;
       > div {
-        width: 15% !important;
+        width: 18.5% !important;
       }
       > :nth-child(1) {
-        font-size: 0.12rem;
         width: 10% !important;
       }
       > :nth-child(3) {
-        font-size: 0.1rem;
-      
+        // font-size: 0.15rem;
+      }
+      > div:nth-child(4) {
+        width: 16% !important;
+      }
+      > div:nth-child(5) {
+        font-size: 0.14rem;
+      }
+      > div:nth-child(6) {
+        font-size: 0.14rem;
       }
       .ceil {
+        padding: 0;
+        // text-align: center;
       }
     }
   }

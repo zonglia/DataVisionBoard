@@ -71,8 +71,8 @@ const chartOptions = ref({
 
   grid: {
     containLabel: true,
-    left: "0%",
-    right: "0%",
+    left: "1%",
+    right: "1%",
     bottom: "0%",
     top: "20%",
   },

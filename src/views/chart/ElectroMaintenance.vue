@@ -28,16 +28,17 @@ const config = reactive({
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
   .header {
-
+    padding: 0;
     font-size: 0.2rem;
-
     background-color: transparent !important;
     > div {
-        
-      width: 18% !important;
+      width: 18.5% !important;
     }
     > :nth-child(1) {
       width: 10% !important;
+    }
+    > div:nth-child(4) {
+      width: 16% !important;
     }
     > :nth-child(5) {
       font-size: 0.16rem;
@@ -46,28 +47,38 @@ const config = reactive({
       font-size: 0.16rem;
     }
     .header-item {
-      padding: 0;
+      // text-align: center;
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
   .rows {
+    padding: 0;
     .row-item {
       padding: 0;
-      font-size: 0.15rem;
+      font-size: 0.14rem;
       > div {
-        width: 18% !important;
+        width: 18.5% !important;
       }
       > :nth-child(1) {
-        font-size: 0.12rem;
         width: 10% !important;
       }
-      > :nth-child(5) {
+      > :nth-child(3) {
+        // font-size: 0.15rem;
+      }
+      > div:nth-child(4) {
+        width: 16% !important;
+      }
+      > div:nth-child(5) {
         font-size: 0.14rem;
       }
-      > :nth-child(6) {
-        font-size: 0.12rem;
+      > div:nth-child(6) {
+        font-size: 0.14rem;
       }
       .ceil {
+        padding: 0;
+        // text-align: center;
       }
     }
   }

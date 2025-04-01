@@ -1,0 +1,70 @@
+<template>
+  <ECharts :options="chartOptions" />
+</template>
+
+<script setup lang="ts">
+import ECharts from "@/components/ECharts.vue";
+import { ref } from "vue";
+
+const chartOptions = ref({
+  title: {
+    text: "BBT 不良分析",
+    left: "center",
+    textStyle: {
+      // 标题字体设置
+      fontSize: 10,
+      fontWeight: "bold",
+    },
+  },
+  //   提示框
+  tooltip: {
+    trigger: "item",
+    textStyle: {
+      // 提示框字体
+      fontSize: 14,
+    },
+  },
+  legend: {
+    orient: "horizontal",
+    bottom: 0,
+    left: 40,
+    textStyle: {
+      color: "#666",
+      fontSize: 8, // 图例文字大小
+    },
+    itemGap: 20, // 恢复图例间距
+    itemHeight: 12, // 图例标记高度
+  },
+  series: [
+    {
+      type: "pie",
+      radius: "60%",
+      data: [
+        { value: 2, name: "防焊异物" },
+        { value: 1, name: "外层开路" },
+      ],
+      // 饼图标签样式
+      label: {
+        show: true, // 关闭默认标签显示
+        fontSize: 10,
+        color: "#bfa",
+          // formatter: "{b}: {d}%", // 显示名称和百分比
+        formatter: "{@value}"
+
+      },
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: "rgba(0, 0, 0, 0.5)",
+        },
+        label: {
+          show: true,  // 高亮时显示标签
+          fontSize: 8,  
+          fontWeight: 'bold'
+        }
+      },
+    },
+  ],
+});
+</script>

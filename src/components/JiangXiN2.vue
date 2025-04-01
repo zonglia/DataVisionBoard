@@ -20,7 +20,7 @@
                   "
                 >
                   <dv-decoration-11 style="width: 5rem; height: 60px">
-                    <div style="letter-spacing: 0.1rem;font-size: 13px;">
+                    <div style="letter-spacing: 0.1rem; font-size: 13px">
                       工厂设备保养/设备维护管控
                     </div>
                   </dv-decoration-11>
@@ -41,8 +41,10 @@
                     justify-content: center;
                   "
                 >
-                  <dv-decoration-11 style="width:5rem; height: 60px">
-                    <div style="letter-spacing: 0.1rem;font-size: 13px;">工厂试产总良率</div>
+                  <dv-decoration-11 style="width: 5rem; height: 60px">
+                    <div style="letter-spacing: 0.1rem; font-size: 13px">
+                      工厂试产总良率
+                    </div>
                   </dv-decoration-11>
                 </div>
                 <TrialYieldRate />
@@ -64,8 +66,27 @@ import TrialYieldRate from "../views/chart/TrialYieldRate.vue";
 .jiangXiN2-container {
   width: 100%;
   height: 100%;
-  background: url(../assets/image/bg5.jpg) no-repeat center;
+  background: url(../assets/image/bg6.jpg) no-repeat center;
   background-size: cover;
+  position: relative; // 新增定位
+  // 新增模糊背景层
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../assets/image/bg6.jpg) no-repeat center;
+    background-size: cover;
+    filter: blur(4px); // 模糊强度
+    z-index: 0; // 置于底层
+  }
+  // 保证内容层在模糊层之上
+  > * {
+    position: relative;
+    z-index: 1;
+  }
   .jiangXiN2-title {
     height: 15%;
     // margin-bottom: 0.1rem;
@@ -83,12 +104,9 @@ import TrialYieldRate from "../views/chart/TrialYieldRate.vue";
       width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      column-gap: .25rem;
-
-
+      column-gap: 0.25rem;
 
       > div {
-
       }
       > div:nth-child(1) {
       }

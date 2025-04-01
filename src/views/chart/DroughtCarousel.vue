@@ -23,4 +23,8 @@ const imgList = ref([
 ]);
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+:deep(.el-carousel__item) img {
+  object-fit: cover;
+}
+</style>

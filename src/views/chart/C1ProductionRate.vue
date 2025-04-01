@@ -10,7 +10,7 @@ import { ref } from "vue";
 
 const chartOptions = ref({
   title: {
-    text: "C1钻孔总报废率",
+    text: "钻孔总报废率",
     left: 100,
     top: 0,
     textStyle: {

@@ -103,9 +103,9 @@ const chartOptions = ref({
     // right: "5%", // 调整右侧间距
     // bottom: "15%", // 增加底部间距适应旋转标签
     top: "20%",
-    bottom: "0%",
-    left: "0%",
-    right: "0%",
+    bottom: "4%",
+    left: "1%",
+    right: "1%",
   },
 });
 </script>

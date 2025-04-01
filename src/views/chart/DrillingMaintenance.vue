@@ -1,6 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 5.2rem" />
+    <dv-scroll-board :config="config" style="height: 5rem" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -117,8 +117,8 @@ const config = reactive({
   ],
   index: true,
   columnWidth: [50],
-  align: ["center"],
-  rowNum: [5],
+  align: ["left"],
+  rowNum: [6],
   headerBGC: ["transparent"],
   oddRowBGC: ["transparent"],
   evenRowBGC: ["#026CCA80"],
@@ -128,32 +128,59 @@ const config = reactive({
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
   .header {
-    font-size: 0.15rem;
+    padding: 0;
+    font-size: 0.2rem;
     background-color: transparent !important;
+    > div {
+      width: 18.5% !important;
+    }
+    > :nth-child(1) {
+      width: 10% !important;
+    }
+    > div:nth-child(4) {
+      width: 16% !important;
+    }
     > :nth-child(5) {
+      font-size: 0.16rem;
+    }
+    > :nth-child(6) {
+      font-size: 0.16rem;
     }
     .header-item {
-      text-align: center;
+      // text-align: center;
       padding-left: 0;
       padding-right: 0;
     }
   }
 
   .rows {
+    padding: 0;
     .row-item {
       padding: 0;
       font-size: 0.14rem;
+      border-radius: .13rem;
+      > div {
+        width: 18.5% !important;
+      }
+      > :nth-child(1) {
+        width: 10% !important;
+      }
       > :nth-child(3) {
-        font-size: 0.09rem;
+        // font-size: 0.15rem;
       }
-      > :nth-child(5) {
-        font-size: 0.08rem;
+      > div:nth-child(4) {
+         text-align: center;
+        width: 16% !important;
       }
-      > :nth-child(6) {
-        font-size: 0.08rem;
+      > div:nth-child(5) {
+        font-size: 0.14rem;
+      }
+      > div:nth-child(6) {
+        font-size: 0.14rem;
       }
       .ceil {
-        text-align: center;
+        padding: 0;
+        // text-align: center;
       }
     }
   }

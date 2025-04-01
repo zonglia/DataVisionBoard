@@ -1,16 +1,11 @@
-<script setup lang="ts">
-// import DevicePixelRatio from "./utils/devicePixelRatio";
-// import { onMounted } from "vue";
-// const pixelRatio = new DevicePixelRatio();
-
-
-// onMounted(() => {
-//   pixelRatio.init();
-// });
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div style="height: 100%">
+  <div class="app-container" style="height: 100%">
     <RouterView />
   </div>
 </template>
+
+<style scoped lang="scss">
+
+</style>

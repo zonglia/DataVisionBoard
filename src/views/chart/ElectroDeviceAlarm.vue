@@ -35,9 +35,15 @@ const config = reactive({
   .header {
     font-size: 0.25rem;
     padding: 0;
+    > div {
+      width: 30% !important;
+    }
+
+    > :nth-child(2) {
+      width: 40% !important;
+    }
     background-color: transparent !important;
     .header-item {
-      text-align: center;
     }
   }
 
@@ -45,11 +51,16 @@ const config = reactive({
     .row-item {
       padding: 0;
       font-size: 0.15rem;
-      > :nth-child(1) {
-        font-size: 0.1rem;
+      > div {
+        width: 30% !important;
+        padding: 0;
       }
+      > :nth-child(2) {
+        width: 40% !important;
+      }
+
       .ceil {
-        text-align: center;
+        padding: 0;
       }
     }
   }

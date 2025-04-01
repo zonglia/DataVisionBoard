@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ECharts :options="chartOptions" height="5.3rem"  />
+    <ECharts :options="chartOptions" height="5.3rem" />
   </div>
 </template>
 
@@ -14,11 +14,20 @@ const chartOptions = ref({
     trigger: "axis",
     axisPointer: { type: "cross" },
   },
+  title: {
+    text: "AOI报废分析",
+    left: 100,
+    top: 0,
+    textStyle: {
+      color: "#fff",
+      fontSize: 18,
+    },
+  },
 
   legend: {
     data: ["比率(%)", "累计比率(%)"],
-    top: 0,
-    left: 85,
+    top: 20,
+    right: 0,
     textStyle: {
       color: "#fff",
     },
@@ -26,7 +35,7 @@ const chartOptions = ref({
 
   xAxis: {
     type: "category",
-    data: ["外层膜皱开路", "外层赃物开路", "外层曝光不良", "外层蚀刻不净", ""],
+    data: ["外层赃物开路", "外层曝光不良", "外层过蚀"],
     axisLabel: {
       color: "#fff", // 字体颜色
       fontSize: 6, // 字体大小（单位：像素）
@@ -40,7 +49,7 @@ const chartOptions = ref({
       min: 0,
       max: 600,
       minInterval: 100,
-      axisLabel: { formatter: "{value} %", color: "#ff0000" },
+      axisLabel: { color: "#ff0000" },
       axisLine: { show: true },
     },
     {
@@ -59,7 +68,7 @@ const chartOptions = ref({
       name: "比率(%)",
       type: "bar",
       smooth: true,
-      data: [25.57, 20.62, 19.91, 18.08, 15.81],
+      data: [483.7644, 42.4679, 27.6964],
       itemStyle: {
         color: new echarts.graphic.LinearGradient(
           0,
@@ -78,7 +87,7 @@ const chartOptions = ref({
     {
       name: "累计比率(%)",
       type: "line",
-      data: [25.57, 46.2, 66.1, 84.19, 100.0],
+      data: [87, 8, 5],
       itemStyle: { color: "#cda819" },
       yAxisIndex: 1,
     },

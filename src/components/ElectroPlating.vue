@@ -2,22 +2,27 @@
   <div class="electro-plating-container">
     <div><Title title="电镀车间智能化数字化管控" /></div>
     <div>
+      <!-- 电镀总报废 -->
       <div>
-        <div>
-          <dv-decoration7 style="width: 2.5rem; height: 30px">
-            <div color-white font-300>电镀总报废率</div>
-          </dv-decoration7>
-        </div>
-        <div><ElectroScrapRate /></div>
-        <div><ElectroScrapRateBarAndLine /></div>
+        <dv-border-box12
+          style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="width: 2.5rem; height: 30px">
+              电镀总报废率
+            </dv-decoration7>
+          </div>
+          <ElectroScrapRate />
+          <ElectroScrapRateBarAndLine
+        /></dv-border-box12>
       </div>
       <div>
         <div>
           <img
             style="
               width: 100%; /* 宽度填满容器 */
-              height: 5.5rem;
-              object-fit: contain;
+              height: 5rem;
+              /* object-fit: contain; */
             "
             :src="imgSrc1"
           />
@@ -26,8 +31,8 @@
           <img
             style="
               width: 100%; /* 宽度填满容器 */
-              height: 5.5rem;
-              object-fit: contain;
+              height: 5rem;
+              /* object-fit: contain; */
             "
             :src="imgSrc2"
           />
@@ -36,8 +41,8 @@
           <img
             style="
               width: 100%; /* 宽度填满容器 */
-              height: 5.5rem;
-              object-fit: contain;
+              height: 5rem;
+              /* object-fit: contain; */
             "
             :src="imgSrc3"
           />
@@ -48,29 +53,56 @@
           style="
             width: 100%; /* 宽度填满容器 */
             height: 5.5rem;
-            object-fit: contain;
+            /* object-fit: contain; */
           "
           :src="imgSrc4"
         />
       </div>
       <div>
+        <!-- 电镀设备保养周期记录 -->
         <div>
-          <div>
-            <dv-decoration7 style="width: 3.5rem; height: 30px">
-              <div color-white font-300>电镀设备保养周期记录</div>
-            </dv-decoration7>
-          </div>
+          <dv-border-box12
+            style="
+              height: 5.48rem;
+              padding: 0.12rem;
+              box-sizing: border-box;
+              display: flex;
+              flex-direction: column;
+            "
+            ><div>
+              <dv-decoration7
+                style="width: 3.5rem; height: 30px; margin: 0 auto"
+              >
+                电镀设备保养周期记录
+              </dv-decoration7>
+            </div>
 
-          <div><ElectroMaintenance /></div>
+            <ElectroMaintenance
+          /></dv-border-box12>
         </div>
+        <!-- 设备报警记录 -->
         <div>
-          <div>
-            <dv-decoration7 style="width: 3.5rem; height: 30px">
-              <div color-white font-300>设备报警记录</div>
-            </dv-decoration7>
-          </div>
-          <div style="font-size: .15rem;">刷新时间</div>
-          <div><ElectroDeviceAlarm /></div>
+          <dv-border-box12
+            style="
+              height: 5.48rem;
+              padding: 0.12rem;
+              box-sizing: border-box;
+              display: flex;
+              flex-direction: column;
+            "
+          >
+            <div>
+              <dv-decoration7
+                style="width: 3.5rem; height: 30px; margin: 0 auto"
+              >
+                设备报警记录
+              </dv-decoration7>
+            </div>
+            <div style="font-size: 0.15rem; text-align: right">
+              刷新时间: <span style="color: red;">2025/4/1 13:36:43</span>
+            </div>
+            <ElectroDeviceAlarm
+          /></dv-border-box12>
         </div>
       </div>
     </div>
@@ -94,6 +126,27 @@ import ElectroDeviceAlarm from "../views/chart/ElectroDeviceAlarm.vue";
   height: 100%;
   display: flex;
   flex-direction: column;
+  background: url(../assets/image/bg6.jpg) no-repeat center;
+  background-size: cover;
+  position: relative; // 新增定位
+  // 新增模糊背景层
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../assets/image/bg6.jpg) no-repeat center;
+    background-size: cover;
+    filter: blur(4px); // 模糊强度
+    z-index: 0; // 置于底层
+  }
+  // 保证内容层在模糊层之上
+  > * {
+    position: relative;
+    z-index: 1;
+  }
   > div:nth-child(1) {
     flex: 1;
   }
@@ -108,10 +161,12 @@ import ElectroDeviceAlarm from "../views/chart/ElectroDeviceAlarm.vue";
     grid-template-rows: repeat(2, 1fr);
     column-gap: 0.3rem;
     row-gap: 0.3rem;
+    // 电镀总报废
     > div:nth-child(1) {
       display: flex;
       flex-direction: column;
-      > div:nth-child(1) {
+      // 标题
+      div:nth-child(1) {
         margin: 0 auto;
       }
     }
@@ -123,6 +178,9 @@ import ElectroDeviceAlarm from "../views/chart/ElectroDeviceAlarm.vue";
         flex: 1;
       }
     }
+    > div:nth-child(3) {
+      // background-color: red;
+    }
     > div:nth-child(4) {
       display: flex;
       flex-direction: row;
@@ -131,21 +189,8 @@ import ElectroDeviceAlarm from "../views/chart/ElectroDeviceAlarm.vue";
         flex: 1;
       }
       > div:nth-child(1) {
-        display: flex;
-        flex-direction: column;
-        > div:nth-child(1) {
-          margin: 0 auto;
-        }
       }
       > div:nth-child(2) {
-        display: flex;
-        flex-direction: column;
-        > div:nth-child(1) {
-          margin: 0 auto;
-        }
-        > div:nth-child(2) {
-          margin: 0 auto;
-        }
       }
     }
   }

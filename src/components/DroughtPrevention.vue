@@ -7,20 +7,24 @@
     <div class="drought-prevention-main">
       <!-- 防焊总报废率 -->
       <div>
-        <div>
-          <dv-decoration7 style="width: 2.5rem; height: 30px">
-            <div color-white font-300>防焊总报废率</div>
-          </dv-decoration7>
-        </div>
-        <div><DroughtScrapRate /></div>
-        <div><DroughtScrapRateBarAndLine /></div>
+        <dv-border-box12
+          style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="width: 2.5rem; height: 30px">
+              防焊总报废率
+            </dv-decoration7>
+          </div>
+          <DroughtScrapRate />
+          <DroughtScrapRateBarAndLine />
+        </dv-border-box12>
       </div>
       <div>
         <img
           style="
             width: 100%; /* 宽度填满容器 */
             height: 5.5rem;
-            object-fit: contain;
+            /* object-fit: contain; */
           "
           :src="imgSrc"
         />
@@ -28,45 +32,58 @@
       <div><DroughtCarousel /></div>
       <!-- 文字总报废率 -->
       <div>
-        <div>
-          <dv-decoration7 style="width: 2.5rem; height: 30px">
-            <div color-white font-300>文字总报废率</div>
-          </dv-decoration7>
-        </div>
-        <div><DroughtCharacterScrapRate /></div>
-        <div><DroughCharactertScrapRateBarAndLine /></div>
+        <dv-border-box12
+          style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="width: 2.5rem; height: 30px">
+              文字总报废率
+            </dv-decoration7>
+          </div>
+          <DroughtCharacterScrapRate />
+          <DroughCharactertScrapRateBarAndLine
+        /></dv-border-box12>
       </div>
       <div>
         <div>
-          <div>
-            <dv-decoration7 style="width: 3.5rem; height: 30px">
-              <div color-white font-300>防焊文字设备保养周期记录</div>
-            </dv-decoration7>
-          </div>
-          <div>
+          <dv-border-box12
+            style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="width: 3.5rem; height: 30px">
+                防焊文字设备保养周期记录
+              </dv-decoration7>
+            </div>
+
             <DroughtMaintenance />
-          </div>
+          </dv-border-box12>
         </div>
         <div>
-          <div>
-            <dv-decoration7 style="width: 3.5rem; height: 30px">
-              <div color-white font-300>防焊无尘室落尘量记录</div>
-            </dv-decoration7>
-          </div>
-          <div>
-            <DroughtDustFallStats />
-          </div>
+          <dv-border-box12
+            style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="width: 3.5rem; height: 30px">
+                防焊无尘室落尘量记录
+              </dv-decoration7>
+            </div>
+
+            <DroughtDustFallStats
+          /></dv-border-box12>
         </div>
       </div>
       <div>
-        <div>
-          <dv-decoration7 style="width: 3.5rem; height: 30px">
-            <div color-white font-300>车间温湿度管控</div>
-          </dv-decoration7>
-        </div>
-        <div>
+        <dv-border-box12
+          style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="width: 3.5rem; height: 30px">
+              车间温湿度管控
+            </dv-decoration7>
+          </div>
+
           <DroughtHumidity />
-        </div>
+        </dv-border-box12>
       </div>
     </div>
   </div>
@@ -92,6 +109,27 @@ import DroughtHumidity from "../views/chart/DroughtHumidity.vue";
   display: flex;
   flex-direction: column;
   row-gap: 0.3rem;
+  background: url(../assets/image/bg6.jpg) no-repeat center;
+  background-size: cover;
+  position: relative; // 新增定位
+  // 新增模糊背景层
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../assets/image/bg6.jpg) no-repeat center;
+    background-size: cover;
+    filter: blur(4px); // 模糊强度
+    z-index: 0; // 置于底层
+  }
+  // 保证内容层在模糊层之上
+  > * {
+    position: relative;
+    z-index: 1;
+  }
   //   标题
   > div:nth-child(1) {
     flex: 1;
@@ -112,7 +150,7 @@ import DroughtHumidity from "../views/chart/DroughtHumidity.vue";
       display: flex;
       flex-direction: column;
       // 标题
-      > div:nth-child(1) {
+      div:nth-child(1) {
         margin: 0 auto;
       }
     }
@@ -125,21 +163,24 @@ import DroughtHumidity from "../views/chart/DroughtHumidity.vue";
       display: flex;
       flex-direction: column;
       // 标题
-      > div:nth-child(1) {
+      div:nth-child(1) {
         margin: 0 auto;
       }
     }
     > div:nth-child(5) {
       display: flex;
       flex-direction: row;
+
       > div {
         width: 100%;
         flex: 1;
       }
-      > div:nth-child(1) {
+      // 防焊文字设备保养周期记录
+      > div {
         display: flex;
         flex-direction: column;
-        > div:nth-child(1) {
+        // 标题居中
+        div:nth-child(1) {
           margin: 0 auto;
         }
       }
@@ -148,7 +189,8 @@ import DroughtHumidity from "../views/chart/DroughtHumidity.vue";
     > div:nth-child(6) {
       display: flex;
       flex-direction: column;
-      > div:nth-child(1) {
+      // 标题
+      div:nth-child(1) {
         margin: 0 auto;
       }
     }

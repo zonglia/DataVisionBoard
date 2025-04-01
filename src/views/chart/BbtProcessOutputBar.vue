@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <ECharts :options="chartOptions" height="2.5rem" />
-  </div>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -10,61 +8,67 @@ import { ref } from "vue";
 import * as echarts from "echarts";
 
 const chartOptions = ref({
+  title: {
+    text: "日产出",
+    left: "center",
+    top: -3,
+    textStyle: {
+      color: "#fff",
+      fontSize: 10,
+    },
+  },
   tooltip: {
     trigger: "axis",
     axisPointer: { type: "cross" },
   },
 
-  legend: {
-    data: ["比率(%)", "累计比率(%)"],
-    textStyle: {
-      color: "#fff",
-    },
-  },
+  // legend: {
+  //   data: ["比率(%)", "累计比率(%)"],
+  //   top: 50,
+  //   right: 0,
+  //   textStyle: {
+  //     color: "#fff",
+  //   },
+  // },
 
   xAxis: {
     type: "category",
-    data: [
-      "防焊异物",
-      "防焊外力损伤",
-      "防焊板面露铜",
-      "防焊油薄",
-      "防焊显影不净",
-    ],
+    data: ["电测", "OSP", "AVI", "包装"],
     axisLabel: {
-      rotate: 15,
       color: "#fff", // 字体颜色
       fontSize: 8, // 字体大小（单位：像素）
+      //   rotate: 30,
     },
   },
 
   yAxis: [
     {
       type: "value",
+      name: "单位：PML",
       position: "left",
       min: 0,
-      max: 100,
-      minInterval: 10,
-      axisLabel: { formatter: "{value} %", color: "#ff0000" },
+      max: 700,
+      minInterval: 100,
+      axisLabel: { color: "#fff", fontSize: 10 },
       axisLine: { show: true },
-    },
-    {
-      type: "value",
-      position: "right",
-      min: 0,
-      max: 120,
-      minInterval: 20,
-      axisLabel: { formatter: "{value} %", color: "#ff0000" },
-      axisLine: { show: true },
+      splitLine: { show: false }, // 隐藏Y轴网格线
     },
   ],
+
   series: [
     {
-      name: "比率(%)",
+      name: "工序WIP",
       type: "bar",
-
-      yAxisIndex: 0,
-      data: [63.83, 16.24, 10.31, 5.85, 4.04],
+      smooth: true,
+      data: [600, 201, 240, 240],
+        label: {
+        // 添加数据标签配置
+        show: true, // 显示标签
+        position: "top", // 标签显示在柱体上
+        color: "#fff", // 标签文字颜色
+        fontSize: 10, // 标签文字大小
+        formatter: "{c}", // 显示数据值
+      },
       itemStyle: {
         color: new echarts.graphic.LinearGradient(
           0,
@@ -88,13 +92,6 @@ const chartOptions = ref({
         ),
       },
     },
-    {
-      name: "累计比率(%)",
-      type: "line",
-      yAxisIndex: 1,
-      data: [63.83, 80.07, 90.38, 95.96, 100.0],
-      itemStyle: { color: "#cda819" },
-    },
   ],
 
   grid: {
@@ -102,10 +99,10 @@ const chartOptions = ref({
     // left: "3%",
     // right: "5%", // 调整右侧间距
     // bottom: "15%", // 增加底部间距适应旋转标签
-    top: "20%",
-    bottom: "4%",
-    left: "1%",
-    right: "1%",
+    top: "10%",
+    bottom: "0",
+    left: "3",
+    right: "2",
   },
 });
 </script>
