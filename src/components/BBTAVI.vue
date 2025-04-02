@@ -19,6 +19,7 @@
               style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
               <BbtAttendance />
+
             </div>
           </dv-border-box12>
         </div>

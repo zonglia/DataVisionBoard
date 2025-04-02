@@ -1,6 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 3.6rem" />
+    <dv-scroll-board :config="config"/>
   </div>
 </template>
 <script lang="ts" setup>

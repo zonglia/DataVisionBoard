@@ -1,7 +1,7 @@
 <template>
-  <div>
+
     <Carousel :imgList="imgList" imgFillColor="#F1ECE2" />
-  </div>
+
 </template>
 
 <script setup lang="ts">

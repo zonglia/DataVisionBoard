@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ECharts :options="chartOptions" height="5.34rem" />
+    <ECharts :options="chartOptions"  />
   </div>
 </template>
 
@@ -9,15 +9,15 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-  title: {
-    text: "AOI良率趋势",
-    left: 100,
-    top: 0,
-    textStyle: {
-      color: "#fff",
-      fontSize: 18,
-    },
-  },
+  // title: {
+  //   text: "AOI良率趋势",
+  //   left: 100,
+  //   top: 0,
+  //   textStyle: {
+  //     color: "#fff",
+  //     fontSize: 18,
+  //   },
+  // },
   legend: {
     data: ["一次良率", "最终良率"],
     top: 20,

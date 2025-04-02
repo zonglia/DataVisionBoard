@@ -1,6 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 5rem" />
+    <dv-scroll-board :config="config" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -118,7 +118,7 @@ const config = reactive({
   index: true,
   columnWidth: [50],
   align: ["left"],
-  rowNum: [6],
+  rowNum: [5],
   headerBGC: ["transparent"],
   oddRowBGC: ["transparent"],
   evenRowBGC: ["#026CCA80"],

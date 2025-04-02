@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <ECharts :options="chartOptions" height="2.67rem"  />
-  </div>
+
+    <ECharts :options="chartOptions"  />
+
 </template>
 
 <script setup lang="ts">
@@ -9,15 +9,15 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-  title: {
-    text: "外层总报废率",
-    left: 100,
-    top: 0,
-    textStyle: {
-      color: "#fff",
-      fontSize: 18,
-    },
-  },
+  // title: {
+  //   text: "外层总报废率",
+  //   left: 100,
+  //   top: 0,
+  //   textStyle: {
+  //     color: "#fff",
+  //     fontSize: 18,
+  //   },
+  // },
 
   tooltip: {
     trigger: "axis",
@@ -26,8 +26,8 @@ const chartOptions = ref({
 
   legend: {
     data: ["报废目标(%)", "报废率(%)"],
-    top: 23,
-    right: 15,
+    top: 0,
+    right: 0,
     textStyle: {
       color: "#fff",
     },
@@ -52,7 +52,7 @@ const chartOptions = ref({
 
   yAxis: {
     type: "value",
-    name: "百分比(%)",
+    // name: "百分比(%)",
       position: "left",
   
     min: 0,
@@ -81,10 +81,10 @@ const chartOptions = ref({
 
   grid: {
     containLabel: true,
-    left: "0%",
-    right: "0%",
-    bottom: "0%",
-    top: "24%",
+    left: 0,
+    right: 3,
+    bottom: 0,
+    top: 20,
   },
 });
 </script>

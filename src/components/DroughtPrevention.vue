@@ -19,17 +19,23 @@
           <DroughtScrapRateBarAndLine />
         </dv-border-box12>
       </div>
-      <div>
-        <img
-          style="
-            width: 100%; /* 宽度填满容器 */
-            height: 5.5rem;
-            /* object-fit: contain; */
-          "
-          :src="imgSrc"
+      <div style=" position: relative">
+       
+          <img
+            style="
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            "
+            :src="imgSrc"
         />
       </div>
-      <div><DroughtCarousel /></div>
+      <div>
+        <dv-border-box12 style="padding: 0.1rem; box-sizing: border-box">
+          <DroughtCarousel />
+        </dv-border-box12>
+      </div>
       <!-- 文字总报废率 -->
       <div>
         <dv-border-box12
@@ -91,7 +97,7 @@
 
 <script setup lang="ts">
 import DroughtCarousel from "../views/chart/DroughtCarousel.vue";
-import imgSrc from "@/assets/image/drought/05.png";
+import imgSrc from "@/assets/image/drought/06.png";
 import DroughtScrapRate from "../views/chart/DroughtScrapRate.vue";
 import DroughtScrapRateBarAndLine from "../views/chart/DroughtScrapRateBarAndLine.vue";
 import DroughtCharacterScrapRate from "../views/chart/DroughtCharacterScrapRate.vue";
@@ -99,6 +105,8 @@ import DroughCharactertScrapRateBarAndLine from "../views/chart/DroughCharactert
 import DroughtMaintenance from "../views/chart/DroughtMaintenance.vue";
 import DroughtDustFallStats from "../views/chart/DroughtDustFallStats.vue";
 import DroughtHumidity from "../views/chart/DroughtHumidity.vue";
+
+
 </script>
 
 <style scoped lang="scss">

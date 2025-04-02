@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ECharts :options="chartOptions" height="5.3rem" />
+    <ECharts :options="chartOptions"  />
   </div>
 </template>
 
@@ -14,15 +14,15 @@ const chartOptions = ref({
     trigger: "axis",
     axisPointer: { type: "cross" },
   },
-  title: {
-    text: "AOI报废分析",
-    left: 100,
-    top: 0,
-    textStyle: {
-      color: "#fff",
-      fontSize: 18,
-    },
-  },
+  // title: {
+  //   text: "AOI报废分析",
+  //   left: 100,
+  //   top: 0,
+  //   textStyle: {
+  //     color: "#fff",
+  //     fontSize: 18,
+  //   },
+  // },
 
   legend: {
     data: ["比率(%)", "累计比率(%)"],

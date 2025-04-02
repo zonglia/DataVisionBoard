@@ -1,6 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 4.7rem" />
+    <dv-scroll-board :config="config"  />
   </div>
 </template>
 <script lang="ts" setup>
@@ -33,21 +33,15 @@ const config = reactive({
     font-size: 0.2rem;
     background-color: transparent !important;
     > div {
-      width: 20% !important;
+      width: 18.5% !important;
     }
     > :nth-child(1) {
       width: 10% !important;
     }
-     > :nth-child(2) {
- 
-      // width: 15% !important;
-    }
     > div:nth-child(4) {
-     
-      width: 10% !important;
+      width: 16% !important;
     }
     > :nth-child(5) {
-  
       font-size: 0.16rem;
     }
     > :nth-child(6) {
@@ -65,6 +59,7 @@ const config = reactive({
     .row-item {
       padding: 0;
       font-size: 0.14rem;
+      border-radius: 0.13rem;
       > div {
         width: 18.5% !important;
       }
@@ -75,6 +70,7 @@ const config = reactive({
         // font-size: 0.15rem;
       }
       > div:nth-child(4) {
+        text-align: center;
         width: 16% !important;
       }
       > div:nth-child(5) {

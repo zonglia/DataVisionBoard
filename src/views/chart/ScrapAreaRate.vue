@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <ECharts :options="chartOptions" height="2.6rem" />
-  </div>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -17,7 +15,7 @@ const chartOptions = ref({
 
   legend: {
     data: ["比率(%)", "累计比率(%)"],
-    top: 50,
+    top: 0,
     right: 0,
     textStyle: {
       color: "#fff",
@@ -41,7 +39,7 @@ const chartOptions = ref({
 
   yAxis: {
     type: "value",
-    name: "百分比(%)",
+    // name: "百分比(%)",
     position: "left",
     axisLabel: { formatter: "{value} %", color: "#ff0000" },
     axisLine: { show: true },
@@ -89,10 +87,10 @@ const chartOptions = ref({
     // left: "3%",
     // right: "5%", // 调整右侧间距
     // bottom: "15%", // 增加底部间距适应旋转标签
-    top: "20%",
-    bottom: "0%",
-    left: "0%",
-    right: "0%",
+    top: 20,
+    bottom: 2,
+    left: 0,
+    right: 3,
   },
 });
 </script>

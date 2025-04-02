@@ -1,170 +1,192 @@
 <template>
-  <dv-full-screen-container>
-    <div class="drilling-container">
-      <div class="drilling-title">
-        <Title title="钻孔、成型车间智能管理看板" />
+  <div class="drilling-container">
+    <div class="drilling-title">
+      <Title title="钻孔、成型车间智能管理看板" />
+    </div>
+    <div class="drilling-main-container">
+      <div>
+        <dv-border-box12
+          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="height: 0.37rem">
+              C1钻孔总报废
+            </dv-decoration7>
+          </div>
+          <div style="height: 2rem">
+            <C1ProductionRate />
+          </div>
+          <div style="height: calc(100% - 0.37rem - 2rem)">
+            <C1ScrapAreaRate />
+          </div>
+        </dv-border-box12>
       </div>
-      <div class="drilling-main-container">
-        <div class="drilling-main">
-          <div>
-            <div><C1ProductionRate /></div>
-            <div><C1ScrapAreaRate /></div>
-          </div>
-          <div>
-            <Carousel :imgList="imgList" />
-          </div>
-          <div style="box-sizing: border-box">
-            <dv-border-box12
-              style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
-            >
-              <div
-                style="
-                  font-size: 0.25rem;
-                  text-align: center;
-                  letter-spacing: 0.1rem;
-                "
-              >
-                钻孔设备保养周期记录
-              </div>
-              <DrillingMaintenance />
-            </dv-border-box12>
-          </div>
-          <div>
-            <div>
-              <dv-border-box12
-                style="
-                  height: 4.1rem;
-                  padding: 0.078rem;
-                  box-sizing: border-box;
-                "
-              >
-                <div
-                  style="
-                    font-size: 0.25rem;
-                    width: 100%;
-                    text-align: center;
-                    letter-spacing: 0.1rem;
-                  "
-                >
-                  钻机Run-out测量记录(<20um)
-                </div>
-                <DrillingMachineRecords />
-              </dv-border-box12>
-            </div>
-            <div>
-              <!-- <el-table
-                height="1.4rem"
-                :data="tableData"
-                :row-style="rowStyle"
-                :cell-style="cellStyle"
-                :header-cell-style="headerStyle"
-                stripe
-              >
-                <el-table-column type="index" index="2"> </el-table-column>
-                <el-table-column prop="workspace" label="车间">
-                </el-table-column>
-                <el-table-column
-                  prop="stTempeHumidity"
-                  label="标准温湿度"
-                  min-width="100"
-                >
-                </el-table-column>
-                <el-table-column
-                  prop="actualTempe"
-                  label="实际温度"
-                  min-width="50"
-                >
-                </el-table-column>
-                <el-table-column
-                  prop="actualHumidity"
-                  label="实际湿度"
-                  min-width="50"
-                >
-                </el-table-column>
-              </el-table> -->
-            </div>
-          </div>
-          <div>
-            <div><ProductionRate /></div>
-            <div><ScrapAreaRate /></div>
-          </div>
-          <div><DrillingCpkCarousel /></div>
-          <div>
-            <dv-border-box12
-              style="height: 5.48rem; padding: 0.078rem; box-sizing: border-box"
-            >
-              <div
-                style="
-                  font-size: 0.25rem;
-                  width: 100%;
-                  text-align: center;
-                  letter-spacing: 0.1rem;
-                "
-              >
-                成型设备保养周期记录
-              </div>
-              <DrillingMaintenance />
-            </dv-border-box12>
-          </div>
-          <div>
-            <div>
-              <dv-border-box12
-                style="
-                  height: 4.1rem;
-                  padding: 0.078rem;
-                  box-sizing: border-box;
-                "
-              >
-                <div
-                  style="
-                    font-size: 0.21rem;
-                    width: 100%;
-                    text-align: center;
-                    letter-spacing: 0.1rem;
-                  "
-                >
-                  成型机Run-out测量记录(<20um)
-                </div>
-                <FormingMachineRecords />
-              </dv-border-box12>
-            </div>
-            <div>
-              <!-- <el-table
-                height="1.4rem"
-                :data="tableData"
-                :row-style="rowStyle"
-                :cell-style="cellStyle"
-                :header-cell-style="headerStyle"
-                stripe
-              >
-                <el-table-column type="index" index="2"> </el-table-column>
-                <el-table-column prop="workspace" label="车间">
-                </el-table-column>
-                <el-table-column
-                  prop="stTempeHumidity"
-                  label="标准温湿度"
-                  min-width="100"
-                >
-                </el-table-column>
-                <el-table-column
-                  prop="actualTempe"
-                  label="实际温度"
-                  min-width="50"
-                >
-                </el-table-column>
-                <el-table-column
-                  prop="actualHumidity"
-                  label="实际湿度"
-                  min-width="50"
-                >
-                </el-table-column>
-              </el-table> -->
-            </div>
-          </div>
-        </div>
+      <div>
+        <dv-border-box12 style="padding: 0.1rem; box-sizing: border-box">
+          <Carousel :imgList="imgList" />
+        </dv-border-box12>
       </div>
-    </div></dv-full-screen-container
-  >
+      <div>
+        <dv-border-box12
+          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="height: 0.37rem">
+              钻孔设备保养周期记录
+            </dv-decoration7>
+          </div>
+
+          <div
+            style="flex: 1; height: calc(100% - 0.45rem); position: relative"
+          >
+            <DrillingMaintenance style="height: 100%" />
+          </div>
+        </dv-border-box12>
+      </div>
+      <div>
+        <dv-border-box12
+          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+        >
+          <div style="height: 0.37rem">
+            <dv-decoration7 style="height: 100%">
+              钻机Run-out测量记录(<20um)
+            </dv-decoration7>
+          </div>
+
+          <div style="flex: 1; height: 2.6rem; position: relative">
+            <DrillingMachineRecords style="height: 100%" />
+          </div>
+          <div
+            style="
+              height: 0.25rem;
+              font-size: 0.2rem;
+              text-align: center;
+              background-color: red;
+            "
+          >
+            钻孔温湿度显示
+          </div>
+
+          <div
+            class="tempeScale"
+            style="height: calc(100% - 0.37rem - 0.2rem - 2.6rem)"
+          >
+            <!-- <DrillingTempe style="height: 100%" /> -->
+            <div>车间</div>
+            <div>标准温湿度</div>
+            <div>实际温度</div>
+            <div>实际湿度</div>
+            <div>线路无尘室</div>
+            <div>22℃±2℃55%±5%RH</div>
+            <div>22</div>
+            <div>55%</div>
+            <div>AOI</div>
+            <div>23℃±3℃40%±20%RH</div>
+            <div>22</div>
+            <div>55%</div>
+          </div>
+        </dv-border-box12>
+      </div>
+      <!-- 第二行 -->
+      <div>
+        <dv-border-box12
+          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="height: 0.37rem">
+              成型总报废
+            </dv-decoration7>
+          </div>
+          <div style="height: 2rem">
+            <ProductionRate />
+          </div>
+          <div style="height: calc(100% - 0.37rem - 2rem)">
+            <ScrapAreaRate />
+          </div>
+        </dv-border-box12>
+      </div>
+      <div>
+        <dv-border-box12 style="padding: 0.1rem; box-sizing: border-box">
+          <DrillingCpkCarousel />
+        </dv-border-box12>
+      </div>
+      <div>
+        <dv-border-box12
+          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="height: 0.37rem">
+              成型设备保养周期记录
+            </dv-decoration7>
+          </div>
+
+          <div
+            style="flex: 1; height: calc(100% - 0.45rem); position: relative"
+          >
+            <DrillingMaintenance style="height: 100%" />
+          </div>
+        </dv-border-box12>
+      </div>
+      <div>
+        <dv-border-box12
+          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+        >
+          <div>
+            <dv-decoration7 style="height: 0.37rem">
+              成型机Run-out测量记录(<20um)
+            </dv-decoration7>
+          </div>
+
+          <div style="flex: 1; height: 2.3rem; position: relative">
+            <FormingMachineRecords style="height: 100%" />
+          </div>
+          <div
+            style="
+              height: 0.25rem;
+              font-size: 0.2rem;
+              text-align: center;
+              background-color: red;
+            "
+          >
+            成型温湿度显示
+          </div>
+
+          <div
+            class="tempeScale"
+            style="height: calc(100% - 0.37rem - 0.2rem - 2.3rem)"
+          >
+            <!-- <DrillingTempe style="height: 100%" /> -->
+            <div>车间</div>
+            <div>标准温湿度</div>
+            <div>实际温度</div>
+            <div>实际湿度</div>
+            <div>线路无尘室</div>
+            <div>22℃±2℃55%±5%RH</div>
+            <div>22</div>
+            <div>55%</div>
+            <div>AOI</div>
+            <div>23℃±3℃40%±20%RH</div>
+            <div>22</div>
+            <div>55%</div>
+          </div>
+          <!-- <div style="height: 0.2rem; font-size: 0.15rem">
+            <dv-decoration7 style="height: 100%">
+              钻孔温湿度显示(<20um)
+            </dv-decoration7>
+          </div>
+          <div
+            style="
+              flex: 1;
+              height: calc(100% - 0.37rem - 0.2rem - 2.3rem);
+              position: relative;
+            "
+          >
+            <DrillingTempe style="height: 100%" />
+          </div> -->
+        </dv-border-box12>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -178,6 +200,7 @@ import DrillingMaintenance from "../views/chart/DrillingMaintenance.vue";
 import DrillingCpkCarousel from "../views/chart/DrillingCpkCarousel.vue";
 import FormingMachineRecords from "../views/chart/FormingMachineRecords.vue";
 import DrillingMachineRecords from "../views/chart/DrillingMachineRecords.vue";
+import DrillingTempe from "@/views/chart/DrillingTempe.vue";
 
 const imgList = ref([
   {
@@ -281,12 +304,9 @@ const headerStyle = ref({
 .drilling-container {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-rows: 2fr 8fr;
-  // row-gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  min-height: 0; // 允许子项压缩
-
   background: url(../assets/image/bg6.jpg) no-repeat center;
   background-size: cover;
   position: relative; // 新增定位
@@ -308,69 +328,45 @@ const headerStyle = ref({
     position: relative;
     z-index: 1;
   }
-  .drilling-main-container {
+  > div:nth-child(1) {
+    flex: 1.5;
+  }
+  //   内容容器
+  > div:nth-child(2) {
     height: 100%;
+    flex: 8.5;
+    padding: 0.5rem;
+    gap: 0.2rem; // 行间距// 增加内边距
     box-sizing: border-box;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-    padding-bottom: 0.3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    > div {
+    }
+    > div:nth-child(4) {
+    }
+  }
 
-    .drilling-main {
-      // overflow: auto; // 内容溢出时出现滚动条
-      height: 100%;
-      display: grid;
-      box-sizing: border-box;
-      min-height: 0; // 允许子项压缩
-      grid-template-rows: repeat(2, 1fr); // 等同于 1fr 1fr
-      grid-template-columns: repeat(4, 1fr); // 等同于 1fr 1fr 1fr 1fr
-      column-gap: 0.2rem;
-      row-gap: 0.2rem;
-      > div {
-        width: 100%;
-        height: 100%;
-      }
-      > div:nth-child(1) {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        > div:nth-child(1) {
-          height: 100%;
-        }
-      }
-      > div:nth-child(3) {
-        // background-color: #bfa;
-      }
-      > div:nth-child(4) {
-        display: grid;
-        grid-template-rows: 3fr 1fr;
-        > div:nth-child(2) {
-          height: 100%;
-        }
-      }
-      > div:nth-child(8) {
-        display: grid;
-        grid-template-rows: 3fr 1fr;
-        row-gap: 0;
-        > div:nth-child(2) {
-          height: 100%;
-        }
-      }
+  .tempeScale {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-rows: 2fr, 1fr, 1fr;
+    font-size: 0.15rem;
+    > div {
+      text-align: center;
+    }
+    > div:nth-child(1) {
+      font-size: 0.2rem;
+    }
+    > div:nth-child(2) {
+      font-size: 0.2rem;
+    }
+    > div:nth-child(3) {
+      font-size: 0.2rem;
+    }
+    > div:nth-child(4) {
+      font-size: 0.2rem;
     }
   }
 }
-
-// :deep(.el-table__body) {
-//   tr {
-//     td {
-//       background-color: rgba(2, 108, 202, 0.7);
-//       padding: 0;
-//       border-spacing: 0;
-//       height: 35px;
-//       color: #fff;
-//       text-align: center;
-//     }
-//     > :nth-child(3) {
-//       font-size: 0.09rem;
-//     }
-//   }
-// }
 </style>

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <ECharts :options="chartOptions" height="2.75rem" />
-  </div>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -9,15 +7,15 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-  title: {
-    text: "成型总报废率",
-    left: 100,
-    top: 0,
-    textStyle: {
-      color: "#fff",
-      fontSize: 18,
-    },
-  },
+  // title: {
+  //   text: "成型总报废率",
+  //   left: 100,
+  //   top: 0,
+  //   textStyle: {
+  //     color: "#fff",
+  //     fontSize: 18,
+  //   },
+  // },
 
   tooltip: {
     trigger: "axis",
@@ -26,8 +24,8 @@ const chartOptions = ref({
 
   legend: {
     data: ["报废目标(%)", "报废率(%)"],
-    top: 23,
-    right: 15,
+    top: 0,
+    right: 0,
     textStyle: {
       color: "#fff",
     },
@@ -47,12 +45,12 @@ const chartOptions = ref({
       "24W52",
       "24M12",
     ],
-    axisLabel: { rotate: 45, color: "#fff" },
+    axisLabel: { rotate: 45, color: "#fff", fontSize: 8 },
   },
 
   yAxis: {
     type: "value",
-    name: "百分比(%)",
+    // name: "百分比(%)",
     position: "left",
     axisLabel: { formatter: "{value} %", color: "#ff0000" },
     axisLine: { show: true },
@@ -77,10 +75,10 @@ const chartOptions = ref({
 
   grid: {
     containLabel: true,
-    left: "0%",
-    right: "0%",
-    bottom: "0%",
-    top: "20%",
+    left: 0,
+    right: 2,
+    bottom: 0,
+    top: 20,
   },
 });
 </script>

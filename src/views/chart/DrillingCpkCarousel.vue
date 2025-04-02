@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <!-- <div>
     <Carousel :imgList="cpkImgList" imgFillColor="#F1ECE2" />
-  </div>
+  </div> -->
+
+    <Carousel :imgList="cpkImgList" imgFillColor="#F1ECE2" />
 </template>
 
 <script setup lang="ts">
