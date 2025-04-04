@@ -1,7 +1,7 @@
 <template>
   <div class="bbt-avi-container">
     <div class="bbt-avi-title">
-      <Title title="BBT AVI 包装 车间智能化数字化管控" />
+      <Title title="N2工厂智能化数字化管控" process="BBT AVI 包装"/>
     </div>
     <div class="bbt-avi-main-container">
       <div>
@@ -283,12 +283,12 @@ const getStatusClass = (status: number) => {
 
   //   大标题
   > div:nth-child(1) {
-    flex: 1.5;
+    flex: 2;
   }
   //   内容容器
   > div:nth-child(2) {
     height: 100%;
-    flex: 8.5;
+    flex: 8;
     display: flex;
     flex-direction: column;
     padding: 0.5rem;

@@ -52,7 +52,7 @@ const chartOptions = ref({
     type: "value",
     // name: "百分比(%)",
     position: "left",
-    axisLabel: { formatter: "{value} %", color: "#ff0000" },
+    axisLabel: { formatter: "{value} %", color: "#fff" },
     axisLine: { show: true },
   },
 
@@ -75,9 +75,9 @@ const chartOptions = ref({
 
   grid: {
     containLabel: true,
-    left: 0,
+    left: 3,
     right: 2,
-    bottom: 0,
+    bottom: 3,
     top: 20,
   },
 });

@@ -8,6 +8,15 @@ import { ref } from "vue";
 import * as echarts from "echarts";
 
 const chartOptions = ref({
+  title: {
+    text: "月累计产出",
+    left: "center",
+    top: -3,
+    textStyle: {
+      color: "#fff",
+      fontSize: 10,
+    },
+  },
   tooltip: {
     trigger: "axis",
     axisPointer: { type: "cross" },
@@ -15,9 +24,8 @@ const chartOptions = ref({
 
   xAxis: {
     type: "value", // 横轴改为数值轴
-    name: "单位：PML",
     min: 0,
-    max: 15,
+    max: 20000,
     // minInterval: 100,
     axisLabel: { color: "#fff", fontSize: 10 },
     axisLine: { show: true },
@@ -26,7 +34,7 @@ const chartOptions = ref({
 
   yAxis: {
     type: "category", // 纵轴改为类目轴
-    data: ["出勤人数", "在职人数"],
+    data: ["文字", "防焊"],
     axisLabel: {
       color: "#fff",
       fontSize: 8,
@@ -35,9 +43,9 @@ const chartOptions = ref({
 
   series: [
     {
-      name: "人员出勤",
+      name: "月累计产出",
       type: "bar", // 柱状图（横向）
-      data: [10, 12],
+      data: [15565, 15565],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签
@@ -67,7 +75,7 @@ const chartOptions = ref({
     top: "10%",
     bottom: "0",
     left: "3",
-    right: "18",
+    right: "20",
   },
 });
 </script>

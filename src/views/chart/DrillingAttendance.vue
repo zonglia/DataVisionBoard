@@ -17,11 +17,11 @@ const chartOptions = ref({
     type: "value", // 横轴改为数值轴
     name: "单位：PML",
     min: 0,
-    max: 15,
+    max: 10,
     // minInterval: 100,
     axisLabel: { color: "#fff", fontSize: 10 },
     axisLine: { show: true },
-    splitLine: { show: false }, // 隐藏X轴网格线
+      splitLine: { show: false }, // 隐藏X轴网格线
   },
 
   yAxis: {
@@ -31,13 +31,14 @@ const chartOptions = ref({
       color: "#fff",
       fontSize: 8,
     },
+  
   },
 
   series: [
     {
       name: "人员出勤",
       type: "bar", // 柱状图（横向）
-      data: [10, 12],
+      data: [6, 6],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签
@@ -65,7 +66,7 @@ const chartOptions = ref({
   grid: {
     containLabel: true,
     top: "10%",
-    bottom: "0",
+    bottom: 3,
     left: "3",
     right: "18",
   },

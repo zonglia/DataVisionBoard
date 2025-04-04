@@ -21,6 +21,7 @@ declare module 'vue' {
     JiangXiN2: typeof import('./src/components/JiangXiN2.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     Test: typeof import('./src/components/Test.vue')['default']
     Title: typeof import('./src/components/Title.vue')['default']
   }

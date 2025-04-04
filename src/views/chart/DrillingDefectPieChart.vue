@@ -7,15 +7,15 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-//   title: {
-//     text: "BBT 不良分析",
-//     left: "center",
-//     textStyle: {
-//       // 标题字体设置
-//       fontSize: 10,
-//       fontWeight: "bold",
-//     },
-//   },
+  //   title: {
+  //     text: "BBT 不良分析",
+  //     left: "center",
+  //     textStyle: {
+  //       // 标题字体设置
+  //       fontSize: 10,
+  //       fontWeight: "bold",
+  //     },
+  //   },
   //   提示框
   tooltip: {
     trigger: "item",
@@ -33,18 +33,19 @@ const chartOptions = ref({
       fontSize: 8, // 图例文字大小
     },
     itemGap: 10, // 恢复图例间距
-      itemHeight: 8, // 图例标记高度
-     itemWidth: 8, // 图例标记高度
+    itemHeight: 8, // 图例标记高度
+    itemWidth: 8, // 图例标记高度
   },
   series: [
     {
       type: "pie",
       radius: "70%",
-      center: ["50%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
+      center: ["60%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
-        { value: 4, name: "防焊异物" },
-        { value: 3, name: "防焊偏位" },
-        { value: 2, name: "防焊露铜" },
+        { value: 7.6, name: "偏孔" },
+        { value: 0.256, name: "漏孔" },
+        { value: 2, name: "外力损伤" },
+        { value: 0.144, name: "披锋" },
       ],
       // 饼图标签样式
       label: {

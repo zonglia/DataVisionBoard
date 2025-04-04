@@ -14,17 +14,18 @@
         :src="item.url"
         class="carousel-image"
         alt="轮播图"
-        :style="{ background: imgFillColor }"
+        :style="{ background: getFillColor(item.url) }"
       />
     </el-carousel-item>
   </el-carousel>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { PropType } from 'vue'
 defineProps({
   imgList: {
-    type: Array,
-    default: () => [],
+  type: Array as PropType<{ url: string }[]>,
+    default: () => [] as { url: string }[],
   },
   height: {
     type: String,
@@ -35,6 +36,15 @@ defineProps({
     default: "#FFFFFF", // 默认背景色
   },
 });
+
+// 新增颜色计算逻辑
+const getFillColor = (url:string) => {
+  if (url.includes('banner')) return '#fff'; // banner前缀白色背景
+  if (url.includes('cpk')) return '#F1ECE2';     // cpk前缀F1ECE2背景
+   if (url.includes('bead')) return '#A3C6C2';     // cpk前缀F1ECE2背景
+  
+  return '#fff'; // 默认颜色
+};
 </script>
 
 <style scoped lang="scss">

@@ -42,9 +42,10 @@ const chartOptions = ref({
       radius: "70%",
       center: ["50%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
-        { value: 4, name: "防焊异物" },
-        { value: 3, name: "防焊偏位" },
-        { value: 2, name: "防焊露铜" },
+        { value: 2.5, name: "孔损" },
+        { value: 5.2, name: "外力损伤" },
+        { value: 1.5, name: "多铣" },
+        { value: 0.8, name: "烧焦" },
       ],
       // 饼图标签样式
       label: {

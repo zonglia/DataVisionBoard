@@ -1,6 +1,6 @@
 <template>
 
-    <Carousel :imgList="imgList" imgFillColor="#F1ECE2" />
+    <Carousel :imgList="imgList"  />
 
 </template>
 
@@ -9,16 +9,16 @@ import Carousel from "@/components/Carousel.vue";
 import { ref } from "vue";
 const imgList = ref([
   {
-    url: new URL(`@/assets/image/drought/07.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/cpk01.png`, import.meta.url).href,
   },
   {
-    url: new URL(`@/assets/image/drought/08.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/cpk02.png`, import.meta.url).href,
   },
   {
-    url: new URL(`@/assets/image/drought/09.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/cpk03.png`, import.meta.url).href,
   },
   {
-    url: new URL(`@/assets/image/drought/10.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/cpk04.png`, import.meta.url).href,
   },
 ]);
 </script>

@@ -1,32 +1,40 @@
 <template>
   <div class="drought-prevention-container">
     <div class="drought-prevention-title">
-      <Title title="防焊文字车间智能化数字化管控" />
+      <Title title="N2工厂智能化数字化管控" process="防焊、文字" />
     </div>
 
     <div class="drought-prevention-main">
+      <!-- 第一行 -->
       <div>
+        <!-- 人员出勤 -->
         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                人员出勤
+                <SvgIcon name="users" color="#409eff" />人员出勤
               </dv-decoration7>
             </div>
 
             <div
               style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-              <BbtAttendance />
+              <DroughtAttendance />
             </div>
           </dv-border-box12>
         </div>
+        <!-- 工序产出 -->
         <div>
           <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
             <div>
-              <dv-decoration7 style="height: 0.37rem"> 工序WIP </dv-decoration7>
+              <dv-decoration7 style="height: 0.37rem"
+                ><SvgIcon
+                  name="output"
+                  color="#409eff"
+                />工序产出</dv-decoration7
+              >
             </div>
 
             <div
@@ -38,22 +46,25 @@
                 flex-direction: row;
               "
             >
-              <BbtProcessOutputBar />
-              <BbtMonthlyOutput /></div
+              <DroughtProcessOutputBar />
+              <DroughtMonthlyOutput /></div
           ></dv-border-box12>
         </div>
+        <!-- 工序WIP -->
         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
-              <dv-decoration7 style="height: 0.37rem"> 工序WIP </dv-decoration7>
+              <dv-decoration7 style="height: 0.37rem"
+                ><SvgIcon name="wip" color="#409eff" />工序WIP
+              </dv-decoration7>
             </div>
 
             <div
               style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-              <BbtWipRecords style="height: 100%" />
+              <DroughtWipRecords style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
@@ -66,7 +77,7 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                防焊总报废
+                <SvgIcon name="scrap" color="#409eff" />防焊总报废
               </dv-decoration7>
             </div>
             <div style="height: calc(100% - 0.37rem)">
@@ -80,7 +91,7 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                文字总报废
+                <SvgIcon name="scrap" color="#409eff" />文字总报废
               </dv-decoration7>
             </div>
             <div style="height: calc(100% - 0.37rem)">
@@ -94,7 +105,7 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                防焊CPK管控
+                <SvgIcon name="ctrol" color="#409eff" />防焊CPK管控
               </dv-decoration7>
             </div>
             <div
@@ -110,14 +121,14 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                重要参数管控
+                <SvgIcon name="setting" color="#409eff" />重要参数管控
               </dv-decoration7>
             </div>
 
             <div
               style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-              <BbtKeyParamsContro style="height: 100%" />
+              <DroughtKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
@@ -130,7 +141,7 @@
               <dv-decoration7
                 style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
               >
-                防焊不良分析
+                <SvgIcon name="scrap" color="#409eff" />防焊不良分析
               </dv-decoration7>
               <div
                 style="
@@ -152,7 +163,7 @@
               <dv-decoration7
                 style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
               >
-                文字不良分析
+                <SvgIcon name="scrap" color="#409eff" />文字不良分析
               </dv-decoration7>
               <div
                 style="
@@ -163,7 +174,7 @@
                   flex-direction: row;
                 "
               >
-                <div style="flex: 1"><DroughtDefectPieChart /></div>
+                <div style="flex: 1"><DroughtCharacterScrapPieChart /></div>
               </div>
             </div>
           </dv-border-box12>
@@ -174,7 +185,7 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                灯珠管控
+                <SvgIcon name="ctrol" color="#409eff" />灯珠管控
               </dv-decoration7>
             </div>
             <div
@@ -190,7 +201,7 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                设备状态
+                <SvgIcon name="status" color="#409eff" />设备状态
               </dv-decoration7>
             </div>
 
@@ -247,16 +258,18 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import BbtAttendance from "../views/chart/BbtAttendance.vue";
-import BbtMonthlyOutput from "../views/chart/BbtMonthlyOutput.vue";
-import BbtProcessOutputBar from "../views/chart/BbtProcessOutputBar.vue";
-import BbtWipRecords from "../views/chart/BbtWipRecords.vue";
+
+import DroughtAttendance from "../views/chart/DroughtAttendance.vue";
+import DroughtMonthlyOutput from "../views/chart/DroughtMonthlyOutput.vue";
+import DroughtProcessOutputBar from "../views/chart/DroughtProcessOutputBar.vue";
+import DroughtWipRecords from "../views/chart/DroughtWipRecords.vue";
 import C1ProductionRate from "@/views/chart/C1ProductionRate.vue";
 import DroughtDefectPieChart from "../views/chart/DroughtDefectPieChart.vue";
-import BbtKeyParamsContro from "../views/chart/BbtKeyParamsContro.vue";
+import DroughtCharacterScrapPieChart from "../views/chart/DroughtCharacterScrapPieChart.vue";
+import DroughtKeyParamsContro from "../views/chart/DroughtKeyParamsContro.vue";
 import DroughtCarousel from "../views/chart/DroughtCarousel.vue";
 import DroughtBeadControl from "../views/chart/DroughtBeadControl.vue";
-import imgSrc from "@/assets/image/drought/11.jpg";
+
 import DroughtScrapRate from "../views/chart/DroughtScrapRate.vue";
 import DroughtScrapRateBarAndLine from "../views/chart/DroughtScrapRateBarAndLine.vue";
 import DroughtCharacterScrapRate from "../views/chart/DroughtCharacterScrapRate.vue";
@@ -273,42 +286,31 @@ const statusConfig = [
   { class: "shutdown", text: "关机", color: "#f00" }, // 状态3
 ];
 const devices = [
-  { name: "1#压机", status: 0 }, // 开机
-  { name: "2#压机", status: 1 }, // 运行
-  { name: "3#压机", status: 2 }, // 保养
-  { name: "4#压机", status: 3 }, // 关机
-  { name: "5#压机", status: 1 },
-  { name: "6#压机", status: 0 },
-  { name: "7#压机", status: 3 },
-  { name: "8#压机", status: 2 },
-  { name: "9#压机", status: 1 },
-  { name: "10#压机", status: 0 },
-  { name: "11#压机", status: 2 },
-  { name: "12#压机", status: 1 },
-  { name: "13#压机", status: 3 },
-  { name: "14#压机", status: 0 },
-  { name: "15#压机", status: 1 },
-  { name: "16#压机", status: 2 },
-  { name: "17#压机", status: 3 },
-  { name: "18#压机", status: 0 },
-  { name: "19#压机", status: 1 },
-  { name: "20#压机", status: 2 },
+  { name: "1#前处理", status: 0 }, // 开机
+  { name: "2#前处理", status: 1 }, // 运行
+  { name: "1#丝印机", status: 1 },
+  { name: "2#丝印机", status: 1 },
+  { name: "3#丝印机", status: 1 },
+  { name: "4#丝印机", status: 0 },
+  { name: "1#曝光机", status: 0 },
+  { name: "2#曝光机", status: 1 },
+  { name: "3#曝光机", status: 0 },
+  { name: "1#显影机", status: 0 },
+  { name: "2#显影机", status: 1 },
+
+  { name: "1#文字机", status: 1 },
+  { name: "2#文字机", status: 0 },
+  { name: "3#文字机", status: 0 },
+  { name: "4#文字机", status: 0 },
+  { name: "5#文字机", status: 3 },
+  { name: "6#文字机", status: 0 },
+
+  { name: "1#防焊烤箱", status: 3 },
+  { name: "2#防焊烤箱", status: 0 },
+  { name: "3#防焊烤箱", status: 1 },
+  { name: "4#防焊烤箱", status: 0 },
 ];
 
-const imgList = ref([
-  {
-    url: new URL(`../assets/image/drought/07.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drought/08.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drought/09.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drought/10.png`, import.meta.url).href,
-  },
-]);
 </script>
 
 <style scoped lang="scss">
@@ -342,16 +344,17 @@ const imgList = ref([
 
   //   大标题
   > div:nth-child(1) {
-    flex: 1.5;
+    flex: 2;
   }
   //   内容容器
   > div:nth-child(2) {
     height: 100%;
-    flex: 8.5;
+    flex: 8;
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    gap: 0.2rem; // 行间距
+    padding-top: 0;
+    // gap: 0.2rem; // 行间距
     box-sizing: border-box;
     > div {
       height: 100%;
@@ -365,17 +368,14 @@ const imgList = ref([
       > div {
         flex: 1;
       }
-      > div:nth-child(1) {
-      }
-      > div:nth-child(2) {
-      }
     }
+    // 第二行
     > div:nth-child(2) {
       display: flex;
       flex-direction: row;
       gap: 0.2rem; // 行间距
       > div {
-        flex: 4;
+        flex: 1;
       }
     }
 
@@ -384,18 +384,15 @@ const imgList = ref([
       flex-direction: row;
       gap: 0.2rem; // 行间距
       > div {
-        flex: 4;
+        flex: 1;
       }
       > div:nth-child(4) {
         .devices-container {
           height: calc(100% - 0.34rem);
           display: grid;
           grid-template-columns: repeat(5, 1fr);
-          grid-template-rows: repeat(4, 1fr);
-          font-size: 0.11rem;
-          > div:nth-child(1) {
-            // background-color: aqua;
-          }
+          grid-template-rows: repeat(5, 1fr);
+          font-size: 0.16rem;
           > div {
             display: inline-flex;
             align-items: center;
@@ -409,14 +406,14 @@ const imgList = ref([
 .status-item {
   display: inline-flex;
   align-items: center;
-  margin: 0 0.2rem;
+  // margin: 0 0.2rem;
   color: white; /* 文字设为白色以提高对比度 */
 }
 .status-light {
   display: inline-block;
   width: 0.2rem;
   height: 0.2rem;
-  margin-right: 0.1rem;
+  // margin-right: 0.1rem;
   border-radius: 0.03rem;
   border: 0.03rem solid rgba(255, 255, 255, 0.5); /* 半透明白色边框 */
 }

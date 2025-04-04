@@ -1,7 +1,7 @@
 <template>
   <div class="aoi-container">
     <div class="aoi-title">
-      <Title title="AOI智能化电子化管控" />
+      <Title title="N2工厂智能化数字化管控" process="AOI" />
     </div>
 
     <div class="aoi-main-container">
@@ -309,10 +309,10 @@ const headerStyle = ref({
     z-index: 1;
   }
   > div:nth-child(1) {
-    flex: 1.5;
+    flex: 2;
   }
   > div:nth-child(2) {
-    flex: 8.5;
+    flex: 8;
   }
   .aoi-main-container {
     width: 100%;
@@ -322,7 +322,8 @@ const headerStyle = ref({
     grid-template-columns: repeat(4, 1fr);
     box-sizing: border-box; // 使 padding 包含在设定高度内
     padding: 0.3rem;
-    column-gap: 0.3rem;
+    padding-top: 0rem;
+    // column-gap: 0.3rem;
     row-gap: 0.3rem;
     > div:nth-child(1) {
       // display: flex;

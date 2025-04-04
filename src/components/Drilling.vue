@@ -1,189 +1,255 @@
 <template>
   <div class="drilling-container">
     <div class="drilling-title">
-      <Title title="钻孔、成型车间智能管理看板" />
+      <Title process="钻孔、成型" title="N2工厂智能化数字化管控" />
     </div>
     <div class="drilling-main-container">
+      <!-- 第一行 -->
       <div>
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              C1钻孔总报废
-            </dv-decoration7>
-          </div>
-          <div style="height: 2rem">
-            <C1ProductionRate />
-          </div>
-          <div style="height: calc(100% - 0.37rem - 2rem)">
-            <C1ScrapAreaRate />
-          </div>
-        </dv-border-box12>
-      </div>
-      <div>
-        <dv-border-box12 style="padding: 0.1rem; box-sizing: border-box">
-          <Carousel :imgList="imgList" />
-        </dv-border-box12>
-      </div>
-      <div>
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              钻孔设备保养周期记录
-            </dv-decoration7>
-          </div>
-
-          <div
-            style="flex: 1; height: calc(100% - 0.45rem); position: relative"
+        <!-- 人员出勤 -->
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <DrillingMaintenance style="height: 100%" />
-          </div>
-        </dv-border-box12>
-      </div>
-      <div>
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div style="height: 0.37rem">
-            <dv-decoration7 style="height: 100%">
-              钻机Run-out测量记录(<20um)
-            </dv-decoration7>
-          </div>
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="users" color="#409eff" />人员出勤
+              </dv-decoration7>
+            </div>
 
-          <div style="flex: 1; height: 2.6rem; position: relative">
-            <DrillingMachineRecords style="height: 100%" />
-          </div>
-          <div
-            style="
-              height: 0.25rem;
-              font-size: 0.2rem;
-              text-align: center;
-              background-color: red;
-            "
-          >
-            钻孔温湿度显示
-          </div>
+            <div
+              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+            >
+              <DrillingAttendance />
+            </div>
+          </dv-border-box12>
+        </div>
+        <!-- 工序产出 -->
+        <div>
+          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
+            <div>
+              <dv-decoration7 style="height: 0.37rem"
+                ><SvgIcon
+                  name="output"
+                  color="#409eff"
+                />工序产出</dv-decoration7
+              >
+            </div>
 
-          <div
-            class="tempeScale"
-            style="height: calc(100% - 0.37rem - 0.2rem - 2.6rem)"
+            <div
+              style="
+                flex: 1;
+                height: calc(100% - 0.47rem);
+                position: relative;
+                display: flex;
+                flex-direction: row;
+              "
+            >
+              <DrillingProcessOutputBar />
+              <DrillingMonthlyOutput /></div
+          ></dv-border-box12>
+        </div>
+        <!-- 工序WIP -->
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <!-- <DrillingTempe style="height: 100%" /> -->
-            <div>车间</div>
-            <div>标准温湿度</div>
-            <div>实际温度</div>
-            <div>实际湿度</div>
-            <div>线路无尘室</div>
-            <div>22℃±2℃55%±5%RH</div>
-            <div>22</div>
-            <div>55%</div>
-            <div>AOI</div>
-            <div>23℃±3℃40%±20%RH</div>
-            <div>22</div>
-            <div>55%</div>
-          </div>
-        </dv-border-box12>
+            <div>
+              <dv-decoration7 style="height: 0.37rem"
+                ><SvgIcon name="wip" color="#409eff" />工序WIP
+              </dv-decoration7>
+            </div>
+
+            <div
+              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+            >
+              <DrillingWipRecords style="height: 100%" />
+            </div>
+          </dv-border-box12>
+        </div>
       </div>
       <!-- 第二行 -->
       <div>
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              成型总报废
-            </dv-decoration7>
-          </div>
-          <div style="height: 2rem">
-            <ProductionRate />
-          </div>
-          <div style="height: calc(100% - 0.37rem - 2rem)">
-            <ScrapAreaRate />
-          </div>
-        </dv-border-box12>
-      </div>
-      <div>
-        <dv-border-box12 style="padding: 0.1rem; box-sizing: border-box">
-          <DrillingCpkCarousel />
-        </dv-border-box12>
-      </div>
-      <div>
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              成型设备保养周期记录
-            </dv-decoration7>
-          </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="scrap" color="#409eff" />钻孔总报废
+              </dv-decoration7>
+            </div>
+            <div style="height: calc(100% - 0.37rem)">
+              <C1ProductionRate />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="scrap" color="#409eff" />成型总报废
+              </dv-decoration7>
+            </div>
+            <div style="height: calc(100% - 0.37rem)">
+              <C1ProductionRate />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="ctrol" color="#409eff" />钻孔成型CPK管控
+              </dv-decoration7>
+            </div>
+            <div
+              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+            >
+              <DrillingCarousel />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="setting" color="#409eff" />重要参数管控
+              </dv-decoration7>
+            </div>
 
-          <div
-            style="flex: 1; height: calc(100% - 0.45rem); position: relative"
-          >
-            <DrillingMaintenance style="height: 100%" />
-          </div>
-        </dv-border-box12>
+            <div
+              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+            >
+              <DrillingKeyParamsContro style="height: 100%" />
+            </div>
+          </dv-border-box12>
+        </div>
       </div>
+        <!-- 第三行 -->
       <div>
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              成型机Run-out测量记录(<20um)
-            </dv-decoration7>
-          </div>
+        <div>
+          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
+            <div style="display: flex; flex-direction: column; height: 100%">
+              <dv-decoration7
+                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
+              >
+                <SvgIcon name="scrap" color="#409eff" />钻孔不良分析
+              </dv-decoration7>
+              <div
+                style="
+                  flex: 1;
+                  height: calc(100% - 0.47rem);
+                  position: relative;
+                  display: flex;
+                  flex-direction: row;
+                "
+              >
+                <div style="flex: 1"><DrillingDefectPieChart /></div>
+              </div>
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
+            <div style="display: flex; flex-direction: column; height: 100%">
+              <dv-decoration7
+                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
+              >
+                <SvgIcon name="scrap" color="#409eff" />成型不良分析
+              </dv-decoration7>
+              <div
+                style="
+                  flex: 1;
+                  height: calc(100% - 0.47rem);
+                  position: relative;
+                  display: flex;
+                  flex-direction: row;
+                "
+              >
+                <div style="flex: 1"><DrillingCharacterScrapPieChart /></div>
+              </div>
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="ctrol" color="#409eff" />主轴精度管控(um)
+              </dv-decoration7>
+            </div>
+            <div
+              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+            >
+              <DrillingSpindleAccuracy style="height: 100%" />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="status" color="#409eff" />设备状态
+              </dv-decoration7>
+            </div>
 
-          <div style="flex: 1; height: 2.3rem; position: relative">
-            <FormingMachineRecords style="height: 100%" />
-          </div>
-          <div
-            style="
-              height: 0.25rem;
-              font-size: 0.2rem;
-              text-align: center;
-              background-color: red;
-            "
-          >
-            成型温湿度显示
-          </div>
-
-          <div
-            class="tempeScale"
-            style="height: calc(100% - 0.37rem - 0.2rem - 2.3rem)"
-          >
-            <!-- <DrillingTempe style="height: 100%" /> -->
-            <div>车间</div>
-            <div>标准温湿度</div>
-            <div>实际温度</div>
-            <div>实际湿度</div>
-            <div>线路无尘室</div>
-            <div>22℃±2℃55%±5%RH</div>
-            <div>22</div>
-            <div>55%</div>
-            <div>AOI</div>
-            <div>23℃±3℃40%±20%RH</div>
-            <div>22</div>
-            <div>55%</div>
-          </div>
-          <!-- <div style="height: 0.2rem; font-size: 0.15rem">
-            <dv-decoration7 style="height: 100%">
-              钻孔温湿度显示(<20um)
-            </dv-decoration7>
-          </div>
-          <div
-            style="
-              flex: 1;
-              height: calc(100% - 0.37rem - 0.2rem - 2.3rem);
-              position: relative;
-            "
-          >
-            <DrillingTempe style="height: 100%" />
-          </div> -->
-        </dv-border-box12>
+            <div style="height: calc(100% - 0.47rem)">
+              <div
+                style="
+                  text-align: center;
+                  font-size: 0.2rem;
+                  border-bottom: 0.0125rem solid #eaeefb;
+                "
+              >
+                <span class="status-item">
+                  <span class="booting status-light"></span>
+                  <span>开机</span>
+                </span>
+                <span class="status-item">
+                  <span class="running status-light"></span>
+                  <span>运行</span>
+                </span>
+                <span class="status-item">
+                  <span class="maintenance status-light"></span>
+                  <span>保养</span>
+                </span>
+                <span class="status-item">
+                  <span class="shutdown status-light"></span>
+                  <span>关机</span>
+                </span>
+              </div>
+              <div class="devices-container">
+                <div v-for="(device, index) in devices" :key="index">
+                  <span class="status-item">
+                    <!-- 动态绑定指示灯类名 -->
+                    <span
+                      class="status-light"
+                      :class="{
+                        booting: device.status === 0,
+                        running: device.status === 1,
+                        maintenance: device.status === 2,
+                        shutdown: device.status === 3,
+                      }"
+                    ></span>
+                    <!-- 显示设备名称和状态文字 -->
+                    <span>{{ device.name }} </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </dv-border-box12>
+        </div>
       </div>
     </div>
   </div>
@@ -191,6 +257,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import DrillingAttendance from "../views/chart/DrillingAttendance.vue";
+import DrillingMonthlyOutput from "../views/chart/DrillingMonthlyOutput.vue";
+import DrillingProcessOutputBar from "../views/chart/DrillingProcessOutputBar.vue";
+import DrillingWipRecords from "../views/chart/DrillingWipRecords.vue";
+import DrillingCarousel from "../views/chart/DrillingCarousel.vue";
+import DrillingSpindleAccuracy from "../views/chart/DrillingSpindleAccuracy.vue";
 import ProductionRate from "@/views/chart/ProductionRate.vue";
 import C1ProductionRate from "@/views/chart/C1ProductionRate.vue";
 import ScrapAreaRate from "@/views/chart/ScrapAreaRate.vue";
@@ -201,103 +273,41 @@ import DrillingCpkCarousel from "../views/chart/DrillingCpkCarousel.vue";
 import FormingMachineRecords from "../views/chart/FormingMachineRecords.vue";
 import DrillingMachineRecords from "../views/chart/DrillingMachineRecords.vue";
 import DrillingTempe from "@/views/chart/DrillingTempe.vue";
+import DroughtAttendance from "../views/chart/DroughtAttendance.vue";
+import DroughtMonthlyOutput from "../views/chart/DroughtMonthlyOutput.vue";
+import DroughtProcessOutputBar from "../views/chart/DroughtProcessOutputBar.vue";
+import DroughtWipRecords from "../views/chart/DroughtWipRecords.vue";
+import DrillingDefectPieChart from "../views/chart/DrillingDefectPieChart.vue";
+import DrillingCharacterScrapPieChart from "../views/chart/DrillingCharacterScrapPieChart.vue";
+import DrillingKeyParamsContro from "../views/chart/DrillingKeyParamsContro.vue";
+import DroughtCarousel from "../views/chart/DroughtCarousel.vue";
+import DroughtBeadControl from "../views/chart/DroughtBeadControl.vue";
 
-const imgList = ref([
-  {
-    url: new URL(`../assets/image/drilling/banner1.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner2.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner3.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner4.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner5.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner6.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner7.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner8.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner9.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner10.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner11.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner12.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner13.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner14.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner15.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner16.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner17.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner18.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner19.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`../assets/image/drilling/banner20.png`, import.meta.url).href,
-  },
-]);
+const devices = [
+ { name: "1#钻孔机", status: 0 },
+  { name: "2#钻孔机", status: 0 },
+  { name: "3#钻孔机", status: 0 },
+  { name: "4#钻孔机", status: 0 },
+  { name: "5#钻孔机", status: 0 },
 
-const tableData = ref([
-  {
-    workspace: "线路无尘室",
-    stTempeHumidity: "22℃±2℃55%±5%RH",
-    actualTempe: "22",
-    actualHumidity: "55%",
-  },
-  {
-    workspace: "AOI",
-    stTempeHumidity: "23℃±3℃40%±20%RH",
-    actualTempe: "22",
-    actualHumidity: "55%",
-  },
-]);
+   { name: "6#钻孔机", status: 1 },
+  { name: "7#钻孔机", status: 1 },
+  { name: "8#钻孔机", status: 1 },
+  { name: "9#钻孔机", status: 1 },
+  { name: "10#钻孔机", status: 1 },
 
-const rowStyle = ref({
-  color: "red",
-  // height: "10px",
-  padding: "0",
-  // background: "rgba(2, 108, 202, 0.7)",
-});
+  { name: "1#成型机", status: 2 },
+  { name: "2#成型机", status: 2 },
+  { name: "3#成型机", status: 2 },
+  { name: "4#成型机", status: 2 },
+  { name: "5#成型机", status: 2 },
 
-const cellStyle = ref({
-  padding: "0",
-  fontSize: ".13rem",
-});
-
-const headerStyle = ref({
-  background: "rgba(2, 108, 202, 0.5)",
-  padding: "0",
-  fontSize: "0.1rem",
-  color: "#fff",
-});
+  { name: "6#成型机", status: 3 },
+  { name: "7#成型机", status: 3 },
+  { name: "8#成型机", status: 3 },
+  { name: "9#成型机", status: 3 },
+  { name: "10#成型机", status: 3 },
+];
 </script>
 
 <style scoped lang="scss">
@@ -329,44 +339,106 @@ const headerStyle = ref({
     z-index: 1;
   }
   > div:nth-child(1) {
-    flex: 1.5;
+    flex: 2;
   }
   //   内容容器
   > div:nth-child(2) {
     height: 100%;
-    flex: 8.5;
+    flex: 8;
     padding: 0.5rem;
-    gap: 0.2rem; // 行间距// 增加内边距
+    padding-top: 0;
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     > div {
+      flex: 1;
     }
-    > div:nth-child(4) {
+    // 第一行
+    > div:nth-child(1) {
+      display: flex;
+      flex-direction: row;
+      gap: 0.2rem; // 行间距
+      > div {
+        flex: 1;
+      }
+    }
+    // 第二行
+    > div:nth-child(2) {
+      display: flex;
+      flex-direction: row;
+      gap: 0.2rem; // 行间距
+      > div {
+        flex: 1;
+      }
+    }
+     > div:nth-child(3) {
+      display: flex;
+      flex-direction: row;
+      gap: 0.2rem; // 行间距
+      > div {
+        flex: 1;
+      }
+      > div:nth-child(4) {
+        .devices-container {
+          height: calc(100% - 0.34rem);
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          grid-template-rows: repeat(5, 1fr);
+          font-size: 0.16rem;
+          > div {
+            display: inline-flex;
+            align-items: center;
+          }
+        }
+      }
     }
   }
+}
 
-  .tempeScale {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr;
-    grid-template-rows: 2fr, 1fr, 1fr;
-    font-size: 0.15rem;
-    > div {
-      text-align: center;
-    }
-    > div:nth-child(1) {
-      font-size: 0.2rem;
-    }
-    > div:nth-child(2) {
-      font-size: 0.2rem;
-    }
-    > div:nth-child(3) {
-      font-size: 0.2rem;
-    }
-    > div:nth-child(4) {
-      font-size: 0.2rem;
-    }
+.status-item {
+  display: inline-flex;
+  align-items: center;
+  // margin: 0 0.2rem;
+  color: white; /* 文字设为白色以提高对比度 */
+}
+.status-light {
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.2rem;
+  // margin-right: 0.1rem;
+  border-radius: 0.03rem;
+  border: 0.03rem solid rgba(255, 255, 255, 0.5); /* 半透明白色边框 */
+}
+/* 开机 - 蓝色闪烁 */
+.booting {
+  background-color: #00f;
+  //   animation: blink 0.8s infinite;
+}
+
+/* 运行 - 绿色常亮 */
+.running {
+  background-color: #0f0;
+}
+
+/* 保养 - 黄色常亮 */
+.maintenance {
+  background-color: #ff0;
+}
+
+/* 关机 - 红色常亮 */
+.shutdown {
+  background-color: #f00;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

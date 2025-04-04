@@ -9,7 +9,7 @@ import Carousel from "@/components/Carousel.vue";
 import { ref } from "vue";
 const imgList = ref([
   {
-    url: new URL(`@/assets/image/drought/11.jpg`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/bead01.jpg`, import.meta.url).href,
   },
 ]);
 </script>

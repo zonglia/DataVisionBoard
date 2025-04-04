@@ -1,60 +1,77 @@
 <template>
-  <dv-full-screen-container>
-    <div class="jiangXiN2-container">
-      <!-- 标题 -->
-      <div class="jiangXiN2-title">
-        <Title title="江西N2工厂智能展示" />
+  <div class="jiangXiN2-container">
+    <!-- 标题 -->
+    <div class="jiangXiN2-title">
+      <Title title="江西N2工厂智能展示" />
+    </div>
+
+    <div class="jiangXiN2-main-container">
+      <div>
+        <dv-border-box12
+          style="
+            padding: 0.078rem;
+            padding-bottom: 0;
+            box-sizing: border-box;
+            padding-top: 0.2rem;
+          "
+        >
+          <div>
+            <dv-decoration7 style="height: 0.47rem">
+              <h2 style="font-size: 0.4rem">
+                <SvgIcon
+                  name="maintenance"
+                  color="#409eff"
+                  size=".5rem"
+                />工厂设备保养/设备维护管控
+              </h2>
+            </dv-decoration7>
+          </div>
+
+          <div
+            style="
+              flex: 1;
+              height: calc(100% - 0.47rem - 0.1rem);
+              position: relative;
+            "
+          >
+            <MaintenancePlan style="height: 100%" />
+          </div>
+        </dv-border-box12>
       </div>
-
-      <div class="jiangXiN2-main-container">
-        <div class="jiangXiN2-main">
+      <div>
+        <dv-border-box12
+          style="
+            padding: 0.078rem;
+            padding-bottom: 0;
+            box-sizing: border-box;
+            padding-top: 0.2rem;
+          "
+        >
           <div>
-            <dv-border-box12>
-              <div style="padding: 0.12rem; box-sizing: border-box">
-                <div
-                  style="
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    margin-bottom: 0.2rem;
-                  "
-                >
-                  <dv-decoration-11 style="width: 5rem; height: 60px">
-                    <div style="letter-spacing: 0.1rem; font-size: 13px">
-                      工厂设备保养/设备维护管控
-                    </div>
-                  </dv-decoration-11>
-                </div>
+            <dv-decoration7 style="height: 0.47rem">
+              <h2 style="font-size: 0.4rem">
+                <SvgIcon
+                  name="yield"
+                  color="#409eff"
+                  size=".5rem"
+                />工厂试产总良率
+              </h2>
+            </dv-decoration7>
+          </div>
 
-                <MaintenancePlan />
-              </div>
-            </dv-border-box12>
+          <div
+            style="
+              flex: 1;
+              height: calc(100% - 0.47rem - 0.1rem);
+              position: relative;
+            "
+          >
+            <TrialYieldRate style="height: 100%" />
           </div>
-          <div>
-            <dv-border-box12>
-              <div style="padding: 3px">
-                <div
-                  style="
-                    width: 100%;
-                    margin-bottom: 0.2rem;
-                    display: flex;
-                    justify-content: center;
-                  "
-                >
-                  <dv-decoration-11 style="width: 5rem; height: 60px">
-                    <div style="letter-spacing: 0.1rem; font-size: 13px">
-                      工厂试产总良率
-                    </div>
-                  </dv-decoration-11>
-                </div>
-                <TrialYieldRate />
-              </div>
-            </dv-border-box12>
-          </div>
-        </div>
+        </dv-border-box12>
       </div>
     </div>
-  </dv-full-screen-container>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -66,9 +83,12 @@ import TrialYieldRate from "../views/chart/TrialYieldRate.vue";
 .jiangXiN2-container {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column; /* 垂直方向排列 */
+
   background: url(../assets/image/bg6.jpg) no-repeat center;
   background-size: cover;
-  position: relative; // 新增定位
+  position: relative;
   // 新增模糊背景层
   &::before {
     content: "";
@@ -87,31 +107,22 @@ import TrialYieldRate from "../views/chart/TrialYieldRate.vue";
     position: relative;
     z-index: 1;
   }
-  .jiangXiN2-title {
-    height: 15%;
-    // margin-bottom: 0.1rem;
+  //   大标题
+  > div:nth-child(1) {
+    flex: 2;
   }
-  .jiangXiN2-main-container {
-    width: 100%;
-    height: 85%;
-    padding-top: 0.25rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    padding-bottom: 0.6rem;
-    box-sizing: border-box; // 使 padding 包含在设定高度内
-    .jiangXiN2-main {
-      height: 100%;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 0.25rem;
-
-      > div {
-      }
-      > div:nth-child(1) {
-      }
-      > div:nth-child(2) {
-      }
+  //   内容容器
+  > div:nth-child(2) {
+    height: 100%;
+    flex: 8;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    gap: 0.2rem; // 行间距
+    box-sizing: border-box;
+    > div {
+      flex: 1;
     }
   }
 }
