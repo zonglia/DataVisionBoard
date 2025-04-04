@@ -9,16 +9,16 @@ import Carousel from "@/components/Carousel.vue";
 import { ref } from "vue";
 const imgList = ref([
   {
-    url: new URL(`@/assets/image/drought/01.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/07.png`, import.meta.url).href,
   },
   {
-    url: new URL(`@/assets/image/drought/02.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/08.png`, import.meta.url).href,
   },
   {
-    url: new URL(`@/assets/image/drought/03.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/09.png`, import.meta.url).href,
   },
   {
-    url: new URL(`@/assets/image/drought/04.png`, import.meta.url).href,
+    url: new URL(`@/assets/image/drought/10.png`, import.meta.url).href,
   },
 ]);
 </script>
