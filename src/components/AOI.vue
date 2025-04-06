@@ -1,235 +1,264 @@
 <template>
   <div class="aoi-container">
     <div class="aoi-title">
-      <Title title="N2工厂智能化数字化管控" process="AOI" />
+      <Title title="N2工厂智能化数字化管控" process="线路 AOI" />
     </div>
 
     <div class="aoi-main-container">
+      <!-- 第一行 -->
       <div>
-        <!-- <div><AOIScrapAnalysis /></div>
-        <div><AOIScrapAreaRate /></div> -->
-
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              外层总报废率
-            </dv-decoration7>
-          </div>
-          <div style="height: 2rem">
-            <AOIScrapAnalysis />
-          </div>
-          <div style="height: calc(100% - 0.37rem - 2rem)">
-            <AOIScrapAreaRate />
-          </div>
-        </dv-border-box12>
-      </div>
-      <div style="position: relative">
-        <img
-          style="
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-          "
-          :src="imgSrc"
-        />
-      </div>
-
-      <div style="position: relative">
-        <!-- <img
-          style="
-            width: 100%; /* 宽度填满容器 */
-            height: 5.2rem;
-            object-fit: cover;
-          "
-          :src="imgSrc2"
-        /> -->
-
-        <img
-          style="
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-          "
-          :src="imgSrc2"
-        />
-      </div>
-
-      <div>
-        <!-- <div>
-          <dv-decoration7 style="width: 3.5rem; height: 30px">
-            <div color-white font-300>线路AOI设备保养周期记录</div>
-          </dv-decoration7>
-        </div>
+        <!-- 人员出勤 -->
         <div>
-          <AOIMaintenance />
-        </div> -->
-
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              线路AOI设备保养周期记录
-            </dv-decoration7>
-          </div>
-
-          <div
-            style="flex: 1; height: calc(100% - 0.45rem); position: relative"
+          <dv-border-box12
+            style="padding: 0.13rem; padding-bottom: 0; box-sizing: border-box;"
           >
-            <AOIMaintenance style="height: 100%" />
-          </div>
-        </dv-border-box12>
-      </div>
-      <!-- 白油板统计 -->
-      <div>
-        <!-- 标题 -->
-        <!-- <div>
-          <dv-decoration7 style="width: 3rem; height: 0.5rem">
-            <div color-white font-300>AOI白油板统计</div>
-          </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="users" color="#409eff" />人员出勤
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem;text-align: right;">
+                <span style="font-size: 0.15rem;"
+                  >最后刷新{{ parentLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.75rem)">
+              <AOIAttendance @refresh-time-updated="handleRefreshTimeUpdated" />
+            </div>
+          </dv-border-box12>
         </div>
+        <!-- 工序产出 -->
         <div>
-        
-            <AOIWhiteOilBoard />
-          
-        </div> -->
+          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
+            <div>
+              <dv-decoration7 style="height: 0.37rem"
+                ><SvgIcon
+                  name="output"
+                  color="#409eff"
+                />工序产出</dv-decoration7
+              >
+            </div>
 
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div>
-            <dv-decoration7 style="height: 0.37rem">
-              AOI白油板统计
-            </dv-decoration7>
-          </div>
-
-          <div
-            style="flex: 1; height: calc(100% - 0.45rem); position: relative"
-          >
-            <AOIWhiteOilBoard style="height: 100%" />
-          </div>
-        </dv-border-box12>
-      </div>
-      <div>
-        <!-- <AOIYieldTrend /> -->
-
-        <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-          <div style="display: flex; flex-direction: column; height: 100%">
-            <dv-decoration7
-              style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
+            <div
+              style="
+                flex: 1;
+                height: calc(100% - 0.47rem);
+                position: relative;
+                display: flex;
+                flex-direction: row;
+              "
             >
-              AOI良率统计
-            </dv-decoration7>
+              <AOIProcessOutputBar />
+              <AOIMonthlyOutput /></div
+          ></dv-border-box12>
+        </div>
+        <!-- 工序WIP -->
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem"
+                ><SvgIcon name="wip" color="#409eff" />工序WIP
+              </dv-decoration7>
+            </div>
+
             <div
               style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-              <AOIYieldTrend style="height: 100%" />
+              <AOIWipRecords style="height: 100%" />
             </div>
-          </div>
-        </dv-border-box12>
+          </dv-border-box12>
+        </div>
       </div>
+      <!-- 第二行 -->
       <div>
-        <!-- <AOIScrapBarAndLine /> -->
-        <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-          <div style="display: flex; flex-direction: column; height: 100%">
-            <dv-decoration7
-              style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-            >
-              AOI报废分析
-            </dv-decoration7>
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="scrap" color="#409eff" />线路报废率和报废分析
+              </dv-decoration7>
+            </div>
+            <div style="height: calc(100% - 0.37rem)">
+              <AOIScrapRate />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="scrap" color="#409eff" />AVI良率统计和不良分析
+              </dv-decoration7>
+            </div>
+            <div style="height: calc(100% - 0.37rem)">
+              <AOIAVIYieldRate />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="ctrol" color="#409eff" />CPK管控
+              </dv-decoration7>
+            </div>
             <div
               style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-              <AOIScrapBarAndLine style="height: 100%" />
+              <DrillingCarousel />
             </div>
-          </div>
-        </dv-border-box12>
-      </div>
-      <div>
-        <!-- <div>
-          <div>
-            <dv-decoration7 style="width: 3.5rem; height: 30px">
-              <div color-white font-300>线路无尘室落尘量统计</div>
-            </dv-decoration7>
-          </div>
-          <div>
-            <AOIDustFallStats />
-          </div>
+          </dv-border-box12>
         </div>
         <div>
-          <el-table
-            height="1.4rem"
-            :data="tableData"
-            :row-style="rowStyle"
-            :cell-style="cellStyle"
-            :header-cell-style="headerStyle"
-            stripe
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <el-table-column type="index" index="2"> </el-table-column>
-            <el-table-column prop="workspace" label="车间"> </el-table-column>
-            <el-table-column
-              prop="stTempeHumidity"
-              label="标准温湿度"
-              min-width="100"
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="setting" color="#409eff" />重要参数管控
+              </dv-decoration7>
+            </div>
+
+            <div
+              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-            </el-table-column>
-            <el-table-column prop="actualTempe" label="实际温度" min-width="50">
-            </el-table-column>
-            <el-table-column
-              prop="actualHumidity"
-              label="实际湿度"
-              min-width="50"
+              <DrillingKeyParamsContro style="height: 100%" />
+            </div>
+          </dv-border-box12>
+        </div>
+      </div>
+      <!-- 第三行 -->
+      <div>
+        <div>
+          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
+            <div style="display: flex; flex-direction: column; height: 100%">
+              <dv-decoration7
+                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
+              >
+                <SvgIcon name="scrap" color="#409eff" />BBT不良分析
+              </dv-decoration7>
+              <div
+                style="
+                  flex: 1;
+                  height: calc(100% - 0.47rem);
+                  position: relative;
+                  display: flex;
+                  flex-direction: row;
+                "
+              >
+                <div style="flex: 1"><DrillingDefectPieChart /></div>
+              </div>
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
+            <div style="display: flex; flex-direction: column; height: 100%">
+              <dv-decoration7
+                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
+              >
+                <SvgIcon name="scrap" color="#409eff" />AVI不良分析
+              </dv-decoration7>
+              <div
+                style="
+                  flex: 1;
+                  height: calc(100% - 0.47rem);
+                  position: relative;
+                  display: flex;
+                  flex-direction: row;
+                "
+              >
+                <div style="flex: 1"><DrillingCharacterScrapPieChart /></div>
+              </div>
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="ctrol" color="#409eff" />灯珠尺寸管控
+              </dv-decoration7>
+            </div>
+            <div
+              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-            </el-table-column>
-          </el-table>
-        </div> -->
-
-        <dv-border-box12
-          style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
-        >
-          <div style="height: 0.37rem">
-            <dv-decoration7 style="height: 100%">
-              线路无尘室落尘量统计
-            </dv-decoration7>
-          </div>
-
-          <div style="flex: 1; height: 2.4rem; position: relative">
-            <AOIDustFallStats style="height: 100%" />
-          </div>
-          <div
-            style="
-              height: 0.25rem;
-              font-size: 0.2rem;
-              text-align: center;
-              background-color: red;
-            "
+              <AOIBeadCarousel />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            钻孔温湿度显示
-          </div>
+            <div>
+              <dv-decoration7 style="height: 0.37rem">
+                <SvgIcon name="status" color="#409eff" />设备状态
+              </dv-decoration7>
+            </div>
 
-          <div
-            class="tempeScale"
-            style="height: calc(100% - 0.37rem - 0.2rem - 2.4rem)"
-          >
-            <!-- <DrillingTempe style="height: 100%" /> -->
-            <div>车间</div>
-            <div>标准温湿度</div>
-            <div>实际温度</div>
-            <div>实际湿度</div>
-            <div>线路无尘室</div>
-            <div>22℃±2℃55%±5%RH</div>
-            <div>22</div>
-            <div>55%</div>
-            <div>AOI</div>
-            <div>23℃±3℃40%±20%RH</div>
-            <div>22</div>
-            <div>55%</div>
-          </div>
-        </dv-border-box12>
+            <div style="height: calc(100% - 0.47rem)">
+              <div
+                style="
+                  text-align: center;
+                  font-size: 0.2rem;
+                  border-bottom: 0.0125rem solid #eaeefb;
+                "
+              >
+                <span class="status-item">
+                  <span class="booting status-light"></span>
+                  <span>开机</span>
+                </span>
+                <span class="status-item">
+                  <span class="running status-light"></span>
+                  <span>运行</span>
+                </span>
+                <span class="status-item">
+                  <span class="maintenance status-light"></span>
+                  <span>保养</span>
+                </span>
+                <span class="status-item">
+                  <span class="shutdown status-light"></span>
+                  <span>关机</span>
+                </span>
+              </div>
+              <div class="devices-container">
+                <div v-for="(device, index) in devices" :key="index">
+                  <span class="status-item">
+                    <!-- 动态绑定指示灯类名 -->
+                    <span
+                      class="status-light"
+                      :class="{
+                        booting: device.status === 0,
+                        running: device.status === 1,
+                        maintenance: device.status === 2,
+                        shutdown: device.status === 3,
+                      }"
+                    ></span>
+                    <!-- 显示设备名称和状态文字 -->
+                    <span>{{ device.name }} </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </dv-border-box12>
+        </div>
       </div>
     </div>
   </div>
@@ -237,47 +266,48 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import AOIScrapAnalysis from "@/views/chart/AOIScrapAnalysis.vue";
-import AOIScrapAreaRate from "../views/chart/AOIScrapAreaRate.vue";
-import imgSrc from "@/assets/image/aoi/01.png";
-import imgSrc2 from "@/assets/image/aoi/02.png";
-import AOIMaintenance from "../views/chart/AOIMaintenance.vue";
-import AOIYieldTrend from "../views/chart/AOIYieldTrend.vue";
-import AOIDustFallStats from "../views/chart/AOIDustFallStats.vue";
-import AOIWhiteOilBoard from "../views/chart/AOIWhiteOilBoard.vue";
-import AOIScrapBarAndLine from "../views/chart/AOIScrapBarAndLine.vue";
+import AOIAttendance from "../views/chart/AOIAttendance.vue";
+import AOIMonthlyOutput from "../views/chart/AOIMonthlyOutput.vue";
+import AOIProcessOutputBar from "../views/chart/AOIProcessOutputBar.vue";
+import AOIWipRecords from "../views/chart/AOIWipRecords.vue";
+import DrillingCarousel from "../views/chart/DrillingCarousel.vue";
+import AOIBeadCarousel from "../views/chart/AOIBeadCarousel.vue";
+import AOIAVIYieldRate from "@/views/chart/AOIAVIYieldRate.vue";
+import DrillingDefectPieChart from "../views/chart/DrillingDefectPieChart.vue";
+import DrillingCharacterScrapPieChart from "../views/chart/DrillingCharacterScrapPieChart.vue";
+import DrillingKeyParamsContro from "../views/chart/DrillingKeyParamsContro.vue";
+import AOIScrapRate from "../views/chart/AOIScrapRate.vue";
 
-const tableData = ref([
-  {
-    workspace: "线路无尘室",
-    stTempeHumidity: "22℃±2℃55%±5%RH",
-    actualTempe: "22",
-    actualHumidity: "55%",
-  },
-  {
-    workspace: "AOI",
-    stTempeHumidity: "23℃±3℃40%±20%RH",
-    actualTempe: "22",
-    actualHumidity: "55%",
-  },
-]);
+const parentLastRefreshTime = ref("");
 
-const rowStyle = ref({
-  color: "red",
-  padding: "0",
-});
+const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
+  parentLastRefreshTime.value = lastRefreshTime;
+};
+const devices = [
+  { name: "1#钻孔机", status: 0 },
+  { name: "2#钻孔机", status: 0 },
+  { name: "3#钻孔机", status: 0 },
+  { name: "4#钻孔机", status: 0 },
+  { name: "5#钻孔机", status: 0 },
 
-const cellStyle = ref({
-  padding: "0",
-  fontSize: ".13rem",
-});
+  { name: "6#钻孔机", status: 1 },
+  { name: "7#钻孔机", status: 1 },
+  { name: "8#钻孔机", status: 1 },
+  { name: "9#钻孔机", status: 1 },
+  { name: "10#钻孔机", status: 1 },
 
-const headerStyle = ref({
-  background: "rgba(2, 108, 202, 0.5)",
-  padding: "0",
-  fontSize: "0.1rem",
-  color: "#fff",
-});
+  { name: "1#成型机", status: 2 },
+  { name: "2#成型机", status: 2 },
+  { name: "3#成型机", status: 2 },
+  { name: "4#成型机", status: 2 },
+  { name: "5#成型机", status: 2 },
+
+  { name: "6#成型机", status: 3 },
+  { name: "7#成型机", status: 3 },
+  { name: "8#成型机", status: 3 },
+  { name: "9#成型机", status: 3 },
+  { name: "10#成型机", status: 3 },
+];
 </script>
 
 <style scoped lang="scss">
@@ -286,7 +316,6 @@ const headerStyle = ref({
   height: 100vh;
   display: flex;
   flex-direction: column; /* 垂直方向排列 */
-  gap: 0.5rem;
   background: url(../assets/image/bg6.jpg) no-repeat center;
   background-size: cover;
   position: relative; // 新增定位
@@ -313,89 +342,101 @@ const headerStyle = ref({
   }
   > div:nth-child(2) {
     flex: 8;
-  }
-  .aoi-main-container {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: repeat(4, 1fr);
-    box-sizing: border-box; // 使 padding 包含在设定高度内
-    padding: 0.3rem;
-    padding-top: 0rem;
-    // column-gap: 0.3rem;
-    row-gap: 0.3rem;
-    > div:nth-child(1) {
-      // display: flex;
-      // flex-direction: column;
-      // > div {
-      //   flex: 1;
-      //   width: 100%;
-      //   height: 100%;
-      // }
-      > div:nth-child(1) {
-        height: 100%;
-      }
-      > div:nth-child(2) {
-      }
-    }
-    > div:nth-child(3) {
-    }
-    > div:nth-child(4) {
-      // display: flex;
-      // flex-direction: column;
-      // > div:nth-child(1) {
-      //   margin: 0 auto;
-      // }
-    }
-    > div:nth-child(5) {
-      display: flex;
-      flex-direction: column;
-      > div:nth-child(1) {
-        margin: 0 auto;
-      }
-    }
-    > div:nth-child(6) {
-    }
-    > div:nth-child(7) {
-    }
-    > div:nth-child(8) {
-      // display: flex;
-      // flex-direction: column;
-      // > div:nth-child(1) {
-      //   flex: 3;
-      //   display: flex;
-      //   flex-direction: column;
-      //   > div:nth-child(1) {
-      //     margin: 0 auto;
-      //   }
-      // }
-      // > div:nth-child(2) {
-      //   flex: 1;
-      // }
-    }
-  }
-
-  .tempeScale {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr;
-    grid-template-rows: 2fr, 1fr, 1fr;
-    font-size: 0.15rem;
+    padding: 0.5rem;
+    padding-top: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     > div {
-      text-align: center;
+      flex: 1;
     }
+    // 第一行
     > div:nth-child(1) {
-      font-size: 0.2rem;
+      display: flex;
+      flex-direction: row;
+      gap: 0.2rem; // 行间距
+      > div {
+        flex: 1;
+      }
     }
+    // 第二行
     > div:nth-child(2) {
-      font-size: 0.2rem;
+      display: flex;
+      flex-direction: row;
+      gap: 0.2rem; // 行间距
+      > div {
+        flex: 1;
+      }
     }
+    // 第三行
     > div:nth-child(3) {
-      font-size: 0.2rem;
+      display: flex;
+      flex-direction: row;
+      gap: 0.2rem; // 行间距
+      > div {
+        flex: 1;
+      }
+      > div:nth-child(4) {
+        .devices-container {
+          height: calc(100% - 0.34rem);
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          grid-template-rows: repeat(5, 1fr);
+          font-size: 0.16rem;
+          > div {
+            display: inline-flex;
+            align-items: center;
+          }
+        }
+      }
     }
-    > div:nth-child(4) {
-      font-size: 0.2rem;
-    }
+  }
+}
+
+.status-item {
+  display: inline-flex;
+  align-items: center;
+  // margin: 0 0.2rem;
+  color: white; /* 文字设为白色以提高对比度 */
+}
+.status-light {
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.2rem;
+  // margin-right: 0.1rem;
+  border-radius: 0.03rem;
+  border: 0.03rem solid rgba(255, 255, 255, 0.5); /* 半透明白色边框 */
+}
+/* 开机 - 蓝色闪烁 */
+.booting {
+  background-color: #00f;
+  //   animation: blink 0.8s infinite;
+}
+
+/* 运行 - 绿色常亮 */
+.running {
+  background-color: #0f0;
+}
+
+/* 保养 - 黄色常亮 */
+.maintenance {
+  background-color: #ff0;
+}
+
+/* 关机 - 红色常亮 */
+.shutdown {
+  background-color: #f00;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

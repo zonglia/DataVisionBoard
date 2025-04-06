@@ -1,84 +1,68 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 4.7rem" />
+    <dv-scroll-board :config="config" />
   </div>
 </template>
 <script lang="ts" setup>
 import { reactive } from "vue";
 const config = reactive({
-  header: ["工序", "设备名称", "保养频率", "本次保养时间", "下次保养时间"],
+  header: ["设备名称", "保养频率", "本次保养时间", "下次保养时间", "备注"],
   data: [
-    ["菲林房", "光绘机1#", "1次/周", "2025/3/3", "2025/3/10"],
-    ["菲林房", "光绘机1#", "1次/周", "2025/3/3", "2025/3/10"],
-    ["菲林房", "光绘机1#", "1次/周", "2025/3/3", "2025/3/10"],
-    ["菲林房", "光绘机1#", "1次/周", "2025/3/3", "2025/3/10"],
-    ["菲林房", "光绘机1#", "1次/周", "2025/3/3", "2025/3/10"],
-    ["菲林房", "光绘机1#", "1次/周", "2025/3/3", "2025/3/10"],
+    ["日蚀线1#", "1次/周", "2025/4/7", "2025/4/14", ""],
+    ["日蚀线2#", "", "", "", "停机"],
+    ["VCP线1#", "1次/周", "2025/4/8", "2025/4/15", ""],
+    ["VCP线2#", "", "", "", "停机"],
+    ["电镀后处理", "1次/周", "2025/4/9", "2025/4/16", ""],
   ],
   index: true,
-  columnWidth: [50],
   align: ["left"],
-  rowNum: [6],
+  rowNum: [3],
   headerBGC: ["transparent"],
-  oddRowBGC: ["transparent"],
-  evenRowBGC: ["#026CCA80"],
+  oddRowBGC: ["#026CCA80"],
+  evenRowBGC: ["transparent"],
 });
 </script>
 
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
   .header {
-    padding: 0;
-    font-size: 0.2rem;
+    font-size: 0.16rem;
     background-color: transparent !important;
     > div {
-      width: 18.5% !important;
+      width: 18.75% !important;
     }
     > :nth-child(1) {
       width: 10% !important;
     }
-    > div:nth-child(4) {
-      width: 16% !important;
-    }
-    > :nth-child(5) {
-      font-size: 0.16rem;
-    }
-    > :nth-child(6) {
-      font-size: 0.16rem;
+    > :nth-child(3) {
+      width: 15% !important;
     }
     .header-item {
-      // text-align: center;
-      padding-left: 0;
-      padding-right: 0;
+      text-align: center;
+      padding: 0;
     }
   }
 
   .rows {
-    padding: 0;
     .row-item {
       padding: 0;
-      font-size: 0.14rem;
+      font-size: 0.16rem;
+      border-radius: 0.1rem;
       > div {
-        width: 18.5% !important;
+        width: 18.75% !important;
       }
       > :nth-child(1) {
         width: 10% !important;
       }
       > :nth-child(3) {
-        // font-size: 0.15rem;
+        width: 15% !important;
       }
-      > div:nth-child(4) {
-        width: 16% !important;
-      }
-      > div:nth-child(5) {
-        font-size: 0.14rem;
-      }
-      > div:nth-child(6) {
-        font-size: 0.14rem;
+      > :nth-child(4) {
+        color: yellow;
       }
       .ceil {
         padding: 0;
-        // text-align: center;
+        text-align: center;
       }
     }
   }

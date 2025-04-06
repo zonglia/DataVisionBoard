@@ -14,7 +14,7 @@
       </div>
     </div>
     <div>
-      <h3 v-show="process"><SvgIcon name="tool" color="#409eff"/>工序：{{ process }}</h3>
+      <h3 v-show="process"><SvgIcon name="tool" color="#409eff" size="0.5rem"/>工序：{{ process }}</h3>
     </div>
   </div>
 </template>

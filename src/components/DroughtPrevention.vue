@@ -197,15 +197,25 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="status" color="#409eff" />设备状态
-              </dv-decoration7>
+             <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="status" color="#409eff" />设备状态
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div style="height: calc(100% - 0.47rem)">
+            <div style="height: calc(100% - 0.8rem)">
               <div
                 style="
                   text-align: center;
@@ -278,6 +288,7 @@ import DroughtMaintenance from "../views/chart/DroughtMaintenance.vue";
 import DroughtDustFallStats from "../views/chart/DroughtDustFallStats.vue";
 import DroughtHumidity from "../views/chart/DroughtHumidity.vue";
 
+const attendanceLastRefreshTime = ref("");
 // 状态配置映射
 const statusConfig = [
   { class: "booting", text: "开机", color: "#00f" }, // 状态0
@@ -392,7 +403,7 @@ const devices = [
           display: grid;
           grid-template-columns: repeat(5, 1fr);
           grid-template-rows: repeat(5, 1fr);
-          font-size: 0.16rem;
+          font-size: 0.15rem;
           > div {
             display: inline-flex;
             align-items: center;

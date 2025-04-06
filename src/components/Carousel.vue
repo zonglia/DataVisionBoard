@@ -21,10 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
+import type { PropType } from "vue";
 defineProps({
   imgList: {
-  type: Array as PropType<{ url: string }[]>,
+    type: Array as PropType<{ url: string }[]>,
     default: () => [] as { url: string }[],
   },
   height: {
@@ -38,12 +38,13 @@ defineProps({
 });
 
 // 新增颜色计算逻辑
-const getFillColor = (url:string) => {
-  if (url.includes('banner')) return '#fff'; // banner前缀白色背景
-  if (url.includes('cpk')) return '#F1ECE2';     // cpk前缀F1ECE2背景
-   if (url.includes('bead')) return '#A3C6C2';     // cpk前缀F1ECE2背景
-  
-  return '#fff'; // 默认颜色
+const getFillColor = (url: string) => {
+  if (url.includes("banner")) return "#fff"; // banner前缀白色背景
+  if (url.includes("cpk")) return "#F1ECE2"; // cpk前缀F1ECE2背景
+  if (url.includes("bead")) return "#A3C6C2"; // cpk前缀F1ECE2背景
+  if (url.includes("35646A")) return "#35646A";
+
+  return "#fff"; // 默认颜色
 };
 </script>
 
@@ -56,7 +57,7 @@ const getFillColor = (url:string) => {
     /* 穿透作用域样式 */
     height: 100%;
   }
-   .carousel-item {
+  .carousel-item {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,6 +69,6 @@ const getFillColor = (url:string) => {
       object-fit: contain; // 控制图片缩放方式
       background: #fff; // 深色背景用于浅色图片
     }
-}
+  }
 }
 </style>

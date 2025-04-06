@@ -132,7 +132,7 @@
           </dv-border-box12>
         </div>
       </div>
-        <!-- 第三行 -->
+      <!-- 第三行 -->
       <div>
         <div>
           <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
@@ -256,41 +256,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import DrillingAttendance from "../views/chart/DrillingAttendance.vue";
 import DrillingMonthlyOutput from "../views/chart/DrillingMonthlyOutput.vue";
 import DrillingProcessOutputBar from "../views/chart/DrillingProcessOutputBar.vue";
 import DrillingWipRecords from "../views/chart/DrillingWipRecords.vue";
 import DrillingCarousel from "../views/chart/DrillingCarousel.vue";
 import DrillingSpindleAccuracy from "../views/chart/DrillingSpindleAccuracy.vue";
-import ProductionRate from "@/views/chart/ProductionRate.vue";
 import C1ProductionRate from "@/views/chart/C1ProductionRate.vue";
-import ScrapAreaRate from "@/views/chart/ScrapAreaRate.vue";
-import C1ScrapAreaRate from "@/views/chart/C1ScrapAreaRate.vue";
-import Carousel from "./Carousel.vue";
-import DrillingMaintenance from "../views/chart/DrillingMaintenance.vue";
-import DrillingCpkCarousel from "../views/chart/DrillingCpkCarousel.vue";
-import FormingMachineRecords from "../views/chart/FormingMachineRecords.vue";
-import DrillingMachineRecords from "../views/chart/DrillingMachineRecords.vue";
-import DrillingTempe from "@/views/chart/DrillingTempe.vue";
-import DroughtAttendance from "../views/chart/DroughtAttendance.vue";
-import DroughtMonthlyOutput from "../views/chart/DroughtMonthlyOutput.vue";
-import DroughtProcessOutputBar from "../views/chart/DroughtProcessOutputBar.vue";
-import DroughtWipRecords from "../views/chart/DroughtWipRecords.vue";
 import DrillingDefectPieChart from "../views/chart/DrillingDefectPieChart.vue";
 import DrillingCharacterScrapPieChart from "../views/chart/DrillingCharacterScrapPieChart.vue";
 import DrillingKeyParamsContro from "../views/chart/DrillingKeyParamsContro.vue";
-import DroughtCarousel from "../views/chart/DroughtCarousel.vue";
-import DroughtBeadControl from "../views/chart/DroughtBeadControl.vue";
 
 const devices = [
- { name: "1#钻孔机", status: 0 },
+  { name: "1#钻孔机", status: 0 },
   { name: "2#钻孔机", status: 0 },
   { name: "3#钻孔机", status: 0 },
   { name: "4#钻孔机", status: 0 },
   { name: "5#钻孔机", status: 0 },
 
-   { name: "6#钻孔机", status: 1 },
+  { name: "6#钻孔机", status: 1 },
   { name: "7#钻孔机", status: 1 },
   { name: "8#钻孔机", status: 1 },
   { name: "9#钻孔机", status: 1 },
@@ -371,7 +355,7 @@ const devices = [
         flex: 1;
       }
     }
-     > div:nth-child(3) {
+    > div:nth-child(3) {
       display: flex;
       flex-direction: row;
       gap: 0.2rem; // 行间距

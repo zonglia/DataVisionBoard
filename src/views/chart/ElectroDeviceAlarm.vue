@@ -1,6 +1,6 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" style="height: 4.5rem" />
+    <dv-scroll-board :config="config" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -8,59 +8,55 @@ import { reactive } from "vue";
 const config = reactive({
   header: ["线体", "异常报警", "报警时间"],
   data: [
-    ["一次棕化线1", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线2", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线3", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线4", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线5", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线6", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线7", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线8", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线9", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线10", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线11", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线12", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线13", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-    ["一次棕化线14", "棕化添加缸3液位过低请检查", "2025/3/24 19:36:43"],
-  ],
+    ["VCP1#线", "抗氧化液位过低请检查", "2025/4/6 20:19"],
+    ["VCP1#线", "烘干温度异常", "2025/4/6 8:22"],
+    ["除胶渣日蚀线1#", "急停按下请检查", "2025/4/6 18:39"],
+    ["除胶渣日蚀线1#", "水刀洗2液位过低请检查", "2025/4/6 9:14"]
+],
   columnWidth: [50],
   align: ["center"],
-  rowNum: [6],
+  rowNum: [3],
   headerBGC: ["transparent"],
   oddRowBGC: ["transparent"],
+  evenRowBGC: ["#026CCA80"],
 });
 </script>
 <style scoped lang="scss">
 :deep(.dv-scroll-board) {
   .header {
-    font-size: 0.25rem;
-    padding: 0;
-    > div {
-      width: 30% !important;
-    }
-
-    > :nth-child(2) {
-      width: 40% !important;
-    }
+    font-size: 0.2rem;
     background-color: transparent !important;
+    > div {
+      width: 39% !important;
+    }
+    > :nth-child(1) {
+      width: 22% !important;
+ 
+    }
+    > :nth-child(2) {
+ 
+    }
     .header-item {
+      text-align: center;
+      padding: 0;
     }
   }
 
   .rows {
     .row-item {
       padding: 0;
-      font-size: 0.15rem;
+      font-size: 0.16rem;
+      border-radius: 0.1rem;
       > div {
-        width: 30% !important;
-        padding: 0;
+        width: 39% !important;
       }
-      > :nth-child(2) {
-        width: 40% !important;
+      > :nth-child(1) {
+        width: 22% !important;
+  
       }
-
       .ceil {
         padding: 0;
+        text-align: center;
       }
     }
   }
