@@ -1,5 +1,5 @@
 <template>
-    <ECharts :options="chartOptions"/>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -23,7 +23,7 @@ const chartOptions = ref({
   },
 
   legend: {
-    data: ["报废目标(%)", "报废率(%)"],
+    data: ["一次良率(%)", "最终良率(%)"],
     top: 0,
     right: 0,
     textStyle: {
@@ -34,18 +34,15 @@ const chartOptions = ref({
   xAxis: {
     type: "category",
     data: [
-      "24W45",
-      "24W46",
-      "24W47",
-      "24W48",
-      "24M11",
-      "24W49",
-      "24W50",
-      "24W51",
-      "24W52",
-      "24M12",
+      "3月28日",
+      "3月29日",
+      "3月30日",
+      "3月31日",
+      "4月1日",
+      "4月2日",
+      "4月3日",
     ],
-    axisLabel: { rotate: 45, color: "#fff",fontSize: 8, },
+    axisLabel: {  color: "#fff", fontSize: 8 },
   },
 
   yAxis: {
@@ -58,17 +55,17 @@ const chartOptions = ref({
 
   series: [
     {
-      name: "报废目标(%)",
+      name: "一次良率(%)",
       type: "line",
       smooth: true,
-      data: [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+      data: [77.7, 78.9, 79.9, 79.6, 83.3, 80.9, 78.1],
       itemStyle: { color: "#ff7f50" },
     },
     {
-      name: "报废率(%)",
+      name: "最终良率(%)",
       type: "line",
       smooth: true,
-      data: [0.48, 0.14, 0.23, 0.23, 0.24, 0.29, 0.0, 0.13, 0.0, 0.39],
+      data: [99.6, 99.0, 99.3, 99.5, 99.3, 98.8, 99.0],
       itemStyle: { color: "#6495ed" },
     },
   ],
@@ -78,7 +75,7 @@ const chartOptions = ref({
     left: 3,
     right: 2,
     bottom: 3,
-    top: 20,
+    top: 25,
   },
 });
 </script>

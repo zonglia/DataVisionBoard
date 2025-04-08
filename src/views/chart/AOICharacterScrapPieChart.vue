@@ -7,15 +7,15 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-  // title: {
-  //   text: "AVI 不良分析",
-  //   left: "center",
-  //   textStyle: {
-  //     // 标题字体设置
-  //     fontSize: 10,
-  //     fontWeight: "bold",
+  //   title: {
+  //     text: "BBT 不良分析",
+  //     left: "center",
+  //     textStyle: {
+  //       // 标题字体设置
+  //       fontSize: 10,
+  //       fontWeight: "bold",
+  //     },
   //   },
-  // },
   //   提示框
   tooltip: {
     trigger: "item",
@@ -26,24 +26,25 @@ const chartOptions = ref({
   },
   legend: {
     orient: "vertical",
-    top: 0,
+    top: 10,
     left: 0,
     textStyle: {
-      color: "#fff",
-      fontSize: 10, // 图例文字大小
+      color: "#666",
+      fontSize: 8, // 图例文字大小
     },
-    itemGap: 8, // 恢复图例间距
-    itemHeight: 12, // 图例标记高度
+    itemGap: 10, // 恢复图例间距
+    itemHeight: 8, // 图例标记高度
+    itemWidth: 8, // 图例标记高度
   },
   series: [
     {
       type: "pie",
-      radius: "90%",
-      center: ["50%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
+      radius: "70%",
+      center: ["60%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
-        { value: 4, name: "防焊异物" },
-        { value: 3, name: "防焊曝光不良" },
-        { value: 2, name: "防焊板面露铜" },
+        { value: 0.56, name: "外层赃物开路" },
+        { value: 0.21, name: "外层过蚀" },
+        { value: 0.07, name: "外层曝光不良" },
       ],
       // 饼图标签样式
       label: {

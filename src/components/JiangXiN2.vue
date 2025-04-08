@@ -30,7 +30,7 @@
           <div
             style="
               flex: 1;
-              height: calc(100% - 0.47rem - 0.1rem);
+              height: calc(100% - 0.47rem - 0.078rem);
               position: relative;
             "
           >
@@ -62,7 +62,7 @@
           <div
             style="
               flex: 1;
-              height: calc(100% - 0.47rem - 0.1rem);
+              height: calc(100% - 0.47rem - 0.078rem);
               position: relative;
             "
           >

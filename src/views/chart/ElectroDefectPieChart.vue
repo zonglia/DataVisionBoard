@@ -32,9 +32,9 @@ const chartOptions = ref({
       color: "#666",
       fontSize: 8, // 图例文字大小
     },
-    itemGap: 10, // 恢复图例间距
-    itemHeight: 8, // 图例标记高度
-    itemWidth: 8, // 图例标记高度
+    itemGap: 8, // 恢复图例间距
+    itemHeight: 7, // 图例标记高度
+    itemWidth: 7, // 图例标记高度
   },
   series: [
     {
@@ -42,11 +42,14 @@ const chartOptions = ref({
       radius: "70%",
       center: ["60%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
-        { value: 35.4, name: "电镀磨刷堵孔报废" },
-        { value: 26.66, name: "电镀铜粒" },
-        { value: 13.76, name: "电镀板面污染" },
-        { value: 13.3, name: "电镀镀厚" },
-        { value: 10.88, name: "电镀镀层粗糙" },
+
+   
+
+        { value: 10.02, name: "电镀磨刷堵孔报废" },
+        { value: 8.75, name: "电镀铜粒" },
+        { value: 4.33, name: "电镀板面污染" },
+        { value: 3.68, name: "电镀镀厚" },
+        { value: 2.99, name: "电镀镀层粗糙" },
       ],
       // 饼图标签样式
       label: {

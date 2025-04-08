@@ -7,7 +7,7 @@
         <!-- 人员出勤 -->
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -67,7 +67,7 @@
         <!-- 工序WIP -->
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -86,7 +86,7 @@
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.8rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.078rem - 0.7rem); position: relative"
             >
               <ElectroWipRecords style="height: 100%" />
             </div>
@@ -96,8 +96,8 @@
       <!-- 第二行 -->
       <div>
         <div>
-   <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -118,27 +118,24 @@
               <ElectroScrapTrend style="height: 100%" />
             </div>
           </dv-border-box12>
-
-
-        
         </div>
         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
-              <dv-decoration7 style="height: 0.37rem">
+              <dv-decoration7 style="height: 0.4rem">
                 <SvgIcon name="scrap" color="#409eff" />面铜CPK管控
               </dv-decoration7>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
+            <div style="height: calc(100% - 0.078rem - 0.4rem - 0.02rem)">
               <ElectroSurfaceCopperCarousel />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding:0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -155,21 +152,21 @@
                 >
               </div>
             </div>
-            <div style="flex: 1; height: calc(100% - 0.8rem)">
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem);">
               <ElectroMaintenance style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
               <!-- 标题 -->
               <div>
                 <dv-decoration7 style="height: 0.4rem">
-                  <SvgIcon name="setting" color="#409eff" />设备报警记录
+                  <SvgIcon name="alarm" color="#409eff" />设备报警记录
                 </dv-decoration7>
               </div>
 
@@ -179,7 +176,7 @@
                 >
               </div>
             </div>
-            <div style="flex: 1; height: calc(100% - 0.8rem)">
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
               <ElectroDeviceAlarm style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -189,7 +186,7 @@
       <div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -206,7 +203,7 @@
                 >
               </div>
             </div>
-            <div style="flex: 1; height: calc(100% - 0.8rem)">
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
               <ElectroDefectPieChart style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -216,18 +213,19 @@
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
-              <dv-decoration7 style="height: 0.37rem">
+              <dv-decoration7 style="height: 0.4rem">
                 <SvgIcon name="scrap" color="#409eff" />孔铜CPK管控
               </dv-decoration7>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
-              <ElectroSurfaceCopperCarousel />
+            <div style="height: calc(100% - 0.5rem)">
+              <ElectroHoleCopperCarousel />
+     
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -244,14 +242,14 @@
                 >
               </div>
             </div>
-            <div style="flex: 1; height: calc(100% - 0.8rem)">
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
               <ElectroKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -331,10 +329,9 @@ import ElectroScrapTrend from "../views/chart/ElectroScrapTrend.vue";
 import ElectroSurfaceCopperCarousel from "../views/chart/Electro​SurfaceCopperCarousel.vue";
 import ElectroDefectPieChart from "../views/chart/ElectroDefectPieChart.vue";
 import ElectroKeyParamsContro from "../views/chart/ElectroKeyParamsContro.vue";
-import ElectroScrapRate from "../views/chart/ElectroScrapRate.vue";
-import ElectroScrapRateBarAndLine from "../views/chart/ElectroScrapRateBarAndLine.vue";
 import ElectroMaintenance from "../views/chart/ElectroMaintenance.vue";
 import ElectroDeviceAlarm from "../views/chart/ElectroDeviceAlarm.vue";
+import ElectroHoleCopperCarousel from '@/views/chart/ElectroHoleCopperCarousel.vue'
 
 const attendanceLastRefreshTime = ref("");
 
@@ -388,6 +385,7 @@ const devices = [
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 0.2rem; // 行间距
     // 分三行
     > div {
       flex: 1;
@@ -426,7 +424,8 @@ const devices = [
           grid-template-columns: repeat(3, 1fr);
           grid-template-rows: repeat(3, 1fr);
           font-size: 0.2rem;
-        
+          padding: 0.1rem;
+
           > div {
             display: inline-flex;
             align-items: center;
@@ -441,7 +440,7 @@ const devices = [
   align-items: center;
   // margin: 0 0.2rem;
   color: white; /* 文字设为白色以提高对比度 */
-  margin-right: .15rem;
+  margin-right: 0.15rem;
 }
 .status-light {
   display: inline-block;

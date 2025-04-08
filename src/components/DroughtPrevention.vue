@@ -53,7 +53,12 @@
         <!-- 工序WIP -->
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="
+              padding: 0.078rem;
+              padding-bottom: 0;
+              box-sizing: border-box;
+     
+            "
           >
             <div>
               <dv-decoration7 style="height: 0.37rem"
@@ -62,7 +67,7 @@
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.448rem); position: relative"
             >
               <DroughtWipRecords style="height: 100%" />
             </div>
@@ -101,7 +106,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
@@ -109,7 +114,7 @@
               </dv-decoration7>
             </div>
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.48rem); position: relative"
             >
               <DroughtCarousel />
             </div>
@@ -117,7 +122,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; box-sizing: border-box; padding-bottom: 0"
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
@@ -125,9 +130,7 @@
               </dv-decoration7>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
+            <div style="height: calc(100% - 0.448rem)">
               <DroughtKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -180,18 +183,24 @@
           </dv-border-box12>
         </div>
         <div>
-          <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
-          >
+          <dv-border-box12 style="padding: 0.1rem; box-sizing: border-box">
             <div>
               <dv-decoration7 style="height: 0.37rem">
                 <SvgIcon name="ctrol" color="#409eff" />灯珠管控
               </dv-decoration7>
             </div>
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="
+                flex: 1;
+                height: calc(100% - 0.47rem);
+                display: flex;
+                flex-direction: row;
+                column-gap: 0.1rem;
+              "
             >
-              <DroughtBeadControl />
+              <div style="flex: 1"><DroughtBeadControl /></div>
+
+              <div style="flex: 1"><DroughtBeadControl02 /></div>
             </div>
           </dv-border-box12>
         </div>
@@ -199,7 +208,7 @@
           <dv-border-box12
             style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
           >
-             <!-- 标题＋刷新时间 -->
+            <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
               <!-- 标题 -->
               <div>
@@ -279,7 +288,7 @@ import DroughtCharacterScrapPieChart from "../views/chart/DroughtCharacterScrapP
 import DroughtKeyParamsContro from "../views/chart/DroughtKeyParamsContro.vue";
 import DroughtCarousel from "../views/chart/DroughtCarousel.vue";
 import DroughtBeadControl from "../views/chart/DroughtBeadControl.vue";
-
+import DroughtBeadControl02 from "../views/chart/DroughtBeadControl02.vue";
 import DroughtScrapRate from "../views/chart/DroughtScrapRate.vue";
 import DroughtScrapRateBarAndLine from "../views/chart/DroughtScrapRateBarAndLine.vue";
 import DroughtCharacterScrapRate from "../views/chart/DroughtCharacterScrapRate.vue";
@@ -321,7 +330,6 @@ const devices = [
   { name: "3#防焊烤箱", status: 1 },
   { name: "4#防焊烤箱", status: 0 },
 ];
-
 </script>
 
 <style scoped lang="scss">
@@ -367,6 +375,7 @@ const devices = [
     padding-top: 0;
     // gap: 0.2rem; // 行间距
     box-sizing: border-box;
+    gap: 0.2rem; // 行间距
     > div {
       height: 100%;
       flex: 1; //三行

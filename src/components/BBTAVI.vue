@@ -1,137 +1,252 @@
 <template>
   <div class="bbt-avi-container">
     <div class="bbt-avi-title">
-      <Title title="N2工厂智能化数字化管控" process="BBT AVI 包装"/>
+      <Title title="N2工厂智能化数字化管控" process="BBT AVI 包装" />
     </div>
     <div class="bbt-avi-main-container">
+      <!-- 第一行 -->
       <div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.08rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                人员出勤
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="users" color="#409eff" />人员出勤
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
-              <BbtAttendance />
-
+            <div style="flex: 1; height: calc(100% - 0.8rem)">
+              <BbtAttendance @refresh-time-updated="handleRefreshTimeUpdated" />
             </div>
           </dv-border-box12>
         </div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div>
-              <dv-decoration7 style="height: 0.37rem"> 工序WIP </dv-decoration7>
+          <dv-border-box12
+            style="padding: 0.08rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="output" color="#409eff" />工序出数
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
             <div
               style="
                 flex: 1;
-                height: calc(100% - 0.47rem);
-                position: relative;
+                height: calc(100% - 0.8rem);
                 display: flex;
                 flex-direction: row;
               "
             >
               <BbtProcessOutputBar />
-              <BbtMonthlyOutput /></div
-          ></dv-border-box12>
+              <BbtMonthlyOutput />
+            </div>
+          </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem"> 工序WIP </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="wip" color="#409eff" />工序WIP
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
               <BbtWipRecords style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
       </div>
+      <!-- 第二行 -->
       <div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                BBT良率统计
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                "
-              >
-                <ElectroTestRateStatistics />
+          <dv-border-box12
+            style="padding: 0.08rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="yield" color="#409eff" />BBT良率统计
+                </dv-decoration7>
               </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.8rem)">
+              <ElectroTestRateStatistics />
             </div>
           </dv-border-box12>
         </div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                AVI良率统计
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                "
-              >
-                <BbtAviYieldRate />
+          <dv-border-box12
+            style="padding: 0.08rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="yield" color="#409eff" />AVI良率统计
+                </dv-decoration7>
               </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.8rem)">
+              <BbtAviYieldRate />
             </div>
           </dv-border-box12>
         </div>
-      </div>
-      <div>
         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                重要参数管控
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="setting" color="#409eff" />重要参数管控
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
               <BbtKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
+      </div>
+      <!-- 第三行 -->
+      <div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.08rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />BBT不良分析
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.8rem)">
+              <BBTDefectPieChart />
+            </div>
+          </dv-border-box12>
+        </div>
+        <div>
+          <dv-border-box12
+            style="padding: 0.08rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />AVI不良分析
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.8rem)">
+              <BBTAVIDefectPieChart />
+            </div>
+          </dv-border-box12>
+        </div>
         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem"> 设备状态 </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="status" color="#409eff" />设备状态
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div style="height: calc(100% - 0.47rem)">
+            <div style="height: calc(100% - 0.8rem)">
               <div
                 style="
                   text-align: center;
                   font-size: 0.2rem;
                   border-bottom: 0.0125rem solid #eaeefb;
+                  letter-spacing: 0.02rem;
                 "
               >
                 <span class="status-item">
@@ -172,35 +287,13 @@
             </div>
           </dv-border-box12>
         </div>
-        <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                BBT AVI 不良分析
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                  display: flex;
-                  flex-direction: row;
-                "
-              >
-                <div style="flex: 1"><BBTDefectPieChart /></div>
-                <div style="flex: 1"><BBTAVIDefectPieChart /></div>
-              </div>
-            </div>
-          </dv-border-box12>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import ElectroTestRateStatistics from "../views/chart/ElectroTestRateStatistics.vue";
 import BBTDefectPieChart from "../views/chart/BBTDefectPieChart.vue";
 import BbtProcessOutputBar from "../views/chart/BbtProcessOutputBar.vue";
@@ -210,6 +303,12 @@ import BbtMonthlyOutput from "../views/chart/BbtMonthlyOutput.vue";
 import BbtAttendance from "../views/chart/BbtAttendance.vue";
 import BbtAviYieldRate from "../views/chart/BbtAviYieldRate.vue";
 import BBTAVIDefectPieChart from "../views/chart/BBTAVIDefectPieChart.vue";
+
+const attendanceLastRefreshTime = ref("");
+
+const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
+  attendanceLastRefreshTime.value = lastRefreshTime;
+};
 // 状态配置映射
 const statusConfig = [
   { class: "booting", text: "开机", color: "#00f" }, // 状态0
@@ -218,26 +317,36 @@ const statusConfig = [
   { class: "shutdown", text: "关机", color: "#f00" }, // 状态3
 ];
 const devices = [
-  { name: "1#压机", status: 0 }, // 开机
-  { name: "2#压机", status: 1 }, // 运行
-  { name: "3#压机", status: 2 }, // 保养
-  { name: "4#压机", status: 3 }, // 关机
-  { name: "5#压机", status: 1 },
-  { name: "6#压机", status: 0 },
-  { name: "7#压机", status: 3 },
-  { name: "8#压机", status: 2 },
-  { name: "9#压机", status: 1 },
-  { name: "10#压机", status: 0 },
-  { name: "11#压机", status: 2 },
-  { name: "12#压机", status: 1 },
-  { name: "13#压机", status: 3 },
-  { name: "14#压机", status: 0 },
-  { name: "15#压机", status: 1 },
-  { name: "16#压机", status: 2 },
-  { name: "17#压机", status: 3 },
-  { name: "18#压机", status: 0 },
-  { name: "19#压机", status: 1 },
-  { name: "20#压机", status: 2 },
+  { name: "1#测试机", status: 1 },
+  { name: "2#测试机", status: 1 },
+  { name: "3#测试机", status: 3 },
+  { name: "4#测试机", status: 3 },
+  { name: "5#测试机", status: 3 },
+  { name: "6#测试机", status: 3 },
+  { name: "7#测试机", status: 3 },
+  { name: "8#测试机", status: 3 },
+
+  { name: "1#飞针机", status: 1 },
+  { name: "2#飞针机", status: 3 },
+  { name: "3#飞针机", status: 3 },
+  { name: "4#飞针机", status: 3 },
+  { name: "5#飞针机", status: 3 },
+
+  { name: "1#OSP线", status: 1 },
+  { name: "2#OSP线", status: 3 },
+
+  { name: "1#AVI机", status: 1 },
+  { name: "2#AVI机", status: 3 },
+
+  { name: "1#VRS", status: 1 },
+  { name: "2#VRS", status: 1 },
+  { name: "3#VRS", status: 1 },
+  { name: "4#VRS", status: 1 },
+  { name: "5#VRS", status: 3 },
+  { name: "6#VRS", status: 3 },
+
+  { name: "包装机", status: 1 },
+  { name: "粘尘机", status: 1 },
 ];
 // 获取状态文字
 const getStatusText = (status: number) =>
@@ -292,6 +401,7 @@ const getStatusClass = (status: number) => {
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
+    padding-top: 0;
     gap: 0.2rem; // 行间距// 增加内边距
     box-sizing: border-box;
 
@@ -303,10 +413,8 @@ const getStatusClass = (status: number) => {
     > div:nth-child(1) {
       display: flex;
       flex-direction: row;
+      gap: 0.2rem; // 容器间距
       > div {
-        flex: 2;
-      }
-      > div:nth-child(1) {
         flex: 1;
       }
     }
@@ -314,6 +422,7 @@ const getStatusClass = (status: number) => {
     > div:nth-child(2) {
       display: flex;
       flex-direction: row;
+      gap: 0.2rem; // 容器间距
       > div {
         flex: 1;
       }
@@ -322,22 +431,23 @@ const getStatusClass = (status: number) => {
     > div:nth-child(3) {
       display: flex;
       flex-direction: row;
+      gap: 0.2rem; // 容器间距
 
       > div {
         height: 100%;
         flex: 1;
       }
-      > div:nth-child(2) {
+      > div:nth-child(3) {
         .devices-container {
           height: calc(100% - 0.34rem);
           display: grid;
           grid-template-columns: repeat(5, 1fr);
-          grid-template-rows: repeat(4, 1fr);
+          grid-template-rows: repeat(5, 1fr);
           font-size: 0.18rem;
-          > div {
-            display: inline-flex;
-            align-items: center;
-          }
+          padding: 0.1rem;
+          // > div:nth-child(1) {
+          //   background-color: #00f;
+          // }
         }
       }
     }
@@ -345,9 +455,9 @@ const getStatusClass = (status: number) => {
 }
 
 .status-item {
+  font-size: 0.2rem;
   display: inline-flex;
   align-items: center;
-  margin: 0 0.2rem;
   color: white; /* 文字设为白色以提高对比度 */
 }
 .status-light {

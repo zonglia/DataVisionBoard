@@ -1,7 +1,7 @@
 <template>
   <div class="aoi-container">
     <div class="aoi-title">
-      <Title title="N2工厂智能化数字化管控" process="线路 AOI" />
+      <Title title="N2工厂智能化数字化管控" process="外层 AOI" />
     </div>
 
     <div class="aoi-main-container">
@@ -10,7 +10,7 @@
         <!-- 人员出勤 -->
         <div>
           <dv-border-box12
-            style="padding: 0.13rem; padding-bottom: 0; box-sizing: border-box;"
+            style="padding: 0.13rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -21,9 +21,9 @@
                 </dv-decoration7>
               </div>
 
-              <div style="height: 0.3rem;text-align: right;">
-                <span style="font-size: 0.15rem;"
-                  >最后刷新{{ parentLastRefreshTime }}</span
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
                 >
               </div>
             </div>
@@ -70,7 +70,7 @@
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem);"
             >
               <AOIWipRecords style="height: 100%" />
             </div>
@@ -85,7 +85,7 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />线路报废率和报废分析
+                <SvgIcon name="scrap" color="#409eff" />外层报废率和报废分析
               </dv-decoration7>
             </div>
             <div style="height: calc(100% - 0.37rem)">
@@ -99,7 +99,7 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />AVI良率统计和不良分析
+                <SvgIcon name="scrap" color="#409eff" />AOI良率统计和不良分析
               </dv-decoration7>
             </div>
             <div style="height: calc(100% - 0.37rem)">
@@ -109,7 +109,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
@@ -119,7 +119,7 @@
             <div
               style="flex: 1; height: calc(100% - 0.47rem); position: relative"
             >
-              <DrillingCarousel />
+              <AOICPKCarousel />
             </div>
           </dv-border-box12>
         </div>
@@ -134,9 +134,9 @@
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)"
             >
-              <DrillingKeyParamsContro style="height: 100%" />
+              <AOIKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
@@ -149,7 +149,7 @@
               <dv-decoration7
                 style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
               >
-                <SvgIcon name="scrap" color="#409eff" />BBT不良分析
+                <SvgIcon name="scrap" color="#409eff" />外层不良分析
               </dv-decoration7>
               <div
                 style="
@@ -160,7 +160,7 @@
                   flex-direction: row;
                 "
               >
-                <div style="flex: 1"><DrillingDefectPieChart /></div>
+                <div style="flex: 1"><AOIDefectPieChart /></div>
               </div>
             </div>
           </dv-border-box12>
@@ -171,7 +171,7 @@
               <dv-decoration7
                 style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
               >
-                <SvgIcon name="scrap" color="#409eff" />AVI不良分析
+                <SvgIcon name="scrap" color="#409eff" />AOI不良分析
               </dv-decoration7>
               <div
                 style="
@@ -182,24 +182,8 @@
                   flex-direction: row;
                 "
               >
-                <div style="flex: 1"><DrillingCharacterScrapPieChart /></div>
+                <div style="flex: 1"><AOICharacterScrapPieChart /></div>
               </div>
-            </div>
-          </dv-border-box12>
-        </div>
-        <div>
-          <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
-          >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="ctrol" color="#409eff" />灯珠尺寸管控
-              </dv-decoration7>
-            </div>
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
-              <AOIBeadCarousel />
             </div>
           </dv-border-box12>
         </div>
@@ -209,16 +193,72 @@
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="status" color="#409eff" />设备状态
+                <SvgIcon name="ctrol" color="#409eff" />灯珠尺寸管控
               </dv-decoration7>
             </div>
+            <div
+              style="
+                flex: 1;
+                height: calc(100% - 0.47rem);
+                display: grid;
+                grid-template-columns: 1fr 2fr 2fr;
+                grid-template-rows: repeat(2, 1fr);
+      
+              "
+            >
+              <div
+                style="
+                  grid-row: span 2;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  font-size: 0.18rem;
+                "
+              >
+                <span>灯珠间距要求</span>
+                <span
+                  style="font-size: 0.13rem; margin-top: 0.1rem; color: yellow"
+                  >0.079-0.107(mm)</span
+                >
+              </div>
+              <div><AOIBeadCarousel01 /></div>
+              <div><AOIBeadCarousel02 /></div>
+              <div><AOIBeadCarousel03 /></div>
+              <div><AOIBeadCarousel04 /></div>
 
-            <div style="height: calc(100% - 0.47rem)">
+              <!-- <AOIBeadCarousel /> -->
+            </div>
+          </dv-border-box12>
+        </div>
+        <!-- 设备状态 -->
+        <div>
+          <dv-border-box12
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+          >
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="status" color="#409eff" />设备状态
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="height: calc(100% - 0.8rem)">
               <div
                 style="
                   text-align: center;
                   font-size: 0.2rem;
                   border-bottom: 0.0125rem solid #eaeefb;
+                  letter-spacing: 0.02rem;
                 "
               >
                 <span class="status-item">
@@ -270,43 +310,45 @@ import AOIAttendance from "../views/chart/AOIAttendance.vue";
 import AOIMonthlyOutput from "../views/chart/AOIMonthlyOutput.vue";
 import AOIProcessOutputBar from "../views/chart/AOIProcessOutputBar.vue";
 import AOIWipRecords from "../views/chart/AOIWipRecords.vue";
-import DrillingCarousel from "../views/chart/DrillingCarousel.vue";
-import AOIBeadCarousel from "../views/chart/AOIBeadCarousel.vue";
+import AOICPKCarousel from "../views/chart/AOICPKCarousel.vue";
+import AOIBeadCarousel01 from "../views/chart/AOIBeadCarousel01.vue";
+import AOIBeadCarousel02 from "../views/chart/AOIBeadCarousel02.vue";
+import AOIBeadCarousel03 from "../views/chart/AOIBeadCarousel03.vue";
+import AOIBeadCarousel04 from "../views/chart/AOIBeadCarousel04.vue";
 import AOIAVIYieldRate from "@/views/chart/AOIAVIYieldRate.vue";
-import DrillingDefectPieChart from "../views/chart/DrillingDefectPieChart.vue";
-import DrillingCharacterScrapPieChart from "../views/chart/DrillingCharacterScrapPieChart.vue";
-import DrillingKeyParamsContro from "../views/chart/DrillingKeyParamsContro.vue";
+
+import AOIDefectPieChart from "../views/chart/AOIDefectPieChart.vue";
+import AOICharacterScrapPieChart from "../views/chart/AOICharacterScrapPieChart.vue";
+import AOIKeyParamsContro from "../views/chart/AOIKeyParamsContro.vue";
 import AOIScrapRate from "../views/chart/AOIScrapRate.vue";
 
-const parentLastRefreshTime = ref("");
+const attendanceLastRefreshTime = ref("");
 
 const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
-  parentLastRefreshTime.value = lastRefreshTime;
+  attendanceLastRefreshTime.value = lastRefreshTime;
 };
 const devices = [
-  { name: "1#钻孔机", status: 0 },
-  { name: "2#钻孔机", status: 0 },
-  { name: "3#钻孔机", status: 0 },
-  { name: "4#钻孔机", status: 0 },
-  { name: "5#钻孔机", status: 0 },
+  { name: "1#前处理", status: 3 },
+  { name: "2#前处理", status: 1 },
 
-  { name: "6#钻孔机", status: 1 },
-  { name: "7#钻孔机", status: 1 },
-  { name: "8#钻孔机", status: 1 },
-  { name: "9#钻孔机", status: 1 },
-  { name: "10#钻孔机", status: 1 },
+  { name: "1#压膜机", status: 3 },
+  { name: "2#压膜机", status: 1 },
 
-  { name: "1#成型机", status: 2 },
-  { name: "2#成型机", status: 2 },
-  { name: "3#成型机", status: 2 },
-  { name: "4#成型机", status: 2 },
-  { name: "5#成型机", status: 2 },
+  { name: "1#半自动曝光机", status: 3 },
+  { name: "2#半自动曝光机", status: 3 },
 
-  { name: "6#成型机", status: 3 },
-  { name: "7#成型机", status: 3 },
-  { name: "8#成型机", status: 3 },
-  { name: "9#成型机", status: 3 },
-  { name: "10#成型机", status: 3 },
+  { name: "1#LDI", status: 1 },
+
+  { name: "1#蚀刻机", status: 1 },
+  { name: "2#蚀刻机", status: 3 },
+
+  { name: "1#AOI机", status: 1 },
+  { name: "2#AOI机", status: 1 },
+  { name: "3#AOI机", status: 1 },
+
+  { name: "1#VRS", status: 1 },
+  { name: "2#VRS", status: 1 },
+  { name: "3#VRS", status: 1 },
 ];
 </script>
 
@@ -347,6 +389,7 @@ const devices = [
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 0.2rem; // 行间距
     > div {
       flex: 1;
     }
@@ -374,15 +417,18 @@ const devices = [
       flex-direction: row;
       gap: 0.2rem; // 行间距
       > div {
+        height: 100%;
         flex: 1;
       }
       > div:nth-child(4) {
         .devices-container {
           height: calc(100% - 0.34rem);
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           grid-template-rows: repeat(5, 1fr);
-          font-size: 0.16rem;
+
+          padding: 0.1rem;
+          padding-top: 0;
           > div {
             display: inline-flex;
             align-items: center;
@@ -392,18 +438,17 @@ const devices = [
     }
   }
 }
-
 .status-item {
+  font-size: 0.18rem;
   display: inline-flex;
   align-items: center;
-  // margin: 0 0.2rem;
   color: white; /* 文字设为白色以提高对比度 */
 }
 .status-light {
   display: inline-block;
   width: 0.2rem;
   height: 0.2rem;
-  // margin-right: 0.1rem;
+  margin-right: 0.1rem;
   border-radius: 0.03rem;
   border: 0.03rem solid rgba(255, 255, 255, 0.5); /* 半透明白色边框 */
 }

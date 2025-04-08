@@ -61,7 +61,7 @@
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)"
             >
               <DrillingWipRecords style="height: 100%" />
             </div>
@@ -100,7 +100,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
@@ -125,7 +125,7 @@
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem);"
             >
               <DrillingKeyParamsContro style="height: 100%" />
             </div>
@@ -180,7 +180,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.1rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
@@ -188,7 +188,7 @@
               </dv-decoration7>
             </div>
             <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
+              style="flex: 1;height: calc(100% - 0.078rem - 0.37rem); position: relative"
             >
               <DrillingSpindleAccuracy style="height: 100%" />
             </div>
@@ -304,6 +304,7 @@ const devices = [
   background: url(../assets/image/bg6.jpg) no-repeat center;
   background-size: cover;
   position: relative; // 新增定位
+
   // 新增模糊背景层
   &::before {
     content: "";
@@ -334,6 +335,7 @@ const devices = [
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 0.2rem; // 容器间距
     > div {
       flex: 1;
     }

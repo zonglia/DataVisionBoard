@@ -1,5 +1,5 @@
 <template>
-    <ECharts :options="chartOptions"/>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -35,26 +35,24 @@ const chartOptions = ref({
   xAxis: {
     type: "category",
     data: [
-      "24W45",
-      "24W46",
-      "24W47",
-      "24W48",
-      "24M11",
-      "24W49",
-      "24W50",
-      "24W51",
-      "24W52",
-      "24M12",
+      "25W07",
+      "25W08",
+      "25W09",
+      "25W10",
+      "25W11",
+      "25W12",
+      "25W13",
+      "25W14",
     ],
-    axisLabel: { rotate: 45, color: "#fff",fontSize: 8, },
+    axisLabel: { rotate: 45, color: "#fff", fontSize: 8 },
   },
 
   yAxis: {
     type: "value",
     // name: "百分比(%)",
     position: "left",
-    axisLabel: { formatter: "{value} %", color: "#fff",fontSize: 8, },
-    axisLine: { show: true },
+    axisLabel: { formatter: "{value} %", color: "#fff", fontSize: 8 },
+    splitLine: { show: true, color: 'rgba(0, 0, 0, 0.3)',}, // 隐藏Y轴网格线
   },
 
   series: [
@@ -62,15 +60,22 @@ const chartOptions = ref({
       name: "报废目标(%)",
       type: "line",
       smooth: true,
-      data: [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+      data: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
       itemStyle: { color: "#ff7f50" },
     },
     {
       name: "报废率(%)",
       type: "line",
       smooth: true,
-      data: [0.48, 0.14, 0.23, 0.23, 0.24, 0.29, 0.0, 0.13, 0.0, 0.39],
+      data: [0.52, 0.43, 0.32, 0.21, 0.0, 0.0, 0.0, 0.0],
       itemStyle: { color: "#6495ed" },
+      label: {
+        show: true,
+        position: "top",
+        formatter: "{c}%",
+        color: "#fff",
+        fontSize: 10,
+      },
     },
   ],
 

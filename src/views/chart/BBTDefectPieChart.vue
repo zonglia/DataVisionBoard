@@ -7,15 +7,15 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-  title: {
-    text: "BBT 不良分析",
-    left: "center",
-    textStyle: {
-      // 标题字体设置
-      fontSize: 10,
-      fontWeight: "bold",
-    },
-  },
+  // title: {
+  //   text: "BBT 不良分析",
+  //   left: "center",
+  //   textStyle: {
+  //     // 标题字体设置
+  //     fontSize: 10,
+  //     fontWeight: "bold",
+  //   },
+  // },
   //   提示框
   tooltip: {
     trigger: "item",
@@ -25,12 +25,12 @@ const chartOptions = ref({
     },
   },
   legend: {
-    orient: "horizontal",
-    bottom: 0,
-    left: 40,
+    orient: "vertical",
+    top: 0,
+    left: 0,
     textStyle: {
-      color: "#666",
-      fontSize: 8, // 图例文字大小
+      color: "#fff",
+      fontSize: 10, // 图例文字大小
     },
     itemGap: 20, // 恢复图例间距
     itemHeight: 12, // 图例标记高度
@@ -38,7 +38,8 @@ const chartOptions = ref({
   series: [
     {
       type: "pie",
-      radius: "60%",
+      radius: "90%",
+      center: ["50%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
         { value: 2, name: "防焊异物" },
         { value: 1, name: "外层开路" },
@@ -48,9 +49,8 @@ const chartOptions = ref({
         show: true, // 关闭默认标签显示
         fontSize: 10,
         color: "#bfa",
-          // formatter: "{b}: {d}%", // 显示名称和百分比
-        formatter: "{@value}"
-
+        // formatter: "{b}: {d}%", // 显示名称和百分比
+        formatter: "{@value}",
       },
       emphasis: {
         itemStyle: {
@@ -59,10 +59,10 @@ const chartOptions = ref({
           shadowColor: "rgba(0, 0, 0, 0.5)",
         },
         label: {
-          show: true,  // 高亮时显示标签
-          fontSize: 8,  
-          fontWeight: 'bold'
-        }
+          show: true, // 高亮时显示标签
+          fontSize: 8,
+          fontWeight: "bold",
+        },
       },
     },
   ],

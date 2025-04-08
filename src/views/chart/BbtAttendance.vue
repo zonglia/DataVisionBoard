@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import ECharts from "@/components/ECharts.vue";
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import * as echarts from "echarts";
 
 const chartOptions = ref({
@@ -69,5 +69,37 @@ const chartOptions = ref({
     left: "3",
     right: "18",
   },
+});
+
+// 定义向父组件发送事件的 emit
+const emit = defineEmits(["refresh-time-updated"]);
+
+// 定时器ID
+let timer: number | null = null;
+
+onMounted(() => {
+  const updateTime = () => {
+    const now = new Date();
+    const lastRefreshTime = `${now.getFullYear()}/${
+      now.getMonth() + 1
+    }/${now.getDate()} ${String(now.getHours()).padStart(2, "0")}:${String(
+      now.getMinutes()
+    ).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
+    emit("refresh-time-updated", lastRefreshTime);
+
+    console.log("hello world");
+  };
+  // 立即执行一次确保初始值
+  updateTime();
+
+  // 设置定时器，每隔2秒执行一次
+  timer = setInterval(updateTime, 20000); // 2000毫秒 = 2秒
+});
+
+onUnmounted(() => {
+  // 组件卸载时清除定时器
+  if (timer) {
+    clearInterval(timer);
+  }
 });
 </script>

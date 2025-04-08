@@ -14,10 +14,11 @@ const chartOptions = ref({
 
   legend: {
     data: ["一次良率", "最终良率"],
-    top: -5,
+    top: 0,
     right: 0,
     textStyle: {
       color: "#fff",
+      fontSize: 10,
     },
   },
 
@@ -46,7 +47,7 @@ const chartOptions = ref({
     type: "value",
     min: 70, // 强制最小值为 75%
     max: 100, // 强制最大值为 105%
-    minInterval: 1, // 最小刻度间隔为 5%（避免过密）
+    // minInterval: 1, // 最小刻度间隔为 5%（避免过密）
     position: "left",
     axisLabel: { formatter: "{value} %", color: "#fff", fontSize: 10 },
     axisLine: { show: true },
@@ -83,7 +84,7 @@ const chartOptions = ref({
     left: "1",
     right: "3",
     bottom: "5",
-    top: 30,
+    top: 25,
   },
 });
 </script>

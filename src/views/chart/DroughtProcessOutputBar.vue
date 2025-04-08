@@ -44,7 +44,7 @@ const chartOptions = ref({
   yAxis: [
     {
       type: "value",
-      name: "单位：PML",
+      // name: "单位：PML",
       position: "left",
       min: 0,
       max: 4000,
