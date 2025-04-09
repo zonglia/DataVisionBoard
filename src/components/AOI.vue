@@ -69,9 +69,7 @@
               </dv-decoration7>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem);"
-            >
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)">
               <AOIWipRecords style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -133,9 +131,7 @@
               </dv-decoration7>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)"
-            >
+            <div style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)">
               <AOIKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -189,7 +185,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.2rem; padding-bottom: 0; box-sizing: border-box"
           >
             <div>
               <dv-decoration7 style="height: 0.37rem">
@@ -198,17 +194,15 @@
             </div>
             <div
               style="
-                flex: 1;
                 height: calc(100% - 0.47rem);
-                display: grid;
-                grid-template-columns: 1fr 2fr 2fr;
-                grid-template-rows: repeat(2, 1fr);
-      
+                display: flex;
+                flex-direction: row;
+                gap: 0.1rem;
               "
             >
               <div
                 style="
-                  grid-row: span 2;
+                  flex: 1;
                   display: flex;
                   flex-direction: column;
                   justify-content: center;
@@ -222,10 +216,8 @@
                   >0.079-0.107(mm)</span
                 >
               </div>
-              <div><AOIBeadCarousel01 /></div>
-              <div><AOIBeadCarousel02 /></div>
-              <div><AOIBeadCarousel03 /></div>
-              <div><AOIBeadCarousel04 /></div>
+              <div style="flex: 1"><AOIBeadCarousel01 /></div>
+              <div style="flex: 1"><AOIBeadCarousel02 /></div>
 
               <!-- <AOIBeadCarousel /> -->
             </div>
@@ -313,8 +305,6 @@ import AOIWipRecords from "../views/chart/AOIWipRecords.vue";
 import AOICPKCarousel from "../views/chart/AOICPKCarousel.vue";
 import AOIBeadCarousel01 from "../views/chart/AOIBeadCarousel01.vue";
 import AOIBeadCarousel02 from "../views/chart/AOIBeadCarousel02.vue";
-import AOIBeadCarousel03 from "../views/chart/AOIBeadCarousel03.vue";
-import AOIBeadCarousel04 from "../views/chart/AOIBeadCarousel04.vue";
 import AOIAVIYieldRate from "@/views/chart/AOIAVIYieldRate.vue";
 
 import AOIDefectPieChart from "../views/chart/AOIDefectPieChart.vue";
