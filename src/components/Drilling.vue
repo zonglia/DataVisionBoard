@@ -9,37 +9,54 @@
         <!-- 人员出勤 -->
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="users" color="#409eff" />人员出勤
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="users" color="#409eff" />人员出勤
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
-              <DrillingAttendance />
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
+              <DrillingAttendance
+                @drilling-refresh-time-updated="handleRefreshTimeUpdated"
+              />
             </div>
           </dv-border-box12>
         </div>
         <!-- 工序产出 -->
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div>
-              <dv-decoration7 style="height: 0.37rem"
-                ><SvgIcon
-                  name="output"
-                  color="#409eff"
-                />工序产出</dv-decoration7
-              >
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="output" color="#409eff" />工序产出
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
             <div
               style="
                 flex: 1;
-                height: calc(100% - 0.47rem);
+                height: calc(100% - 0.07rem - 0.7rem);
                 position: relative;
                 display: flex;
                 flex-direction: row;
@@ -52,16 +69,30 @@
         <!-- 工序WIP -->
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem"
-                ><SvgIcon name="wip" color="#409eff" />工序WIP
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="wip" color="#409eff" />工序WIP
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)"
+              style="
+                flex: 1;
+                height: calc(100% - 0.07rem - 0.7rem);
+                padding-bottom: 0;
+              "
             >
               <DrillingWipRecords style="height: 100%" />
             </div>
@@ -72,60 +103,105 @@
       <div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />钻孔总报废
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />钻孔总报废
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
-              <C1ProductionRate />
+
+            <div style="height: calc(100% - 0.07rem - 0.7rem)">
+              <DrillingScrapTotalRate />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />成型总报废
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />成型总报废
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
-              <C1ProductionRate />
+
+            <div style="height: calc(100% - 0.07rem - 0.7rem)">
+              <DrillingFormingScrapTotalRate />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="ctrol" color="#409eff" />钻孔成型CPK管控
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="ctrol" color="#409eff" />钻孔成型CPK管控
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
+
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
               <DrillingCarousel />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="setting" color="#409eff" />重要参数管控
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="setting" color="#409eff" />重要参数管控
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.078rem - 0.37rem);"
+              style="
+                flex: 1;
+                height: calc(100% - 0.07rem - 0.7rem);
+                padding-bottom: 0;
+              "
             >
               <DrillingKeyParamsContro style="height: 100%" />
             </div>
@@ -135,81 +211,110 @@
       <!-- 第三行 -->
       <div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                <SvgIcon name="scrap" color="#409eff" />钻孔不良分析
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                  display: flex;
-                  flex-direction: row;
-                "
-              >
-                <div style="flex: 1"><DrillingDefectPieChart /></div>
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />钻孔不良分析
+                </dv-decoration7>
               </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
+              <DrillingDefectPieChart />
             </div>
           </dv-border-box12>
         </div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                <SvgIcon name="scrap" color="#409eff" />成型不良分析
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                  display: flex;
-                  flex-direction: row;
-                "
-              >
-                <div style="flex: 1"><DrillingCharacterScrapPieChart /></div>
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />成型不良分析
+                </dv-decoration7>
               </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
+              <DrillingCharacterScrapPieChart />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="ctrol" color="#409eff" />主轴精度管控(um)
-              </dv-decoration7>
+                 <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="ctrol" color="#409eff" />主轴精度管控(um)
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
+          
             <div
-              style="flex: 1;height: calc(100% - 0.078rem - 0.37rem); position: relative"
+              style="
+                flex: 1;
+                height: calc(100% - 0.07rem - 0.7rem);
+                padding-bottom: 0;
+              "
             >
               <DrillingSpindleAccuracy style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
+       <!-- 设备状态 -->
         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="status" color="#409eff" />设备状态
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="status" color="#409eff" />设备状态
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.18rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div style="height: calc(100% - 0.47rem)">
+            <div style="height: calc(100% - 0.8rem)">
               <div
                 style="
                   text-align: center;
                   font-size: 0.2rem;
                   border-bottom: 0.0125rem solid #eaeefb;
+                  letter-spacing: 0.02rem;
                 "
               >
                 <span class="status-item">
@@ -262,29 +367,36 @@ import DrillingProcessOutputBar from "../views/chart/DrillingProcessOutputBar.vu
 import DrillingWipRecords from "../views/chart/DrillingWipRecords.vue";
 import DrillingCarousel from "../views/chart/DrillingCarousel.vue";
 import DrillingSpindleAccuracy from "../views/chart/DrillingSpindleAccuracy.vue";
-import C1ProductionRate from "@/views/chart/C1ProductionRate.vue";
+import DrillingScrapTotalRate from "@/views/chart/DrillingScrapTotalRate.vue";
 import DrillingDefectPieChart from "../views/chart/DrillingDefectPieChart.vue";
 import DrillingCharacterScrapPieChart from "../views/chart/DrillingCharacterScrapPieChart.vue";
 import DrillingKeyParamsContro from "../views/chart/DrillingKeyParamsContro.vue";
+import DrillingFormingScrapTotalRate from "../views/chart/DrillingFormingScrapTotalRate.vue";
+import { ref } from "vue";
 
+const attendanceLastRefreshTime = ref("");
+
+const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
+  attendanceLastRefreshTime.value = lastRefreshTime;
+};
 const devices = [
-  { name: "1#钻孔机", status: 0 },
-  { name: "2#钻孔机", status: 0 },
-  { name: "3#钻孔机", status: 0 },
-  { name: "4#钻孔机", status: 0 },
-  { name: "5#钻孔机", status: 0 },
+  { name: "1#钻孔机", status: 2 },
+  { name: "2#钻孔机", status: 1 },
+  { name: "3#钻孔机", status: 1 },
+  { name: "4#钻孔机", status: 3 },
+  { name: "5#钻孔机", status: 1 },
 
-  { name: "6#钻孔机", status: 1 },
-  { name: "7#钻孔机", status: 1 },
-  { name: "8#钻孔机", status: 1 },
+  { name: "6#钻孔机", status: 2 },
+  { name: "7#钻孔机", status: 2 },
+  { name: "8#钻孔机", status: 2 },
   { name: "9#钻孔机", status: 1 },
-  { name: "10#钻孔机", status: 1 },
+  { name: "10#钻孔机", status: 2 },
 
-  { name: "1#成型机", status: 2 },
-  { name: "2#成型机", status: 2 },
-  { name: "3#成型机", status: 2 },
-  { name: "4#成型机", status: 2 },
-  { name: "5#成型机", status: 2 },
+  { name: "1#成型机", status: 1 },
+  { name: "2#成型机", status: 1 },
+  { name: "3#成型机", status: 3 },
+  { name: "4#成型机", status: 1 },
+  { name: "5#成型机", status: 3 },
 
   { name: "6#成型机", status: 3 },
   { name: "7#成型机", status: 3 },

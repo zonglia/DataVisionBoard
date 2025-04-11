@@ -1,5 +1,5 @@
 <template>
-    <ECharts :options="chartOptions"/>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -34,18 +34,16 @@ const chartOptions = ref({
   xAxis: {
     type: "category",
     data: [
-      "24W45",
-      "24W46",
-      "24W47",
-      "24W48",
-      "24M11",
-      "24W49",
-      "24W50",
-      "24W51",
-      "24W52",
-      "24M12",
+      "24Y",
+      "25W3",
+      "4月1日",
+      "4月2日",
+      "4月3日",
+      "4月7日",
+      "4月8日",
+      "4月9日",
     ],
-    axisLabel: { rotate: 45, color: "#fff",fontSize: 8, },
+    axisLabel: { color: "#fff", fontSize: 8 },
   },
 
   yAxis: {
@@ -61,15 +59,22 @@ const chartOptions = ref({
       name: "报废目标(%)",
       type: "line",
       smooth: true,
-      data: [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+      data: [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
       itemStyle: { color: "#ff7f50" },
     },
     {
       name: "报废率(%)",
       type: "line",
       smooth: true,
-      data: [0.48, 0.14, 0.23, 0.23, 0.24, 0.29, 0.0, 0.13, 0.0, 0.39],
+      data: [0.67, 0.92, 0.69, 0.92, 2.61, 3.71, 15.03, 1.63],
       itemStyle: { color: "#6495ed" },
+      label: {
+        show: true,
+        position: "top",
+        formatter: "{c}%",
+        color: "#fff",
+        fontSize: 10,
+      },
     },
   ],
 
@@ -77,7 +82,7 @@ const chartOptions = ref({
     containLabel: true,
     left: 3,
     right: 2,
-    bottom: 3,
+    bottom: 5,
     top: 20,
   },
 });

@@ -30,7 +30,7 @@ const chartOptions = ref({
     left: 0,
     textStyle: {
       color: "#fff",
-      fontSize: 10, // 图例文字大小
+      fontSize: 15, // 图例文字大小
     },
     itemGap: 20, // 恢复图例间距
     itemHeight: 12, // 图例标记高度
@@ -41,13 +41,13 @@ const chartOptions = ref({
       radius: "90%",
       center: ["50%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
-        { value: 2, name: "防焊异物" },
-        { value: 1, name: "外层开路" },
+        { value: 4, name: "防焊异物" },
+        { value: 2, name: "外层开路" },
       ],
       // 饼图标签样式
       label: {
         show: true, // 关闭默认标签显示
-        fontSize: 10,
+        fontSize: 15,
         color: "#bfa",
         // formatter: "{b}: {d}%", // 显示名称和百分比
         formatter: "{@value}",
@@ -60,7 +60,7 @@ const chartOptions = ref({
         },
         label: {
           show: true, // 高亮时显示标签
-          fontSize: 8,
+          fontSize: 15,
           fontWeight: "bold",
         },
       },

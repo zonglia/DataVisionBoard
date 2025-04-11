@@ -67,7 +67,7 @@
         <!-- 工序WIP -->
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -86,7 +86,7 @@
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.078rem - 0.7rem); position: relative"
+              style="flex: 1; height: calc(100% - 0.07rem - 0.7rem);padding-bottom: 0;"
             >
               <ElectroWipRecords style="height: 100%" />
             </div>
@@ -135,7 +135,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding:0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding:0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -152,14 +152,14 @@
                 >
               </div>
             </div>
-            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem);">
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem);padding-bottom: 0;">
               <ElectroMaintenance style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -172,12 +172,12 @@
 
               <div style="height: 0.3rem; text-align: right">
                 <span style="font-size: 0.18rem"
-                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                  >最后刷新{{ alarmLastRefreshTime }}</span
                 >
               </div>
             </div>
-            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
-              <ElectroDeviceAlarm style="height: 100%" />
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem);padding-bottom: 0;">
+              <ElectroDeviceAlarm    @alarm-refresh-time-updated="handleAlarmRefreshTimeUpdated" style="height: 100%" />
             </div>
           </dv-border-box12>
         </div>
@@ -225,7 +225,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -242,7 +242,7 @@
                 >
               </div>
             </div>
-            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem);padding-bottom: 0;">
               <ElectroKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -334,10 +334,17 @@ import ElectroDeviceAlarm from "../views/chart/ElectroDeviceAlarm.vue";
 import ElectroHoleCopperCarousel from '@/views/chart/ElectroHoleCopperCarousel.vue'
 
 const attendanceLastRefreshTime = ref("");
+const alarmLastRefreshTime = ref("");
 
 const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
   attendanceLastRefreshTime.value = lastRefreshTime;
-};
+
+}
+const handleAlarmRefreshTimeUpdated = (lastRefreshTime: string) => {
+
+  alarmLastRefreshTime.value = lastRefreshTime;
+
+}
 
 const devices = [
   { name: "VCP1#", status: 1 },

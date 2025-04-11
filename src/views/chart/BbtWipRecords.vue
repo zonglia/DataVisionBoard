@@ -6,13 +6,11 @@ import { reactive } from "vue";
 const config = reactive({
   header: ["型号", "BBT", "OSP", "AVI", "包装"],
   data: [
-    ["01S71041G", "604", "302", "896", "0"],
-    ["02S73008A", "102", "0", "202", "0"],
-    ["02S73009A", "100", "0", "200", "0"],
-    ["01S73001A", "200", "0", "100", "0"],
+    ["01S71041G", "1095", "608", "299", "0"],
+    ["01S71047A", "6", "0", "0", "0"],
   ],
   align: ["left"],
-  rowNum: [4],
+  rowNum: [2],
   headerBGC: ["transparent"],
   evenRowBGC: ["transparent"],
   oddRowBGC: ["#026CCA80"],

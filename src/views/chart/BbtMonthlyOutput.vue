@@ -24,8 +24,8 @@ const chartOptions = ref({
 
   xAxis: {
     type: "value", // 横轴改为数值轴
-    min: 0,
-    max: 20000,
+    // min: 0,
+    // max: 20000,
     // minInterval: 100,
     axisLabel: { color: "#fff", fontSize: 10 },
     axisLine: { show: true },
@@ -45,7 +45,7 @@ const chartOptions = ref({
     {
       name: "工序WIP",
       type: "bar", // 柱状图（横向）
-      data: [15565, 15565, 13850, 13500],
+      data: [1740, 1684, 1824, 2432],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签
@@ -75,7 +75,7 @@ const chartOptions = ref({
     top: "10%",
     bottom: "0",
     left: "3",
-    right: "20",
+    right: "25",
   },
 });
 </script>

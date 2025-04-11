@@ -30,11 +30,11 @@ const chartOptions = ref({
     left: 0,
     textStyle: {
       color: "#666",
-      fontSize: 8, // 图例文字大小
+      fontSize: 10, // 图例文字大小
     },
     itemGap: 8, // 恢复图例间距
-    itemHeight: 7, // 图例标记高度
-    itemWidth: 7, // 图例标记高度
+    itemHeight: 10, // 图例标记高度
+    itemWidth: 10, // 图例标记高度
   },
   series: [
     {
@@ -45,11 +45,11 @@ const chartOptions = ref({
 
    
 
-        { value: 10.02, name: "电镀磨刷堵孔报废" },
-        { value: 8.75, name: "电镀铜粒" },
-        { value: 4.33, name: "电镀板面污染" },
-        { value: 3.68, name: "电镀镀厚" },
-        { value: 2.99, name: "电镀镀层粗糙" },
+        { value: 0.54, name: "电镀磨刷堵孔报废" },
+        { value: 2.66, name: "电镀铜粒" },
+        { value: 3.18, name: "电镀板面污染" },
+        { value: 3.02, name: "电镀镀厚" },
+        { value: 2.05, name: "电镀镀层粗糙" },
       ],
       // 饼图标签样式
       label: {
@@ -57,7 +57,7 @@ const chartOptions = ref({
         fontSize: 10,
         color: "#bfa",
         // formatter: "{b}: {d}%", // 显示名称和百分比
-        formatter: "{@value}",
+        formatter: "{@value}%",
       },
       emphasis: {
         itemStyle: {

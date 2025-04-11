@@ -44,11 +44,11 @@ const chartOptions = ref({
   yAxis: [
     {
       type: "value",
-      name: "单位：PML",
+      // name: "单位：PML",
       position: "left",
-      min: 0,
-      max: 700,
-      minInterval: 100,
+      // min: 0,
+      // max: 700,
+      // minInterval: 100,
       axisLabel: { color: "#fff", fontSize: 10 },
       axisLine: { show: true },
       splitLine: { show: false }, // 隐藏Y轴网格线
@@ -60,7 +60,7 @@ const chartOptions = ref({
       name: "工序WIP",
       type: "bar",
       smooth: true,
-      data: [600, 201, 240, 240],
+      data: [910, 302, 240, 240],
         label: {
         // 添加数据标签配置
         show: true, // 显示标签

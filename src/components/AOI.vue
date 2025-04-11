@@ -10,7 +10,7 @@
         <!-- 人员出勤 -->
         <div>
           <dv-border-box12
-            style="padding: 0.13rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -28,27 +28,34 @@
               </div>
             </div>
 
-            <div style="flex: 1; height: calc(100% - 0.75rem)">
+            <div style="flex: 1; height: calc(100% - 0.7rem - 0.078rem)">
               <AOIAttendance @refresh-time-updated="handleRefreshTimeUpdated" />
             </div>
           </dv-border-box12>
         </div>
         <!-- 工序产出 -->
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div>
-              <dv-decoration7 style="height: 0.37rem"
-                ><SvgIcon
-                  name="output"
-                  color="#409eff"
-                />工序产出</dv-decoration7
-              >
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="output" color="#409eff" />工序产出
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
             <div
               style="
                 flex: 1;
-                height: calc(100% - 0.47rem);
+                height: calc(100% - 0.7rem - 0.07rem);
                 position: relative;
                 display: flex;
                 flex-direction: row;
@@ -61,15 +68,31 @@
         <!-- 工序WIP -->
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem"
-                ><SvgIcon name="wip" color="#409eff" />工序WIP
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="wip" color="#409eff" />工序WIP
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)">
+            <div
+              style="
+                flex: 1;
+                height: calc(100% - 0.07rem - 0.7rem);
+                padding-bottom: 0;
+              "
+            >
               <AOIWipRecords style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -79,28 +102,50 @@
       <div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />外层报废率和报废分析
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />外层报废率和报废分析
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
+
+            <div style="height: calc(100% - 0.07rem - 0.7rem)">
               <AOIScrapRate />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />AOI良率统计和不良分析
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />AOI良率统计和不良分析
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
+
+            <div style="height: calc(100% - 0.07rem - 0.7rem)">
               <AOIAVIYieldRate />
             </div>
           </dv-border-box12>
@@ -123,15 +168,31 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="setting" color="#409eff" />重要参数管控
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="setting" color="#409eff" />重要参数管控
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div style="flex: 1; height: calc(100% - 0.078rem - 0.37rem)">
+            <div
+              style="
+                flex: 1;
+                height: calc(100% - 0.07rem - 0.7rem);
+                padding-bottom: 0;
+              "
+            >
               <AOIKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -140,48 +201,49 @@
       <!-- 第三行 -->
       <div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                <SvgIcon name="scrap" color="#409eff" />外层不良分析
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                  display: flex;
-                  flex-direction: row;
-                "
-              >
-                <div style="flex: 1"><AOIDefectPieChart /></div>
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />外层不良分析
+                </dv-decoration7>
               </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
+              <AOIDefectPieChart />
             </div>
           </dv-border-box12>
         </div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                <SvgIcon name="scrap" color="#409eff" />AOI不良分析
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                  display: flex;
-                  flex-direction: row;
-                "
-              >
-                <div style="flex: 1"><AOICharacterScrapPieChart /></div>
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />AOI不良分析
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
               </div>
             </div>
-          </dv-border-box12>
+
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
+              <AOICharacterScrapPieChart /></div
+          ></dv-border-box12>
         </div>
         <div>
           <dv-border-box12

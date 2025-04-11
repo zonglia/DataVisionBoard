@@ -42,7 +42,7 @@ const chartOptions = ref({
       "4月2日",
       "4月3日",
     ],
-    axisLabel: {  color: "#fff", fontSize: 8 },
+    axisLabel: { color: "#fff", fontSize: 8 },
   },
 
   yAxis: {
@@ -60,6 +60,13 @@ const chartOptions = ref({
       smooth: true,
       data: [77.7, 78.9, 79.9, 79.6, 83.3, 80.9, 78.1],
       itemStyle: { color: "#ff7f50" },
+      label: {
+        show: true,
+        position: "top",
+        formatter: "{c}%",
+        color: "#fff",
+        fontSize: 10,
+      },
     },
     {
       name: "最终良率(%)",

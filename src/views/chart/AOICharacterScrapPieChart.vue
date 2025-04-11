@@ -30,11 +30,11 @@ const chartOptions = ref({
     left: 0,
     textStyle: {
       color: "#666",
-      fontSize: 8, // 图例文字大小
+      fontSize: 15, // 图例文字大小
     },
     itemGap: 10, // 恢复图例间距
-    itemHeight: 8, // 图例标记高度
-    itemWidth: 8, // 图例标记高度
+    itemHeight: 15, // 图例标记高度
+    itemWidth: 15, // 图例标记高度
   },
   series: [
     {

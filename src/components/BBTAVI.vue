@@ -66,7 +66,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -84,7 +84,7 @@
               </div>
             </div>
 
-            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem);padding-bottom: 0;">
               <BbtWipRecords style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -113,7 +113,7 @@
             </div>
 
             <div style="flex: 1; height: calc(100% - 0.8rem)">
-              <ElectroTestRateStatistics />
+              <BBTYield />
             </div>
           </dv-border-box12>
         </div>
@@ -144,7 +144,7 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">
@@ -162,7 +162,7 @@
               </div>
             </div>
 
-            <div style="flex: 1; height: calc(100% - 0.078rem - 0.7rem)">
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem);padding-bottom: 0;">
               <BbtKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -294,7 +294,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import ElectroTestRateStatistics from "../views/chart/ElectroTestRateStatistics.vue";
+import BBTYield from "../views/chart/BBTYield.vue";
 import BBTDefectPieChart from "../views/chart/BBTDefectPieChart.vue";
 import BbtProcessOutputBar from "../views/chart/BbtProcessOutputBar.vue";
 import BbtWipRecords from "../views/chart/BbtWipRecords.vue";

@@ -12,35 +12,52 @@
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="users" color="#409eff" />人员出勤
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="users" color="#409eff" />人员出勤
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div
-              style="flex: 1; height: calc(100% - 0.47rem); position: relative"
-            >
-              <DroughtAttendance />
+            <div style="flex: 1; height: calc(100% - 0.7rem - 0.078rem)">
+              <DroughtAttendance
+                @refresh-time-updated="handleRefreshTimeUpdated"
+              />
             </div>
           </dv-border-box12>
         </div>
         <!-- 工序产出 -->
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div>
-              <dv-decoration7 style="height: 0.37rem"
-                ><SvgIcon
-                  name="output"
-                  color="#409eff"
-                />工序产出</dv-decoration7
-              >
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="output" color="#409eff" />工序产出
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
             <div
               style="
                 flex: 1;
-                height: calc(100% - 0.47rem);
+                height: calc(100% - 0.07rem - 0.7rem);
                 position: relative;
                 display: flex;
                 flex-direction: row;
@@ -53,21 +70,30 @@
         <!-- 工序WIP -->
         <div>
           <dv-border-box12
-            style="
-              padding: 0.078rem;
-              padding-bottom: 0;
-              box-sizing: border-box;
-     
-            "
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem"
-                ><SvgIcon name="wip" color="#409eff" />工序WIP
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="wip" color="#409eff" />工序WIP
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
             <div
-              style="flex: 1; height: calc(100% - 0.448rem); position: relative"
+              style="
+                flex: 1;
+                height: calc(100% - 0.07rem - 0.7rem);
+                padding-bottom: 0;
+              "
             >
               <DroughtWipRecords style="height: 100%" />
             </div>
@@ -78,43 +104,80 @@
       <div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />防焊总报废
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />防焊总报废
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
-              <C1ProductionRate />
+
+            <div style="height: calc(100% - 0.07rem - 0.7rem)">
+              <DroughtScrapRate />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="scrap" color="#409eff" />文字总报废
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />文字总报废
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
-            <div style="height: calc(100% - 0.37rem)">
-              <C1ProductionRate />
+
+            <div style="height: calc(100% - 0.07rem - 0.7rem)">
+              <DroughtCharactScrap />
             </div>
           </dv-border-box12>
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.07rem; padding-bottom: 0; box-sizing: border-box"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="ctrol" color="#409eff" />防焊CPK管控
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="ctrol" color="#409eff" />防焊CPK管控
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
+
             <div
-              style="flex: 1; height: calc(100% - 0.48rem); position: relative"
+              style="
+                flex: 1;
+                height: calc(100% - 0.07rem - 0.7rem);
+                position: relative;
+              "
             >
               <DroughtCarousel />
             </div>
@@ -122,15 +185,27 @@
         </div>
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; box-sizing: border-box; padding-bottom: 0"
+            style="padding: 0.07rem; box-sizing: border-box; padding-bottom: 0"
           >
-            <div>
-              <dv-decoration7 style="height: 0.37rem">
-                <SvgIcon name="setting" color="#409eff" />重要参数管控
-              </dv-decoration7>
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="setting" color="#409eff" />重要参数管控
+                </dv-decoration7>
+              </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
             </div>
 
-            <div style="height: calc(100% - 0.448rem)">
+            <div
+              style="height: calc(100% - 0.07rem - 0.7rem); padding-bottom: 0"
+            >
               <DroughtKeyParamsContro style="height: 100%" />
             </div>
           </dv-border-box12>
@@ -139,46 +214,48 @@
       <!-- 第三行 -->
       <div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                <SvgIcon name="scrap" color="#409eff" />防焊不良分析
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                  display: flex;
-                  flex-direction: row;
-                "
-              >
-                <div style="flex: 1"><DroughtDefectPieChart /></div>
+          <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />防焊不良分析
+                </dv-decoration7>
               </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
+              <DroughtDefectPieChart />
             </div>
           </dv-border-box12>
         </div>
         <div>
-          <dv-border-box12 style="padding: 0.078rem; box-sizing: border-box">
-            <div style="display: flex; flex-direction: column; height: 100%">
-              <dv-decoration7
-                style="height: 0.37rem; flex-shrink: 0; /* 防止标题被压缩 */"
-              >
-                <SvgIcon name="scrap" color="#409eff" />文字不良分析
-              </dv-decoration7>
-              <div
-                style="
-                  flex: 1;
-                  height: calc(100% - 0.47rem);
-                  position: relative;
-                  display: flex;
-                  flex-direction: row;
-                "
-              >
-                <div style="flex: 1"><DroughtCharacterScrapPieChart /></div>
+     <dv-border-box12 style="padding: 0.07rem; box-sizing: border-box">
+            <!-- 标题＋刷新时间 -->
+            <div style="height: 0.7rem">
+              <!-- 标题 -->
+              <div>
+                <dv-decoration7 style="height: 0.4rem">
+                  <SvgIcon name="scrap" color="#409eff" />文字不良分析
+                </dv-decoration7>
               </div>
+
+              <div style="height: 0.3rem; text-align: right">
+                <span style="font-size: 0.15rem"
+                  >最后刷新{{ attendanceLastRefreshTime }}</span
+                >
+              </div>
+            </div>
+
+            <div style="flex: 1; height: calc(100% - 0.07rem - 0.7rem)">
+              <DroughtCharacterScrapPieChart />
             </div>
           </dv-border-box12>
         </div>
@@ -282,7 +359,7 @@ import DroughtAttendance from "../views/chart/DroughtAttendance.vue";
 import DroughtMonthlyOutput from "../views/chart/DroughtMonthlyOutput.vue";
 import DroughtProcessOutputBar from "../views/chart/DroughtProcessOutputBar.vue";
 import DroughtWipRecords from "../views/chart/DroughtWipRecords.vue";
-import C1ProductionRate from "@/views/chart/C1ProductionRate.vue";
+import DroughtCharactScrap from "@/views/chart/DroughtCharactScrap.vue";
 import DroughtDefectPieChart from "../views/chart/DroughtDefectPieChart.vue";
 import DroughtCharacterScrapPieChart from "../views/chart/DroughtCharacterScrapPieChart.vue";
 import DroughtKeyParamsContro from "../views/chart/DroughtKeyParamsContro.vue";
@@ -298,6 +375,10 @@ import DroughtDustFallStats from "../views/chart/DroughtDustFallStats.vue";
 import DroughtHumidity from "../views/chart/DroughtHumidity.vue";
 
 const attendanceLastRefreshTime = ref("");
+
+const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
+  attendanceLastRefreshTime.value = lastRefreshTime;
+};
 // 状态配置映射
 const statusConfig = [
   { class: "booting", text: "开机", color: "#00f" }, // 状态0

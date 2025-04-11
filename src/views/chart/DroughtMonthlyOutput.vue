@@ -45,7 +45,7 @@ const chartOptions = ref({
     {
       name: "月累计产出",
       type: "bar", // 柱状图（横向）
-      data: [15565, 15565],
+      data: [ 11666 ,10747],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签

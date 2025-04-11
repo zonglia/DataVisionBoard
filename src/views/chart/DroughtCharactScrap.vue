@@ -28,21 +28,12 @@ const chartOptions = ref({
     right: 0,
     textStyle: {
       color: "#fff",
-      fontSize: 8,
     },
   },
 
   xAxis: {
     type: "category",
-    data: [
-      "3/30",
-      "3/31",
-      "4/1",
-      "4/3",
-      "4/7",
-      "4/8",
-      "4/9"
-    ],
+    data: ["3-30", "3-31", "4-1", "4-2", "4-3", "4-7", "4-8"],
     axisLabel: { rotate: 45, color: "#fff", fontSize: 8 },
   },
 
@@ -50,8 +41,11 @@ const chartOptions = ref({
     type: "value",
     // name: "百分比(%)",
     position: "left",
-    axisLabel: { formatter: "{value} %", color: "#fff", fontSize: 8 },
-    splitLine: { show: true, color: 'rgba(0, 0, 0, 0.3)',}, // 隐藏Y轴网格线
+    min:0,
+    max:0.3,
+     interval: 0.04,  // 刻度间隔设为0.02
+    axisLabel: { formatter: "{value} %", color: "#fff" },
+    axisLine: { show: true },
   },
 
   series: [
@@ -59,16 +53,16 @@ const chartOptions = ref({
       name: "报废目标(%)",
       type: "line",
       smooth: true,
-      data: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5,0.5],
+      data: [0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15],
       itemStyle: { color: "#ff7f50" },
     },
     {
       name: "报废率(%)",
       type: "line",
       smooth: true,
-      data: [0.26, 0.245, 0.3, 0.21, 0.1, 0.12,0],
-      itemStyle: { color: "#6495ed" },
-      label: {
+      data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+      itemStyle: { color: "#cda819" },
+        label: {
         show: true,
         position: "top",
         formatter: "{c}%",

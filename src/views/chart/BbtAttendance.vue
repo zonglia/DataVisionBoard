@@ -37,7 +37,7 @@ const chartOptions = ref({
     {
       name: "人员出勤",
       type: "bar", // 柱状图（横向）
-      data: [10, 12],
+      data: [10, 10],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签
