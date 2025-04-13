@@ -44,10 +44,10 @@ const chartOptions = ref({
   yAxis: [
     {
       type: "value",
-      name: "单位：PML",
+      name: "单位：PNL",
       nameTextStyle: {
         color: "#fff", // 确保颜色与背景对比明显
-        fontSize: 7, // 调整字体大小
+        fontSize: 8, // 调整字体大小
         padding: [0, 0, 0, -15], // 调整位置（右下左上顺序）
       },
       position: "left",
@@ -55,7 +55,7 @@ const chartOptions = ref({
       min: 0,
       max: 2500,
     //   minInterval: 100,
-      axisLabel: { color: "#fff", fontSize: 7 },
+      axisLabel: { color: "#fff", fontSize: 8 },
       axisLine: { show: true },
       splitLine: { show: false }, // 隐藏Y轴网格线
     },
@@ -107,7 +107,7 @@ const chartOptions = ref({
     // bottom: "15%", // 增加底部间距适应旋转标签
     top: "20",
     bottom: "0",
-    left: "3",
+    left: "10",
     right: "2",
   },
 });

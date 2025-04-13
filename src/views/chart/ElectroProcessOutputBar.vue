@@ -44,11 +44,11 @@ const chartOptions = ref({
   yAxis: [
     {
       type: "value",
-      // name: "单位：PML",
+      name: "单位：P",
       nameTextStyle: {
         color: "#fff", // 确保颜色与背景对比明显
-        fontSize: 7, // 调整字体大小
-        padding: [0, 0, 0, -15], // 调整位置（右下左上顺序）
+        fontSize: 8, // 调整字体大小
+        padding: [0, 0, 0, -20], // 调整位置（右下左上顺序）
       },
       position: "left",
       nameGap: 5, // 调整名称与轴线的间距

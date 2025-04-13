@@ -10,7 +10,7 @@
         <!-- 人员出勤 -->
         <div>
           <dv-border-box12
-            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
+            style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box "
           >
             <!-- 标题＋刷新时间 -->
             <div style="height: 0.7rem">

@@ -5,15 +5,12 @@
 import { reactive } from "vue";
 const config = reactive({
   header: ["型号", "BBT", "OSP", "AVI", "包装"],
-  data: [
-    ["01S71041G", "1095", "608", "299", "0"],
-    ["01S71047A", "6", "0", "0", "0"],
-  ],
+  data: [["01S71041G", "1095", "608", "299", "0"]],
   align: ["left"],
   rowNum: [2],
   headerBGC: ["transparent"],
-  evenRowBGC: ["transparent"],
-  oddRowBGC: ["#026CCA80"],
+  oddRowBGC: ["transparent"],
+  evenRowBGC: ["#026CCA80"],
 });
 </script>
 

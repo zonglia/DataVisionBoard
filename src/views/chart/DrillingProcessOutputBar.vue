@@ -44,8 +44,13 @@ const chartOptions = ref({
   yAxis: [
     {
       type: "value",
-      name: "单位：PML",
+      name: "单位：PNL",
       position: "left",
+      nameTextStyle: {
+        color: "#fff", // 确保颜色与背景对比明显
+        fontSize: 8, // 调整字体大小
+        padding: [0, 0, 0, -34], // 调整位置（右下左上顺序）
+      },
       min: 0,
       max: 5000,
       minInterval: 100,
@@ -61,7 +66,7 @@ const chartOptions = ref({
       type: "bar",
       smooth: true,
       data: [3500, 4000],
-        label: {
+      label: {
         // 添加数据标签配置
         show: true, // 显示标签
         position: "top", // 标签显示在柱体上
@@ -99,7 +104,7 @@ const chartOptions = ref({
     // left: "3%",
     // right: "5%", // 调整右侧间距
     // bottom: "15%", // 增加底部间距适应旋转标签
-    top: "10%",
+    top: "30",
     bottom: "0",
     left: "3",
     right: "2",

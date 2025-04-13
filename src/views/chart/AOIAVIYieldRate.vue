@@ -74,6 +74,13 @@ const chartOptions = ref({
       smooth: true,
       data: [99.6, 99.0, 99.3, 99.5, 99.3, 98.8, 99.0],
       itemStyle: { color: "#6495ed" },
+      label: {
+        show: true,
+        position: "top",
+        formatter: "{c}%",
+        color: "#fff",
+        fontSize: 10,
+      },
     },
   ],
 
@@ -82,7 +89,7 @@ const chartOptions = ref({
     left: 3,
     right: 2,
     bottom: 3,
-    top: 25,
+    top: 40,
   },
 });
 </script>

@@ -24,9 +24,15 @@ const chartOptions = ref({
 
   xAxis: {
     type: "value", // 横轴改为数值轴
+    name: '单位：PNL',
     min: 0,
     max: 10000,
     // minInterval: 100,
+    nameTextStyle: {
+      color: "#fff", // 确保颜色与背景对比明显
+      fontSize: 8, // 调整字体大小
+      padding: [0, 0, 0, -34], // 调整位置（右下左上顺序）
+    },
     axisLabel: { color: "#fff", fontSize: 10 },
     axisLine: { show: true },
     splitLine: { show: false }, // 隐藏X轴网格线

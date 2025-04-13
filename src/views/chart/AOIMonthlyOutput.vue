@@ -23,7 +23,7 @@ const chartOptions = ref({
   },
 
   xAxis: {
-    name: "单位：PML",
+    name: "单位：PNL",
     nameTextStyle: {
       color: "#fff", // 确保颜色与背景对比明显
       fontSize: 7, // 调整字体大小

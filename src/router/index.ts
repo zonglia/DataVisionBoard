@@ -7,7 +7,8 @@ import JiangXiN2 from '../components/JiangXiN2.vue'
 import BBTAVI from '@/components/BBTAVI.vue'
 import AOI from '../components/AOI.vue';
 import ElectroPlating from '../components/ElectroPlating.vue';
-
+import ElectroPlatingMain from '../views/ElectroPlating/ElectroPlatingMain.vue'
+import ProcessIndicators from '../views/ElectroPlating/ProcessIndicators.vue'
 
 // 公共路由
 export const constantRoutes = [
@@ -31,6 +32,22 @@ export const constantRoutes = [
     {
         path: '/electroPlating',
         component: ElectroPlating,
+        children: [
+            {
+                path: '', // 匹配 /electroPlating
+                redirect: '/electroPlating/main' // 重定向到完整路径
+            },
+            {
+                path: 'main', // 相对路径，匹配 /electroPlating/main
+                component: ElectroPlatingMain,
+            },
+            {
+                path: 'processIndicators', // 相对路径，匹配 /electroPlating/processIndicators
+                name: 'ProcessIndicators',
+                component: ProcessIndicators,
+            }
+            
+        ]
     },
     {
         path: '/test',

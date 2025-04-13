@@ -24,9 +24,15 @@ const chartOptions = ref({
 
   xAxis: {
     type: "value", // 横轴改为数值轴
+    name: "单位：U",
     // min: 0,
     // max: 20000,
     // minInterval: 100,
+    nameTextStyle: {
+      color: "#fff", // 确保颜色与背景对比明显
+      fontSize: 9, // 调整字体大小
+      padding: [0, 0, 0, -25], // 调整位置（右下左上顺序）
+    },
     axisLabel: { color: "#fff", fontSize: 10 },
     axisLine: { show: true },
     splitLine: { show: false }, // 隐藏X轴网格线

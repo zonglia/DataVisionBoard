@@ -23,11 +23,11 @@ const chartOptions = ref({
   },
 
   xAxis: {
-    // name: "单位：PML",
+    name: "单位：P",
     nameTextStyle: {
       color: "#fff", // 确保颜色与背景对比明显
-      fontSize: 7, // 调整字体大小
-      padding: [0, 0, 0, -34], // 调整位置（右下左上顺序）
+      fontSize: 8, // 调整字体大小
+      padding: [0, 0, 0, -14], // 调整位置（右下左上顺序）
     },
     type: "value", // 横轴改为数值轴
     axisLabel: { color: "#fff", fontSize: 7 },

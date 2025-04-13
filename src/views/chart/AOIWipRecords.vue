@@ -4,7 +4,7 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 const config = reactive({
-  header: ["型号", "外层", "AOI"],
+  header: ["型号", "外层(PNL)", "AOI(PNL)"],
   data: [
     ["01S71041G", "8266", "306"],
     ["02S73008A", "156", "104"],
