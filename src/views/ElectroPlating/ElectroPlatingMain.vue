@@ -379,9 +379,6 @@ const devices = [
 .electro-main-container {
   height: 100%;
   width: 100%;
-  padding: 0.5rem;
-  padding-top: 0;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 0.2rem; // 行间距

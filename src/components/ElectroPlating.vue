@@ -95,6 +95,9 @@ const handleButtonClick = (index: number) => {
   }
   > div:nth-child(2) {
     flex: 8;
+    padding: 0.5rem;
+    padding-top: 0;
+    box-sizing: border-box;
   }
 }
 </style>
