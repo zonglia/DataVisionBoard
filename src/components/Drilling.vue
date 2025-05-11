@@ -288,7 +288,7 @@
           </dv-border-box12>
         </div>
        <!-- 设备状态 -->
-        <div>
+         <div>
           <dv-border-box12
             style="padding: 0.078rem; padding-bottom: 0; box-sizing: border-box"
           >
@@ -379,6 +379,9 @@ const attendanceLastRefreshTime = ref("");
 const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
   attendanceLastRefreshTime.value = lastRefreshTime;
 };
+
+
+
 const devices = [
   { name: "1#钻孔机", status: 2 },
   { name: "2#钻孔机", status: 1 },
@@ -478,15 +481,14 @@ const devices = [
       }
       > div:nth-child(4) {
         .devices-container {
-          height: calc(100% - 0.34rem);
+         height: calc(100% - 0.34rem);
           display: grid;
           grid-template-columns: repeat(5, 1fr);
           grid-template-rows: repeat(5, 1fr);
-          font-size: 0.16rem;
-          > div {
-            display: inline-flex;
-            align-items: center;
-          }
+          font-size: 0.18rem;
+          padding: 0.1rem;
+         text-align: center;
+          
         }
       }
     }

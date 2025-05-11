@@ -1,13 +1,90 @@
 <template>
   <div demo-bg>
-    <dv-scroll-board :config="config" />
+    <dv-scroll-board v-if="showComponent" :config="config" />
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { reactive, onBeforeMount, onUnmounted, onMounted, ref } from "vue";
+
+let reloadTimer: number | null = null;
+
+const showComponent = ref(true);
+// 定义向父组件发送事件的 emit
+const emit = defineEmits(["refresh-time-updated"]);
+
+
+
+
 const config = reactive({
   header: ["工序", "设备名称", "保养频率", "本次保养时间", "下次保养时间"],
-  data: [
+  data: [] as string[][],
+  index: true,
+  columnWidth: [50],
+  align: ["center"],
+  rowNum: [15],
+  headerBGC: ["transparent"],
+  evenRowBGC: ["transparent"],
+  oddRowBGC: ["#026CCA80"],
+});
+
+// 在 DOM 渲染前初始化数据
+onBeforeMount(() => {
+  config.data = initData(); // 同步或异步操作
+  updateTime();
+});
+
+// 重新加载组件
+const reloadComponent = () => {
+
+  showComponent.value = false;
+  // 短暂延迟确保组件完全卸载
+  setTimeout(() => {
+    showComponent.value = true;
+    refreshData();
+  }, 100); 
+
+  // 更新时间并通知父组件
+  updateTime();
+};
+
+// 更新刷新时间
+const updateTime = () => {
+  const now = new Date();
+  const lastRefreshTime = `${now.getFullYear()}/${
+    now.getMonth() + 1
+  }/${now.getDate()} ${String(now.getHours()).padStart(2, "0")}:${String(
+    now.getMinutes()
+  ).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
+  emit("refresh-time-updated", lastRefreshTime);
+};
+
+
+// 初始化数据并更新表格
+const refreshData = () => {
+  config.data = initData(); // 重新生成数据
+};
+
+
+
+
+onMounted(() => {
+  // 设置定时器，每隔30秒重新加载组件
+  reloadTimer = setInterval(reloadComponent, 20000);
+});
+
+onUnmounted(() => {
+  // 组件卸载时清除定时器
+  if (reloadTimer) {
+    clearInterval(reloadTimer);
+  }
+});
+
+// 初始化数据
+const initData = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const rawData = [
     ["开料", "裁切机", "1次/周", "2025年3月27日", "2025年4月4日"],
     ["开料", "铝基板开料机", "1次/周", "2025年3月27日", "2025年4月4日"],
     ["开料", "磨边线", "1次/周", "2025年3月27日", "2025年4月4日"],
@@ -114,15 +191,66 @@ const config = reactive({
     ["OSP", "OSP线1#", "1次/月", "2025年3月2日", "2025年4月2日"],
     ["OSP", "OSP线2#", "1次/月", "2025年3月3日", "2025年4月3日"],
     ["包装", "真空包装机", "1次/月", "2025年3月2日", "2025年4月2日"],
-  ],
-  index: true,
-  columnWidth: [50],
-  align: ["center"],
-  rowNum: [15],
-  headerBGC: ["transparent"],
-  evenRowBGC: ["transparent"],
-  oddRowBGC: ["#026CCA80"],
-});
+  ];
+  return rawData.map((item) => {
+    const lastDate = parseDate(item[3]);
+    const nextDate = parseDate(item[4]);
+    const frequency = item[2];
+
+    // 如果下次保养时间是今天或之前，则更新保养记录
+    if (nextDate <= today) {
+      const newLastDate = new Date(today);
+      const newNextDate = calculateNextMaintenance(frequency, newLastDate);
+
+      return [
+        item[0],
+        item[1],
+        frequency,
+        formatDate(newLastDate),
+        formatDate(newNextDate),
+      ];
+    }
+
+    return [...item];
+  });
+};
+
+// 计算下次保养时间
+const calculateNextMaintenance = (frequency: string, lastDate: Date): Date => {
+  const nextDate = new Date(lastDate);
+
+  if (frequency.includes("周")) {
+    const weeks = parseInt(frequency.split("/")[0]);
+    nextDate.setDate(nextDate.getDate() + weeks * 7);
+  } else if (frequency.includes("月")) {
+    const months = parseInt(frequency.split("/")[0]);
+    nextDate.setMonth(nextDate.getMonth() + months);
+  } else if (frequency.includes("15天")) {
+    nextDate.setDate(nextDate.getDate() + 15);
+  } else if (frequency.includes("天")) {
+    const days = parseInt(frequency.split("/")[0]);
+    nextDate.setDate(nextDate.getDate() + days);
+  }
+
+  return nextDate;
+};
+
+// 格式化日期为"YYYY年MM月DD日"
+const formatDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  return `${year}年${month}月${day}日`;
+};
+
+// 解析日期字符串为Date对象
+const parseDate = (dateStr: string): Date => {
+  const [year, month, day] = dateStr
+    .split(/[年月日]/)
+    .filter(Boolean)
+    .map(Number);
+  return new Date(year, month - 1, day);
+};
 </script>
 
 <style scoped lang="scss">

@@ -25,8 +25,8 @@ const chartOptions = ref({
   xAxis: {
     type: "value", // 横轴改为数值轴
     name: '单位：PNL',
-    min: 0,
-    max: 10000,
+    // min: 0,
+    // max: 10000,
     // minInterval: 100,
     nameTextStyle: {
       color: "#fff", // 确保颜色与背景对比明显
@@ -51,7 +51,7 @@ const chartOptions = ref({
     {
       name: "月累计产出",
       type: "bar", // 柱状图（横向）
-      data: [8000, 6500],
+      data: [12966, 12895],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签

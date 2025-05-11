@@ -368,7 +368,7 @@ const handleAlarmRefreshTimeUpdated = (lastRefreshTime: string) => {
 
 const devices = [
   { name: "VCP1#", status: 1 },
-  { name: "日蚀1#", status: 2 },
+  { name: "日蚀1#", status: 1 },
   { name: "VCP2#", status: 3 },
   { name: "日蚀2#", status: 3 },
   { name: "电镀后处理", status: 1 },
@@ -416,16 +416,11 @@ const devices = [
     > div:nth-child(4) {
       .devices-container {
         height: calc(100% - 0.34rem);
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        font-size: 0.2rem;
-        padding: 0.1rem;
-
-        > div {
-          display: inline-flex;
-          align-items: center;
-        }
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(5, 1fr);
+          font-size: 0.18rem;
+          padding: 0.1rem;
       }
     }
   }

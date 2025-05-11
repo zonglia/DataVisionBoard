@@ -15,6 +15,7 @@
             padding-top: 0.2rem;
           "
         >
+          <!-- 标题＋刷新时间 -->
           <div>
             <dv-decoration7 style="height: 0.47rem">
               <h2 style="font-size: 0.4rem">
@@ -25,16 +26,19 @@
                 />工厂设备保养/设备维护管控
               </h2>
             </dv-decoration7>
+            <div style="height: 0.3rem; text-align: right">
+              <span style="font-size: 0.3rem">最后刷新{{ attendanceLastRefreshTime }}</span>
+            </div>
           </div>
 
           <div
             style="
               flex: 1;
-              height: calc(100% - 0.47rem - 0.078rem);
+              height: calc(100% - 0.47rem - 0.078rem - 0.3rem);
               position: relative;
             "
           >
-            <MaintenancePlan style="height: 100%" />
+            <MaintenancePlan style="height: 100%"  @refresh-time-updated="handleRefreshTimeUpdated" />
           </div>
         </dv-border-box12>
       </div>
@@ -57,12 +61,15 @@
                 />工厂试产总良率
               </h2>
             </dv-decoration7>
+            <div style="height: 0.3rem; text-align: right">
+              <span style="font-size: 0.3rem">最后刷新{{ attendanceLastRefreshTime }}</span>
+            </div>
           </div>
 
           <div
             style="
               flex: 1;
-              height: calc(100% - 0.47rem - 0.078rem);
+              height: calc(100% - 0.47rem - 0.078rem - 0.3rem);
               position: relative;
             "
           >
@@ -75,8 +82,15 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import MaintenancePlan from "../views/chart/MaintenancePlan.vue";
 import TrialYieldRate from "../views/chart/TrialYieldRate.vue";
+
+const attendanceLastRefreshTime = ref("");
+
+const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
+  attendanceLastRefreshTime.value = lastRefreshTime;
+};
 </script>
 
 <style scoped lang="scss">

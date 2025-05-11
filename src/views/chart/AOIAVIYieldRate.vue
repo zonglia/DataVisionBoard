@@ -34,13 +34,11 @@ const chartOptions = ref({
   xAxis: {
     type: "category",
     data: [
-      "3月28日",
-      "3月29日",
-      "3月30日",
-      "3月31日",
-      "4月1日",
-      "4月2日",
-      "4月3日",
+      "4/29",
+      "4/30",
+      "5/3",
+       "5/4",
+     "5/5"
     ],
     axisLabel: { color: "#fff", fontSize: 8 },
   },
@@ -58,7 +56,7 @@ const chartOptions = ref({
       name: "一次良率(%)",
       type: "line",
       smooth: true,
-      data: [77.7, 78.9, 79.9, 79.6, 83.3, 80.9, 78.1],
+      data: [83.9, 82.0, 82.7, 50.5, 51.7],
       itemStyle: { color: "#ff7f50" },
       label: {
         show: true,
@@ -72,7 +70,7 @@ const chartOptions = ref({
       name: "最终良率(%)",
       type: "line",
       smooth: true,
-      data: [99.6, 99.0, 99.3, 99.5, 99.3, 98.8, 99.0],
+      data: [99.2, 99.3, 99.3, 97.9, 99.0],
       itemStyle: { color: "#6495ed" },
       label: {
         show: true,

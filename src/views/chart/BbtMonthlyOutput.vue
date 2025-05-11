@@ -51,7 +51,7 @@ const chartOptions = ref({
     {
       name: "工序WIP",
       type: "bar", // 柱状图（横向）
-      data: [1740, 1684, 1824, 2432],
+      data: [15072, 15072, 14820, 14160],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签

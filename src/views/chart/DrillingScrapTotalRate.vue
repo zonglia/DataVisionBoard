@@ -33,7 +33,7 @@ const chartOptions = ref({
 
   xAxis: {
     type: "category",
-    data: ["24Y", "2503", "25W14", "4月7日", "4月8日", "4月9日"],
+    data: ['24Y', '25M3', '25M4', '5月6日', '5月7日', '5月8日'],
     axisLabel: { rotate: 45, color: "#fff", fontSize: 8 },
   },
 
@@ -57,14 +57,7 @@ const chartOptions = ref({
       name: "报废率(%)",
       type: "line",
       smooth: true,
-      data: [
-        0.43,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0, // 已转换为百分比值(0.0043→0.43)
-      ],
+      data: [0.4336454, 0, 0, 0, 0, 0],
       itemStyle: { color: "#6495ed" },
       label: {
         show: true,

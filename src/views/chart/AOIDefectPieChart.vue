@@ -42,9 +42,9 @@ const chartOptions = ref({
       radius: "70%",
       center: ["60%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
-        { value: 30.1851, name: "外层赃物开路" },
-        { value: 3.6567, name: "外层曝光不良" },
-        { value: 2.4155, name: "外层过蚀" },
+        { value: 1.28, name: "外层赃物开路" },
+        { value: 0.16, name: "外层脏物缺口" },
+        { value: 0.1, name: "外层过蚀" },
       ],
       // 饼图标签样式
       label: {

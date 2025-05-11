@@ -42,7 +42,9 @@ const chartOptions = ref({
       center: ["50%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
         { value: 4, name: "防焊异物" },
-        { value: 2, name: "外层开路" },
+        { value: 6, name: "线路异物" },
+        { value: 1, name: "AOI外力损伤" },
+        { value: 1, name: "防旱上PAD" },
       ],
       // 饼图标签样式
       label: {

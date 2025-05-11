@@ -65,7 +65,7 @@ const chartOptions = ref({
       name: "工序WIP",
       type: "bar",
       smooth: true,
-      data: [910, 302, 240, 240],
+      data: [3012, 3012, 2804, 2880],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签

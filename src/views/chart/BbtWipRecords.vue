@@ -5,7 +5,7 @@
 import { reactive } from "vue";
 const config = reactive({
   header: ["型号", "BBT", "OSP", "AVI", "包装"],
-  data: [["01S71041G", "1095", "608", "299", "0"]],
+  data: [["01S71041G", "1828", "608", "1218", "0"]],
   align: ["left"],
   rowNum: [2],
   headerBGC: ["transparent"],

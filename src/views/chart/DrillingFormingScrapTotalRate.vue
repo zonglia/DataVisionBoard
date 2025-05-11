@@ -1,5 +1,5 @@
 <template>
-    <ECharts :options="chartOptions"/>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -33,15 +33,8 @@ const chartOptions = ref({
 
   xAxis: {
     type: "category",
- data: [
-  "24Y",
-  "2503",
-  "25W14",
-  "4月7日",
-  "4月8日",
-  "4月9日"
-],
-    axisLabel: { rotate: 45, color: "#fff",fontSize: 8, },
+    data: ["24Y", "25M3", "25M4", "5月6日", "5月7日", "5月8日"],
+    axisLabel: { rotate: 45, color: "#fff", fontSize: 8 },
   },
 
   yAxis: {
@@ -57,9 +50,7 @@ const chartOptions = ref({
       name: "报废目标(%)",
       type: "line",
       smooth: true,
-    data: [
-      0.05, 0.05, 0.05, 0.05, 0.05, 0.05
-    ],
+      data: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05],
       itemStyle: { color: "#ff7f50" },
     },
     {
@@ -67,10 +58,15 @@ const chartOptions = ref({
       type: "line",
       smooth: true,
       data: [
-      0.13, 0.85, 0.00, 0.00, 0.00, 0.00 // Converted from decimal to percentage
-    ],
+        0.128, // 24Y (0.001280815 * 100)
+        0.852, // 25M3 (0.008516484 * 100)
+        0, // 25M4
+        0, // 5月6日
+        0, // 5月7日
+        0, // 5月8日
+      ],
       itemStyle: { color: "#6495ed" },
-         label: {
+      label: {
         show: true,
         position: "top",
         formatter: "{c}%",

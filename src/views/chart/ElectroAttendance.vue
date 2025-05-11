@@ -7,13 +7,12 @@ import ECharts from "@/components/ECharts.vue";
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import * as echarts from "echarts";
 
-
 // 出勤人数
 const attendance = ref(6);
 // 在职人数
-const total = ref(7);
+const total = ref(6);
 // 出勤率
-const attendanceRate = computed(() => 
+const attendanceRate = computed(() =>
   total.value === 0 ? 0 : (attendance.value / total.value) * 100
 );
 
@@ -47,7 +46,7 @@ const chartOptions = ref({
     {
       name: "人员出勤",
       type: "bar", // 柱状图（横向）
-      data: [5, 6],
+      data: [6, 6],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签

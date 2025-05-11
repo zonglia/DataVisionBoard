@@ -16,8 +16,8 @@ const chartOptions = ref({
   xAxis: {
     type: "value", // 横轴改为数值轴
     name: "单位：PML",
-    min: 0,
-    max: 25,
+    // min: 0,
+    // max: 25,
     // minInterval: 100,
     axisLabel: { color: "#fff", fontSize: 10 },
     axisLine: { show: true },
@@ -38,7 +38,7 @@ const chartOptions = ref({
     {
       name: "人员出勤",
       type: "bar", // 柱状图（横向）
-      data: [20, 20],
+      data: [41, 41],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签

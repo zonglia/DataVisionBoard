@@ -41,9 +41,9 @@ const chartOptions = ref({
       radius: "90%",
       center: ["50%", "50%"], // 30%表示水平方向左移（默认50%居中）50%表示垂直居中
       data: [
-        { value: 10, name: "断桥" },
-        { value: 6, name: "防焊异物" },
-        { value: 2, name: "板面不洁" },
+        { value: 9, name: "冲型压伤" },
+        { value: 9, name: "防焊异物" },
+        { value: 2, name: "防旱板面露铜" },
       ],
       // 饼图标签样式
       label: {

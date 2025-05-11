@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <ECharts :options="chartOptions" height="2.4rem" />
-  </div>
+  <ECharts :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
-import * as echarts from "echarts";
 import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
@@ -25,7 +22,19 @@ const chartOptions = ref({
 
   xAxis: {
     type: "category",
-    data: ["3-30", "3-31", "4-1", "4-2", "4-3", "4-7", "4-8"],
+    data: [
+      "2024",
+      "25M01",
+      "25M02",
+      "25M03",
+      "25M04",
+      "25W18",
+      "5-4",
+      "5-5",
+      "5-6",
+      "5-7",
+      "5-8",
+    ],
     axisLabel: { rotate: 45, color: "#fff" },
   },
 
@@ -34,8 +43,8 @@ const chartOptions = ref({
     position: "left",
     // name: "报废率统计\n(目标1.2%)",
     nameGap: 0,
-    // min: 0,
-    // max: 10,
+    min: 0,
+    max: 3,
     // minInterval: 2,
     axisLabel: { formatter: "{value} %", color: "#fff" },
     axisLine: { show: true },
@@ -46,13 +55,13 @@ const chartOptions = ref({
       name: "报废目标(%)",
       type: "line",
       smooth: true,
-      data: [1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2],
+      data: [1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2],
       itemStyle: { color: "#ff7f50" },
     },
     {
       name: "报废率(%)",
       type: "line",
-      data: [0.0, 1.29, 0.15, 0.49, 1.92, 0.0, 1.19],
+      data: [1.68, 0.0, 0.0, 0.72, 0.8, 0.82, 0.66, 0.05, 0.0, 0.0, 0.0],
       itemStyle: { color: "#cda819" },
       label: {
         show: true,
@@ -66,10 +75,10 @@ const chartOptions = ref({
 
   grid: {
     containLabel: true,
-    left: "0%",
-    right: "1%",
-    bottom: "0%",
-    top: "20%",
+    left: 0,
+    right: 1,
+    bottom: 0,
+    top: 20,
   },
 });
 </script>

@@ -45,11 +45,11 @@ const chartOptions = ref({
 
    
 
-        { value: 0.54, name: "电镀磨刷堵孔报废" },
-        { value: 2.66, name: "电镀铜粒" },
-        { value: 3.18, name: "电镀板面污染" },
-        { value: 3.02, name: "电镀镀厚" },
-        { value: 2.05, name: "电镀镀层粗糙" },
+        { value: 0, name: "电镀磨刷堵孔报废" },
+        { value: 0, name: "电镀铜粒" },
+        { value: 0, name: "电镀板面污染" },
+        { value: 0, name: "电镀镀厚" },
+        { value: 0, name: "电镀镀层粗糙" },
       ],
       // 饼图标签样式
       label: {

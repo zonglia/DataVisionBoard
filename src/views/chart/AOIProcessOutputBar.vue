@@ -66,7 +66,7 @@ const chartOptions = ref({
       name: "日产出",
       type: "bar",
       smooth: true,
-      data: [1584, 1566],
+      data: [2142, 2136],
       label: {
         // 添加数据标签配置
         show: true, // 显示标签
