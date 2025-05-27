@@ -1,57 +1,53 @@
 <template>
   <div class="index-container">
-    <el-button type="primary" @click="ToJiangXiN2"
-      >江西N2工厂智能展示</el-button
-    >
-    <el-button type="primary" @click="ToDrilling"
-      >钻孔、成型车间智能管理看板</el-button
-    >
-    <el-button type="primary" @click="ToBBTAVI"
-      >BBT AVI 包装 车间智能化电子化管控</el-button
-    >
-
-    <el-button type="primary" @click="ToAOI">AOI</el-button>
-
-    <el-button type="primary" @click="ToElectroPlating">电镀车间</el-button>
-
-    <el-button type="primary" @click="ToDroughtPrevention">防焊车间</el-button>
-    <el-button type="primary" @click="ToTest">测试</el-button>
+    <el-row :gutter="50">
+      <el-col
+        v-for="button in buttons"
+        :key="button.route"
+        :xs="12"
+        :sm="8"
+        :md="6"
+        :lg="4"
+        :xl="3"
+      >
+        <el-button type="primary" @click="router.push(button.route)">
+          {{ button.label }}
+        </el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
+
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-// 基础路径跳转
-const ToDrilling = () => {
-  router.push("/drilling"); // 等同于 <router-link to="/home">
-};
-const ToElectroPlating = () => {
-  router.push("/electroPlating"); // 等同于 <router-link to="/home">
-};
-const ToDroughtPrevention = () => {
-  router.push("/droughtPrevention"); // 等同于 <router-link to="/home">
-};
-const ToJiangXiN2 = () => {
-  router.push("/jiangXiN2"); // 等同于 <router-link to="/home">
-};
-const ToBBTAVI = () => {
-  router.push("/bbtAvi"); // 等同于 <router-link to="/home">
-};
-
-const ToAOI = () => {
-  router.push("/aoi"); // 等同于 <router-link to="/home">
-};
-
-const ToTest = () => {
-  router.push("/test"); // 等同于 <router-link to="/home">
-};
+// 按钮配置数组
+const buttons = [
+  { label: "江西N2工厂智能展示", route: "/jiangXiN2" },
+  { label: "钻孔、成型", route: "/drilling" },
+  { label: "BBT AVI 包装", route: "/bbtAvi" },
+  { label: "AOI", route: "/aoi" },
+  { label: "电镀车间", route: "/electroPlating" },
+  { label: "防焊车间", route: "/droughtPrevention" },
+  // { label: '测试', route: '/test' }
+];
 </script>
 
 <style scoped lang="scss">
 .index-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  .el-row {
+    width: 100%;
+  }
+  .el-button {
+    width: 100%;
+    margin: 0.6rem;
+  }
 }
 </style>

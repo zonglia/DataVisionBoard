@@ -1,16 +1,68 @@
 <template>
-  <div class="drilling-container">
-    <div><Title title="测试" process="测试" /></div>
-    <div class="test-content">预留测试</div>
+  <div class="BBT-container">
+    <div>
+      <Title
+        title="N2工厂智能化数字化管控"
+        process="BBT、AVI、包装"
+        :buttons="buttons"
+        @button-click="handleButtonClick"
+      />
+    </div>
+
+    <div>
+      <router-view/>
+       
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import Title from "@/components/Title.vue";
+
+const router = useRouter();
+
+const buttons = ref([
+  {
+    bg: false,
+    fontColor: "#e18a3b",
+    border: "Border1",
+    text: "产品良率",
+    route: "/bbtAvi/test", // 配置路由路径
+  },
+  {
+    bg: false,
+    fontColor: "#e18a3b",
+    border: "Border1",
+    text: "数据大屏",
+    route: "/bbtAvi/main", // 配置路由路径
+  },
+]);
+
+const handleButtonClick = (index: number) => {
+  const button = buttons.value[index];
+  console.log(`按钮 ${index} 被点击`, button.text);
+
+  // 执行路由跳转
+  if (button.route) {
+    router.push(button.route);
+  }
+
+  // 其他业务逻辑
+  switch (index) {
+    case 0:
+      console.log("执行查询数据逻辑");
+      break;
+    case 1:
+      console.log("执行数据大屏逻辑");
+      break;
+  }
+};
 </script>
 
 <style scoped lang="scss">
-.drilling-container {
+.BBT-container {
   width: 100%;
   height: 100%;
   display: flex;

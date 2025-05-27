@@ -7,16 +7,6 @@ import ECharts from "@/components/ECharts.vue";
 import { ref } from "vue";
 
 const chartOptions = ref({
-  //   title: {
-  //     text: "BBT 不良分析",
-  //     left: "center",
-  //     textStyle: {
-  //       // 标题字体设置
-  //       fontSize: 10,
-  //       fontWeight: "bold",
-  //     },
-  //   },
-  //   提示框
   tooltip: {
     trigger: "item",
     textStyle: {

@@ -1,4 +1,3 @@
-<!-- CarouselComponent.vue -->
 <template>
   <el-carousel
     trigger="click"
@@ -24,7 +23,7 @@
 import type { PropType } from "vue";
 defineProps({
   imgList: {
-    type: Array as PropType<{ url: string }[]>,
+    type: Array as PropType<{ url: string }[]>, // 类型定义为包含url属性的对象数组
     default: () => [] as { url: string }[],
   },
   height: {
@@ -68,7 +67,6 @@ const getFillColor = (url: string) => {
       height: 100%;
       object-fit: contain; // 控制图片缩放方式
       background: transparent !important; // 深色背景用于浅色图片
-     
     }
   }
 }

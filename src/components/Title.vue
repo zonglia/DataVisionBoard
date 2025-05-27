@@ -1,26 +1,28 @@
 <template>
   <div class="title">
-    <div>
-      <div><dv-decoration8 style="width: 100%; height: 1.3rem" /></div>
-      <div class="title-content">
+    <el-row class="title-content">
+      <el-col :xs="0" :sm="3" :md="3" :lg="3" :xl="3"
+        ><dv-decoration8 style="width: 100%; height: 60%"
+      /></el-col>
+      <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18" style="width: 100%">
         <h2>{{ title }}</h2>
-        <dv-decoration5 :dur="2" style="width: 50%; height: 0.5rem" />
+        <dv-decoration5 dur="3" style="height: 100%" class="dv-decoration5" />
+      </el-col>
+      <el-col :xs="0" :sm="3" :md="3" :lg="3" :xl="3"
+        ><dv-decoration8 :reverse="true" style="width: 100%; height: 60%"
+      /></el-col>
+    </el-row>
+
+    <div class="title-button">
+      <div
+        style="font-weight: 600; display: inline-flex; align-items: center"
+        v-show="process"
+      >
+        <SvgIcon name="tool" color="#409eff" size="0.65rem" /><span
+          >工序：{{ props.process }}</span
+        >
       </div>
-      <div>
-        <dv-decoration8
-          :reverse="true"
-          style="width: 100%; height: 1.3rem; float: right"
-        />
-      </div>
-    </div>
-    <div>
-      <div>
-        <h3 v-show="process">
-          <SvgIcon name="tool" color="#409eff" size="0.5rem" />工序：{{
-            process
-          }}
-        </h3>
-      </div>
+
       <div class="buttons-container">
         <!-- 默认首页按钮 -->
         <dv-button
@@ -29,8 +31,7 @@
           :font-color="homeButton.fontColor"
           :border="homeButton.border"
           @click="goToHome"
-        >
-          {{ homeButton.text }}
+          ><span>{{ homeButton.text }}</span>
         </dv-button>
         <!-- 遍历传入的 buttons 数组，渲染多个按钮 -->
         <dv-button
@@ -41,7 +42,7 @@
           :border="button.border"
           @click="handleButtonClick(index)"
         >
-          {{ button.text }}
+          <span>{{ button.text }}</span>
         </dv-button>
       </div>
     </div>
@@ -82,7 +83,7 @@ const homeButton = {
   bg: false,
   fontColor: "#409eff",
   border: "Border1",
-  text: "首页",
+  text: "导航",
   route: "/",
 };
 
@@ -110,71 +111,79 @@ const goToHome = () => {
 
 <style scoped lang="scss">
 .title {
-  width: 100%;
   height: 100%;
-  display: flex; // 启用弹性布局
-  flex-direction: column; // 垂直排列
-  > div:nth-child(1) {
-    flex: 7;
-    // background-color: red;
-    display: flex; // 启用弹性布局
-    justify-content: space-between; // 子元素均匀分布（两侧贴边，中间居中）
-    > div:nth-child(1) {
-      flex: 2;
-    }
-    > div:nth-child(2) {
-      flex: 6;
-      display: flex; /* 启用弹性布局 */
-      flex-direction: column; /* 子元素垂直排列 */
-      align-items: center;
-      justify-content: center;
-    }
-    > div:nth-child(3) {
-      flex: 2;
-    }
+  display: flex;
+  flex-direction: column;
+  .title-content {
+    flex: 6;
 
-    .title-content {
-      // background-color: red;
-      text-align: center;
-      h2 {
-        margin: 0; // 清除默认边距
-        font-size: 0.5rem;
-        padding-top: 0.5rem;
-        letter-spacing: 0.1rem;
+    > :nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      align-items: center; // 使内部元素水平居中
+
+      > :nth-child(1) {
+        flex: 6;
+      }
+      .dv-decoration5 {
+        width: 60%;
+        display: flex;
+        flex: 4;
+
+        @media (max-width: 1200px) {
+          // 小屏幕断点
+          width: 60%;
+        }
+        @media (max-width: 992px) {
+          // 小屏幕断点
+          width: 80%;
+        }
+        @media (max-width: 768px) {
+          // 小屏幕断点
+          width: 100%;
+        }
       }
     }
-  }
-  > div:nth-child(2) {
-    flex: 3;
-    // background-color: blue;
-    padding-left: 0.6rem;
-    padding-right: 0.6rem;
-    font-size: 0.3rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; // 将子元素均匀分布在容器中，第一个元素靠左，最后一个元素靠右
-    align-items: center; //在垂直方向居中对齐
+    h2 {
+      // 基础重置
+      margin: 0; // 清除默认边距
+      padding-top: 0.5rem;
 
-    /* 新增按钮容器样式，确保按钮靠右 */
-    .buttons-container {
-      display: flex;
-      gap: 10px; /* 按钮间距 */
-      margin-left: auto; /* 关键：让按钮容器靠右 */
+      // 字体控制
+      font-size: 0.6rem;
+      font-weight: 600; // 半粗体（比bold更优雅）
+      letter-spacing: 0.1rem; // 字母间距
     }
   }
 }
 
-:deep(.dv-decoration-8) {
-  polyline {
-    stroke: #02f2f6;
-    stroke-width: 2;
-  }
-}
+.title-button {
+  flex: 3;
+  // background-color: blue;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  font-size: 0.3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; // 将子元素均匀分布在容器中，第一个元素靠左，最后一个元素靠右
+  align-items: center; //在垂直方向居中对齐
 
-:deep(.dv-decoration-5) {
-  polyline {
-    stroke: #02f2f6;
-    stroke-width: 2;
+  /* 新增按钮容器样式，确保按钮靠右 */
+  .buttons-container {
+    display: flex;
+    gap: 10px; /* 按钮间距 */
+    margin-left: auto; /* 关键：让按钮容器靠右 */
+  }
+  // 桌面端布局
+  @media (min-width: 992px) {
+    span {
+      font-size: 0.5rem;
+    }
+  }
+  @media (max-width: 992px) {
+    span {
+      font-size: 0.2rem;
+    }
   }
 }
 </style>

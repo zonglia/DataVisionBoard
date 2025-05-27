@@ -27,6 +27,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  forceRerender: { // 用于强制重绘
+    type: Boolean,
+    default: false,
+  }
 });
 
 const chart = ref(null);
@@ -61,6 +65,22 @@ const autoResizeHandler = () => {
   }
 };
 
+// 强制重绘方法
+const forceRerender = () => {
+  if (!chartInstance) return;
+  
+  // 保存当前选项
+  const currentOption = chartInstance.getOption();
+  
+  // 先清空选项
+  chartInstance.setOption({}, true);
+  
+  // 立即重新设置选项（这会触发动画）
+  setTimeout(() => {
+    chartInstance.setOption(currentOption, true);
+  }, 0);
+};
+
 onMounted(() => {
   initChart();
   autoResizeHandler();
@@ -88,6 +108,16 @@ watch(
       chartInstance.dispose();
       chartInstance = echarts.init(chart.value, newTheme); // 修复变量名
       chartInstance.setOption(props.options);
+    }
+  }
+);
+
+// 监听 forceRerender 变化
+watch(
+  () => props.forceRerender,
+  (newVal) => {
+    if (newVal) {
+      forceRerender();
     }
   }
 );

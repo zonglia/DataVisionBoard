@@ -21,16 +21,6 @@ const chartOptions = ref({
     trigger: "axis",
     axisPointer: { type: "cross" },
   },
-
-  // legend: {
-  //   data: ["比率(%)", "累计比率(%)"],
-  //   top: 50,
-  //   right: 0,
-  //   textStyle: {
-  //     color: "#fff",
-  //   },
-  // },
-
   xAxis: {
     type: "category",
     data: ["外层", "AOI"],

@@ -1,14 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/layout/index.vue' // 主布局组件，用于嵌套路由展示
-import Drilling from '../components/Drilling.vue';
+import Drilling from '@/views/Drilling/index.vue';
 import Test from '../components/Test.vue';
-import DroughtPrevention from '../components/DroughtPrevention.vue';
-import JiangXiN2 from '../components/JiangXiN2.vue'
-import BBTAVI from '@/components/BBTAVI.vue'
-import AOI from '../components/AOI.vue';
-import ElectroPlating from '../components/ElectroPlating.vue';
-import ElectroPlatingMain from '../views/ElectroPlating/ElectroPlatingMain.vue'
-import ProcessIndicators from '../views/ElectroPlating/ProcessIndicators.vue'
+import DroughtPrevention from '@/views/DroughtPrevention/index.vue';
+import JiangXiN2 from '@/views/JiangXiN2/index.vue';
+import BBTAVI from '@/views/BBTAVI/index.vue'
+import AOI from '@/views/AOI/index.vue';
+import ElectroPlating from '@/views/ElectroPlating/index.vue';
+import ElectroPlatingMain from '@/views/ElectroPlating/main/index.vue'
+import BBTMain from '@/views/BBTAVI/main/index.vue'
+import BBTest from '@/views/BBTAVI/test/index.vue'
+import ProcessIndicators from '@/views/ElectroPlating/processIndicators/index.vue'
 
 // 公共路由
 export const constantRoutes = [
@@ -50,6 +52,25 @@ export const constantRoutes = [
         ]
     },
     {
+        path: '/bbtAvi',
+        component: BBTAVI,
+        children: [
+            {
+                path: '', // 匹配 /electroPlating
+                redirect: '/bbtAvi/main' // 重定向到完整路径
+            },
+            {
+                path: 'main', // 相对路径，匹配 /electroPlating/main
+                component: BBTMain,
+            },
+            {
+                path: 'test', // 相对路径，匹配 /electroPlating/processIndicators
+                component: BBTest,
+            }
+
+        ]
+    },
+    {
         path: '/test',
         component: Test,
     },
@@ -62,10 +83,7 @@ export const constantRoutes = [
         path: '/jiangXiN2',
         component: JiangXiN2,
     },
-    {
-        path: '/bbtAvi',
-        component: BBTAVI,
-    },
+  
     {
         path: '/aoi',
         component: AOI,
