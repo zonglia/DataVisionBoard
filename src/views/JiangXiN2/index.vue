@@ -296,7 +296,7 @@
 
 <script setup lang="ts">
 import Title from "@/components/Title.vue";
-import EqualWidthScroll from "@/components/Scroll/EqualWidth​/index.vue";
+import EqualWidthScroll from "@/components/Scroll/EqualWidth/index.vue";
 </script>
 
 <style scoped lang="scss">

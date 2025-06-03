@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import Test from "@/components/​​BarWithLineChart/index.vue";
+import Test from "@/components/BarWithLineChart/index.vue";
 import { onMounted, ref, computed } from "vue";
 import { getLatest } from "@/api/test";
 interface TestDataItem {

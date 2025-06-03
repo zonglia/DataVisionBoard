@@ -6,7 +6,7 @@
 
     <div class="drought-prevention-main">
       <div class="card wide-card">
-        <Attendance :attendance="41" :totalStaff="41" />
+        <Attendance :attendance="50" :totalStaff="50" />
       </div>
       <div class="card wide-card">
         <ProcessOutPut
@@ -32,7 +32,7 @@
         ]"
           :tableData="tableData"
           @refresh="
-            (title) => {
+            (title:string) => {
               handleRefresh(title);
             }
           "
@@ -172,7 +172,7 @@
         />
       </div>
       <div class="card">
-        <Carousel title="灯珠管控" :imgList="imgList2" />
+        <DoubleImage title="灯珠管控" :imgList="imgList2" />
       </div>
       <div class="card"><DeviceStatus :devices="devices" /></div>
     </div>
@@ -184,11 +184,12 @@ import { ref, onMounted, computed } from "vue";
 import Title from "@/components/Title.vue";
 import Attendance from "@/components/Attendance/index.vue";
 import ProcessOutPut from "@/components/ProcessOutput/index.vue";
-import EqualWidthScroll from "@/components/Scroll/EqualWidth​/index.vue";
+import EqualWidthScroll from "@/components/Scroll/EqualWidth/index.vue";
 import DoubleCurve from "@/components/DoubleCurve/index.vue";
 import Carousel from "@/components/Carousel/index.vue";
 import PieChart from "@/components/PieChart/index.vue";
 import DeviceStatus from "@/components/DeviceStatus/index.vue";
+import DoubleImage from "@/components/DoubleImage/index.vue";
 
 import {
   getProcessDailyOutPut,
@@ -262,12 +263,12 @@ const imgList2 = ref([
 const wip = ref<WipItem[]>([]);
 const dailyOutput = ref([
   { techName: "防焊丝印", category: "防焊", output: 0 },
-  { techName: "后烘", category: "文字", output: 0 },
+  { techName: "文字", category: "文字", output: 0 },
 ]);
 
 const monthlyOutput = ref([
   { techName: "防焊丝印", category: "防焊", output: 0 },
-  { techName: "后烘", category: "文字", output: 0 },
+  { techName: "文字", category: "文字", output: 0 },
 ]);
 
 onMounted(() => {

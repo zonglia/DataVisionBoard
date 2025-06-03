@@ -30,6 +30,9 @@ export default defineConfig(({ mode }) => {
       }
     },
     server: {
+      host: '0.0.0.0', // 允许外部IP访问
+      port: 5173,       // 明确指定端口
+      strictPort: true,  // 禁止自动切换端口
       proxy: {
         '/api': {
           target: env.VITE_SERVE,

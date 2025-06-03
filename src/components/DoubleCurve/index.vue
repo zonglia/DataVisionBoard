@@ -1,11 +1,11 @@
 <template>
-  <Card :title="props.title" :svgName="props.svgName">
-    <ECharts :options="defaultOptions" />
+  <Card :title="props.title" :svgName="props.svgName" @refresh="handleRefresh">
+    <ECharts :options="defaultOptions" :force-rerender="forceRerenderFlag" />
   </Card>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, nextTick } from "vue";
 import Card from "@/components/Card/index.vue";
 import ECharts from "@/components/ECharts.vue";
 import type { PropType } from "vue";
@@ -67,19 +67,19 @@ const defaultOptions = computed(() => {
   const calculateMin = (value: number) => {
     return Math.floor(value / 10) * 10;
   };
-// 智能计算最大值（处理三种情况）
-const calculateSmartMax = (value: number) => {
-  if (value < 1) {
-    // 情况1：小于1时，取0.1的整数倍（如0.28→0.3）
-    return Math.ceil(value * 10) / 10;
-  } else if (value < 10) {
-    // 情况2：1-10之间时，取1的整数倍（如7.8→8）
-    return Math.ceil(value);
-  } else {
-    // 情况3：大于10时，固定取100
-    return 100;
-  }
-};
+  // 智能计算最大值（处理三种情况）
+  const calculateSmartMax = (value: number) => {
+    if (value < 1) {
+      // 情况1：小于1时，取0.1的整数倍（如0.28→0.3）
+      return Math.ceil(value * 10) / 10;
+    } else if (value < 10) {
+      // 情况2：1-10之间时，取1的整数倍（如7.8→8）
+      return Math.ceil(value);
+    } else {
+      // 情况3：大于10时，固定取100
+      return 100;
+    }
+  };
 
   const yAxisMin = allValues.length > 0 ? calculateMin(minValue) : 0;
   const yAxisMax = calculateSmartMax(maxValue);
@@ -124,7 +124,7 @@ const calculateSmartMax = (value: number) => {
         itemStyle: { color: "#ff7f50" },
         label: {
           show: props.seriesData[0].label?.show ?? true, // undefined时默认为true
-          position: "top",
+          position: "bottom",
           formatter: "{c}%",
           color: "#fff",
           fontSize: 10,
@@ -139,7 +139,7 @@ const calculateSmartMax = (value: number) => {
 
         label: {
           show: props.seriesData[1].label?.show ?? true, // undefined时默认为true
-          position: "top",
+          position: "top", // 修改第二条线的标签位置
           formatter: "{c}%",
           color: "#fff",
           fontSize: 10,
@@ -155,6 +155,24 @@ const calculateSmartMax = (value: number) => {
     },
   };
 });
+
+const forceRerenderFlag = ref(false);
+
+// 定义组件可以发射的事件类型
+const emit = defineEmits(["refresh"]);
+
+// 定义一个处理刷新事件的函数
+const handleRefresh = (title: string) => {
+  // 触发强制重绘
+  forceRerenderFlag.value = true;
+
+  // 重置标志，以便下次点击仍能触发
+  nextTick(() => {
+    forceRerenderFlag.value = false;
+  });
+  // 向上传递事件
+  emit("refresh", title);
+};
 </script>
 
 <style scoped lang="scss"></style>

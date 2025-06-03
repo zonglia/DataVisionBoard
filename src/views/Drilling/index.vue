@@ -29,7 +29,7 @@
         ]"
           :tableData="tableData"
           @refresh="
-            (title) => {
+            (title:string) => {
               handleRefresh(title);
             }
           "
@@ -163,7 +163,7 @@ import { ref, onMounted, computed } from "vue";
 import Title from "@/components/Title.vue";
 import Attendance from "@/components/Attendance/index.vue";
 import ProcessOutPut from "@/components/ProcessOutput/index.vue";
-import EqualWidthScroll from "@/components/Scroll/EqualWidth​/index.vue";
+import EqualWidthScroll from "@/components/Scroll/EqualWidth/index.vue";
 import DoubleCurve from "@/components/DoubleCurve/index.vue";
 import Carousel from "@/components/Carousel/index.vue";
 import PieChart from "@/components/PieChart/index.vue";

@@ -41,7 +41,6 @@
 
 <script setup lang="ts">
 import Test from "./chart/test.vue";
-import scrollboard from "./chart/scrollboard.vue";
 import ProductionRate from "./chart/ProductionRate.vue";
 import DeviceAlarmLog from "./chart/DeviceAlarmLog.vue";
 </script>

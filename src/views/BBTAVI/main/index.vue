@@ -1,7 +1,7 @@
 <template>
   <div class="BBT-content">
     <div class="card">
-      <Attendance :attendance="10" :totalStaff="10" />
+      <Attendance :attendance="14" :totalStaff="14" />
     </div>
     <!-- 日产出/月产出 -->
     <div class="card">
@@ -30,7 +30,7 @@
         :tableData="tableData"
         :headerFontSize="0.2"
         @refresh="
-          (title) => {
+          (title:string) => {
             handleRefresh(title);
           }
         "
@@ -41,82 +41,36 @@
       <DoubleCurve
         title="BBT良率统计"
         svg-name="yield"
-        :categories="[
-          '4/20',
-          '4/21',
-          '4/22',
-          '4/23',
-          '4/24',
-          '4/25',
-          '4/26',
-          '4/27',
-          '4/28',
-          '4/29',
-          '4/30',
-          '5/3',
-          '5/4',
-          '5/5',
-          '5/6',
-          '5/7',
-          '5/8',
-        ]"
+        :categories="BBTYield.map((item) => item.date)"
         :series-data="[
           {
             name: '一次良率(%)',
-            value: [
-              94.8, 91.5, 94.1, 93.1, 95.3, 90.0, 89.0, 86.2, 74.6, 75.0, 90.0,
-              90.4, 80.4, 91.7, 90.4, 88.8, 90.9,
-            ],
+            value: BBTYield.map((item) => item.firstYield),
           },
           {
             name: '最终良率(%)',
-            value: [
-              99.3, 100.0, 98.7, 99.0, 99.3, 99.3, 99.1, 99.1, 99.4, 99.7, 99.5,
-              99.0, 99.4, 99.5, 99.2, 98.8, 99.7,
-            ],
+            value: BBTYield.map((item) => item.finalYield),
           },
         ]"
+        @refresh="handleRefresh"
       />
     </div>
     <div class="card">
       <DoubleCurve
         title="AVI良率统计"
         svg-name="yield"
-        :categories="[
-          '4/20',
-          '4/21',
-          '4/22',
-          '4/23',
-          '4/24',
-          '4/25',
-          '4/26',
-          '4/27',
-          '4/28',
-          '4/29',
-          '4/30',
-          '5/3',
-          '5/4',
-          '5/5',
-          '5/6',
-          '5/7',
-          '5/8',
-        ]"
+        :categories="AVIYield.map((item) => item.date)"
         :series-data="[
           {
             name: '一次良率(%)',
-            value: [
-              75.1, 85.7, 75.0, 73.3, 77.0, 66.2, 73.1, 81.5, 81.7, 84.0, 80.9,
-              81.6, 80.5, 77.2, 77.9, 74.5, 78.1,
-            ],
+            value: AVIYield.map((item) => item.firstYield),
           },
           {
             name: '最终良率(%)',
-            value: [
-              97.5, 96.5, 92.3, 96.0, 97.1, 95.7, 99.0, 98.8, 97.6, 99.1, 99.7,
-              99.3, 99.7, 98.0, 99.2, 98.4, 98.5,
-            ],
+            value: AVIYield.map((item) => item.finalYield),
           },
         ]"
+        @refresh="handleRefresh"
       />
     </div>
     <div class="card">
@@ -145,22 +99,15 @@
     <div class="card">
       <PieChart
         title="BBT不良分析"
-        :pie-data="[
-          { value: 4, name: '防焊异物' },
-          { value: 6, name: '线路异物' },
-          { value: 1, name: 'AOI外力损伤' },
-          { value: 1, name: '防焊上PAD' },
-        ]"
+        :pie-data="BBTScrap"
+        @refresh="handleRefresh"
       />
     </div>
     <div class="card">
       <PieChart
         title="AVI不良分析"
-        :pie-data="[
-          { value: 9, name: '冲型压伤' },
-          { value: 9, name: '防焊异物' },
-          { value: 2, name: '防焊板面露铜' },
-        ]"
+        :pie-data="AVIScrap"
+        @refresh="handleRefresh"
       />
     </div>
     <div class="card"><DeviceStatus :devices="devices" /></div>
@@ -171,7 +118,7 @@
 import { ref, onMounted, computed } from "vue";
 import Attendance from "@/components/Attendance/index.vue";
 import ProcessOutPut from "@/components/ProcessOutput/index.vue";
-import EqualWidthScroll from "@/components/Scroll/EqualWidth​/index.vue";
+import EqualWidthScroll from "@/components/Scroll/EqualWidth/index.vue";
 import DoubleCurve from "@/components/DoubleCurve/index.vue";
 import PieChart from "@/components/PieChart/index.vue";
 import DeviceStatus from "@/components/DeviceStatus/index.vue";
@@ -179,6 +126,9 @@ import {
   getProcessDailyOutPut,
   getProcessMonthlyOutPut,
 } from "@/api/processoutput/index.ts";
+import { getScrapDaily } from "@/api/scrap/index.ts";
+import { getYield } from "@/api/etest/index.ts";
+import { getAVIYield } from "@/api/avi/index.ts";
 import type { WipItem, GroupedItem } from "@/api/wip/type";
 import { getWipByTechName } from "@/api/wip/index.ts";
 
@@ -193,6 +143,24 @@ const monthlyOutput = ref([
   { techName: "AVI", category: "AVI", output: 0 },
   { techName: "电子测试", category: "电测", output: 0 },
 ]);
+
+const dailyScrap = ref<
+  Array<{ name: string; value: number; techName: string }>
+>([]);
+
+const BBTScrap = ref<Array<{ name: string; value: number; techName: string }>>(
+  []
+);
+const BBTYield = ref<
+  Array<{ date: string; firstYield: number; finalYield: number }>
+>([]);
+
+const AVIYield = ref<
+  Array<{ date: string; firstYield: number; finalYield: number }>
+>([]);
+const AVIScrap = ref<Array<{ name: string; value: number; techName: string }>>(
+  []
+);
 
 // 明确指定 wip 的类型
 const wip = ref<WipItem[]>([]);
@@ -229,10 +197,13 @@ const devices = [
   { name: "粘尘机", status: 1 },
 ];
 
-onMounted(() => {
-  fetchDailyOutput();
-  fetchMonthlyOutput();
-  fetchWip();
+onMounted(async () => {
+  await fetchDailyOutput(); // 等待数据加载
+  await fetchMonthlyOutput();
+  await fetchWip();
+  await fetchDailScrap();
+  await fetchBBTYield();
+  await fetchAVIYield();
 });
 
 const fetchDailyOutput = async () => {
@@ -298,6 +269,83 @@ const fetchWip = async () => {
   } catch (error) {
     console.error("获取WIP数据失败:", error);
     ElMessage.error("获取WIP数据失败");
+  }
+};
+
+const fetchDailScrap = async () => {
+  // 确保 dailyScrap 初始为空数组
+  if (dailyScrap.value.length > 0) {
+    dailyScrap.value = [];
+  }
+  for (const item of dailyOutput.value) {
+    try {
+      const res = await getScrapDaily(item.techName.trim());
+
+      if (res.code === 200 && res.data?.length > 0) {
+        // 遍历 API 返回的数据，逐个添加到 dailyScrap 数组中
+        res.data.forEach((apiItem) => {
+          dailyScrap.value.push({
+            name: apiItem.bugName.trim(),
+            value: Number(apiItem.sunit),
+            techName: item.techName.trim(), // 保留对应的工序名称
+          });
+        });
+      }
+    } catch (error) {
+      ElMessage.error("获取BBT不良分析失败");
+    }
+  }
+  console.log("BBT不良分析数据获取完成", dailyScrap.value);
+  BBTScrap.value = dailyScrap.value.filter(
+    (item) => item.techName === "电子测试"
+  );
+
+  AVIScrap.value = dailyScrap.value.filter((item) => item.techName === "AVI");
+};
+
+const fetchBBTYield = async () => {
+  try {
+    const res = await getYield("电子测试");
+    if (res.code === 200 && res.data?.length > 0) {
+      BBTYield.value = res.data.map((item) => {
+        // 转换日期格式：从 "2025-04-23" 到 "4/23"
+        const date = new Date(item.chkDate);
+        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
+
+        return {
+          date: formattedDate, // 直接存储格式化后的日期
+          firstYield: parseFloat(item.firstPassYield),
+          finalYield: parseFloat(item.finalYield),
+        };
+      });
+
+      BBTYield.value = BBTYield.value.slice(0, 18);
+    }
+  } catch (error) {
+    ElMessage.error("获取BBT良率数据失败!");
+  }
+};
+const fetchAVIYield = async () => {
+  try {
+    const res = await getAVIYield("AVI");
+    if (res.code === 200 && res.data?.length > 0) {
+      AVIYield.value = res.data.map((item) => {
+        // 转换日期格式：从 "2025-04-23" 到 "4/23"
+        const date = new Date(item.chkDate);
+        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
+
+        return {
+          date: formattedDate, // 直接存储格式化后的日期
+          firstYield: parseFloat(item.firstPassYield),
+          finalYield: parseFloat(item.finalYield),
+        };
+      });
+
+      BBTYield.value = BBTYield.value.slice(0, 18);
+      console.log("AVI良率数据获取成功", BBTYield.value);
+    }
+  } catch (error) {
+    ElMessage.error("获取AVI良率数据失败!");
   }
 };
 
@@ -390,6 +438,23 @@ const handleRefresh = (title: string) => {
       console.log("执行WIP数据的刷新");
       fetchWip();
       break;
+    case "BBT良率统计":
+      console.log("执行BBT良率统计数据的刷新");
+      fetchBBTYield();
+      break;
+    case "AVI良率统计":
+      console.log("执行AVI良率统计数据的刷新");
+      fetchAVIYield;
+      break;
+    case "BBT不良分析":
+      console.log("执行BBT不良分析数据的刷新");
+      fetchDailScrap;
+      break;
+      case "AVI不良分析":
+      console.log("执行AVI不良分析数据的刷新");
+      fetchDailScrap;
+      break;
+
     default:
       console.log("默认刷新逻辑");
   }

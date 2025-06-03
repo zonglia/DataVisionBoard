@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed,watch } from "vue";
 import Card from "@/components/Card/index.vue";
 import ECharts from "@/components/ECharts.vue";
 
@@ -79,9 +79,10 @@ const defaultOptions = computed(() => {
 
 // 定义饼图数据项类型
 type PieDataItem = {
-  value: number;
   name: string;
+  value: number;
 };
+
 </script>
 
 <style scoped lang="scss"></style>

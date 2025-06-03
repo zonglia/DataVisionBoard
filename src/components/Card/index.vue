@@ -31,13 +31,13 @@
         "
       >
         <div class="refresh" @click="handleRefresh">
-          <SvgIcon name="refresh" color="#409eff" size="0.2rem" />刷新
+          <SvgIcon name="refresh" color="#409eff" size="0.3rem" />刷新
         </div>
         <div style="font-size: 0.18rem">最后刷新{{ refreshTime }}</div>
       </div>
     </div>
 
-    <div style="height: calc(100% - 0.8rem)">
+    <div style="height: calc(100% - 0.8rem);">
       <slot></slot>
     </div>
   </dv-border-box12>
@@ -50,7 +50,6 @@ import { defineEmits } from "vue";
 const emit = defineEmits(["refresh"]);
 
 const handleRefresh = () => {
-  console.log("触发刷新，title:", props.title); // 添加调试日志
   emit("refresh", props.title); // 确保这里传递了title
 };
 const props = defineProps({
@@ -88,7 +87,7 @@ const props = defineProps({
 <style scoped lang="scss">
 .refresh {
   cursor: pointer;
-  font-size: 0.18rem;
+  font-size: 0.25rem;
   display: inline-flex;
   align-items: center;
 }

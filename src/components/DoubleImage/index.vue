@@ -1,11 +1,14 @@
 <template>
   <Card :title="props.title" :svgName="props.svgName">
-    <Carousel :imgList="imgList" />
+    <div style="display: flex; gap: 0.1rem; padding: 0.05rem">
+      <div style="flex: 1" v-for="(img, index) in imgList" :key="index">
+        <img :src="img.url" alt="轮播图" style="width: 100%; height: 92%" />
+      </div>
+    </div>
   </Card>
 </template>
 
 <script setup lang="ts">
-import Carousel from "@/components/Carousel.vue";
 import Card from "@/components/Card/index.vue";
 import { ref, computed } from "vue";
 
