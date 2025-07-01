@@ -21,4 +21,4 @@
 
 # 项目演示
 
-![项目演示](https://github.com/LazyCat00/picture/blob/main/%E6%82%A6%E8%99%8E%E6%B1%9F%E8%A5%BF%E6%95%B0%E6%8D%AE%E5%A4%A7%E5%B1%8F/%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA.png)
+![项目演示](https://i-blog.csdnimg.cn/direct/65617dde01424a18ac9d74f055ea8477.png#pic_center)
