@@ -9,11 +9,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, ref, nextTick } from "vue";
+import { computed, ref, nextTick } from "vue";
 import Card from "@/components/Card/index.vue";
 import ECharts from "@/components/ECharts.vue";
 import type { PropType } from "vue";
 import * as echarts from "echarts";
+
+
+
 const emit = defineEmits(["refresh"]);
 const props = defineProps({
   title: {
@@ -247,6 +250,8 @@ const handleRefresh = (title: string) => {
   // 向上传递事件
   emit("refresh", title);
 };
+
+
 </script>
 
 <style scoped lang="scss">

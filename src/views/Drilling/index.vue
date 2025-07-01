@@ -3,7 +3,11 @@
     <div><Title title="N2工厂智能化数字化管控" process="钻孔、成型" /></div>
     <div class="drilling-content">
       <div class="card wide-card">
-        <Attendance :attendance="7" :totalStaff="7" />
+        <Attendance
+          :attendance="attendanceData.presentEmployees"
+          :totalStaff="attendanceData.totalEmployees"
+          @refresh="handleRefresh"
+        />
       </div>
       <div class="card wide-card">
         <ProcessOutPut
@@ -38,33 +42,35 @@
       <div class="card">
         <DoubleCurve
           title="钻孔总报废"
-          :categories="['24Y', '25M3', '25M4', '5月6日', '5月7日', '5月8日']"
+          :categories="drillingScrapRate.map((item) => item.time)"
           :series-data="[
             {
               name: '报废目标(%)',
-              value: [0.3, 0.3, 0.3, 0.3, 0.3, 0.3],
+              value: Array(drillingScrapRate.length).fill(0.3),
             },
             {
               name: '报废率(%)',
-              value: [0.43, 0, 0, 0, 0, 0],
+              value: drillingScrapRate.map((item) => item.scrap),
             },
           ]"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
         <DoubleCurve
           title="成型总报废"
-          :categories="['24Y', '25M3', '25M4', '5月6日', '5月7日', '5月8日']"
+          :categories="formScrapRate.map((item) => item.time)"
           :series-data="[
             {
               name: '报废目标(%)',
-              value: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05],
+              value: Array(formScrapRate.length).fill(0.05),
             },
             {
               name: '报废率(%)',
-              value: [0.128, 0.852, 0, 0, 0, 0],
+              value: formScrapRate.map((item) => item.scrap),
             },
           ]"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
@@ -90,26 +96,15 @@
       <div class="card">
         <PieChart
           title="钻孔不良分析"
-          :pie-data="[
-            { value: 7.6, name: '偏孔' },
-            { value: 0.256, name: '漏孔' },
-            { value: 2, name: '外力损伤' },
-            { value: 0.144, name: '披锋' },
-          ]"
+          :pie-data="drillingScrap"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
         <PieChart
           title="成型不良分析"
-          :pie-data="[
-            { value: 2.5, name: '孔损' },
-            { value: 5.2, name: '外力损伤' },
-            { value: 1.5, name: '多铣' },
-            {
-              value: 0.8,
-              name: '烧焦',
-            },
-          ]"
+          :pie-data="formScrap"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
@@ -128,32 +123,34 @@
             '备注',
           ]"
           :table-data="[
-            ['4/1', '1#', '7', '6', '4', '5', '', '', '<20um'],
-            ['4/2', '2#', '6', '7', '5', '6', '', '', '<20um'],
-            ['4/3', '3#', '3', '7', '4', '6', '', '', '<20um'],
-            ['4/4', '4#', '5', '8', '9', '6', '', '', '<20um'],
-            ['4/5', '5#', '8', '5', '7', '5', '', '', '<20um'],
-            ['4/6', '6#', '9', '9', '5', '6', '', '', '<20um'],
-            ['4/7', '7#', '9', '9', '4', '8', '', '', '<20um'],
-            ['4/8', '8#', '8', '9', '5', '5', '', '', '<20um'],
-            ['4/9', '9#', '9', '8', '5', '8', '', '', '<20um'],
-            ['4/10', '10#', '6', '5', '8', '5', '', '', '<20um'],
-            ['4/11', '11#', '5', '7', '9', '6', '', '', '<20um'],
-            ['4/2', '1#', '6', '6', '7', '6', '6', '7', '<15um'],
-            ['4/3', '2#', '9', '5', '6', '6', '4', '9', '<15um'],
-            ['4/4', '3#', '8', '9', '7', '8', '9', '7', '<15um'],
-            ['4/5', '4#', '6', '7', '5', '5', '7', '9', '<15um'],
-            ['4/6', '5#', '9', '8', '9', '6', '9', '5', '<15um'],
-            ['4/7', '6#', '9', '8', '7', '7', '4', '9', '<15um'],
-            ['4/8', '7#', '6', '6', '7', '9', '8', '8', '<15um'],
-            ['4/9', '8#', '8', '5', '9', '7', '8', '5', '<15um'],
-            ['4/10', '9#', '9', '4', '8', '9', '4', '5', '<15um'],
-            ['4/11', '10#', '8', '8', '7', '4', '7', '7', '<15um'],
+            ['6/1', '1#', '7', '6', '4', '5', '', '', '<20um'],
+            ['6/2', '2#', '6', '7', '5', '6', '', '', '<20um'],
+            ['6/3', '3#', '3', '7', '4', '6', '', '', '<20um'],
+            ['6/4', '4#', '5', '8', '9', '6', '', '', '<20um'],
+            ['6/5', '5#', '8', '5', '7', '5', '', '', '<20um'],
+            ['6/6', '6#', '9', '9', '5', '6', '', '', '<20um'],
+            ['6/7', '7#', '9', '9', '4', '8', '', '', '<20um'],
+            ['6/8', '8#', '8', '9', '5', '5', '', '', '<20um'],
+            ['6/9', '9#', '9', '8', '5', '8', '', '', '<20um'],
+            ['6/10', '10#', '6', '5', '8', '5', '', '', '<20um'],
+            ['6/11', '11#', '5', '7', '9', '6', '', '', '<20um'],
+            ['6/2', '1#', '6', '6', '7', '6', '6', '7', '<15um'],
+            ['6/3', '2#', '9', '5', '6', '6', '4', '9', '<15um'],
+            ['6/4', '3#', '8', '9', '7', '8', '9', '7', '<15um'],
+            ['6/5', '4#', '6', '7', '5', '5', '7', '9', '<15um'],
+            ['6/6', '5#', '9', '8', '9', '6', '9', '5', '<15um'],
+            ['6/7', '6#', '9', '8', '7', '7', '4', '9', '<15um'],
+            ['6/8', '7#', '6', '6', '7', '9', '8', '8', '<15um'],
+            ['6/9', '8#', '8', '5', '9', '7', '8', '5', '<15um'],
+            ['6/10', '9#', '9', '4', '8', '9', '4', '5', '<15um'],
+            ['6/11', '10#', '8', '8', '7', '4', '7', '7', '<15um'],
           ]"
-          :headerFontSize="0.15"
+          :headerFontSize="0.5"
         />
       </div>
-      <div class="card"><DeviceStatus :devices="devices" /></div>
+      <div class="card">
+        <DeviceStatus :devices="devices" @refresh="handleRefresh" />
+      </div>
     </div>
   </div>
 </template>
@@ -167,13 +164,27 @@ import EqualWidthScroll from "@/components/Scroll/EqualWidth/index.vue";
 import DoubleCurve from "@/components/DoubleCurve/index.vue";
 import Carousel from "@/components/Carousel/index.vue";
 import PieChart from "@/components/PieChart/index.vue";
-import DeviceStatus from "@/components/DeviceStatus/index.vue";
 import {
   getProcessDailyOutPut,
   getProcessMonthlyOutPut,
 } from "@/api/processoutput/index.ts";
+import {
+  getScrapDailyBytechName,
+  getScrapRateBytechName,
+} from "@/api/scrap/index.ts";
 import type { WipItem, GroupedItem } from "@/api/wip/type";
 import { getWipByTechName } from "@/api/wip/index.ts";
+import DeviceStatus from "@/components/DeviceStatus/index.vue";
+import { getDeviceStatus } from "@/api/device/index.ts";
+import { getAttendance } from "@/api/attendance/index";
+import type { AttendanceItem } from "@/api/attendance/type";
+
+const attendanceData = ref<AttendanceItem>({
+  totalEmployees: 0,
+  presentEmployees: 0,
+});
+
+let timer: number | null = null; // 明确声明类型为 number 或 null
 
 const imgList = ref([
   {
@@ -219,45 +230,9 @@ const imgList = ref([
   {
     url: new URL(`@/assets/image/drilling/cpk/cpk4.png`, import.meta.url).href,
   },
-  {
-    url: new URL(`@/assets/image/drilling/cpk/cpk5.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`@/assets/image/drilling/cpk/cpk6.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`@/assets/image/drilling/cpk/cpk7.png`, import.meta.url).href,
-  },
-  {
-    url: new URL(`@/assets/image/drilling/cpk/cpk8.png`, import.meta.url).href,
-  },
 ]);
 const wip = ref<WipItem[]>([]);
-const devices = [
-  { name: "1#钻孔机", status: 3 },
-  { name: "2#钻孔机", status: 1 },
-  { name: "3#钻孔机", status: 1 },
-  { name: "4#钻孔机", status: 3 },
-  { name: "5#钻孔机", status: 1 },
-
-  { name: "6#钻孔机", status: 3 },
-  { name: "7#钻孔机", status: 3 },
-  { name: "8#钻孔机", status: 3 },
-  { name: "9#钻孔机", status: 1 },
-  { name: "10#钻孔机", status: 3 },
-
-  { name: "1#成型机", status: 1 },
-  { name: "2#成型机", status: 1 },
-  { name: "3#成型机", status: 3 },
-  { name: "4#成型机", status: 1 },
-  { name: "5#成型机", status: 3 },
-
-  { name: "6#成型机", status: 3 },
-  { name: "7#成型机", status: 3 },
-  { name: "8#成型机", status: 1 },
-  { name: "9#成型机", status: 1 },
-  { name: "10#成型机", status: 3 },
-];
+const devices = ref<Array<{ name: string; status: number }>>([]);
 
 const dailyOutput = ref([
   { techName: "钻挂PIN孔", category: "钻孔", output: 0 },
@@ -269,12 +244,29 @@ const monthlyOutput = ref([
   { techName: "撕膜", category: "成型", output: 0 },
 ]);
 
-onMounted(() => {
-  fetchDailyOutput();
-  fetchMonthlyOutput();
-  fetchWip();
-});
 
+const fetchDeviceStatus = async () => {
+  try {
+    const res = await getDeviceStatus("钻孔、成型");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      devices.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { name: string; status: number }) => {
+        devices.value.push({
+          name: apiItem.name,
+          status: Math.round(apiItem.status),
+        });
+      });
+      console.log("设备状态更新完成", devices.value);
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取防焊总报废失败");
+  }
+};
 const tableData = computed(() => {
   // 1. 获取所有唯一的工序类别(category)并保持原始顺序
   // 使用Set去重，然后展开为数组
@@ -350,13 +342,114 @@ const tableData = computed(() => {
   ]);
 });
 
+const drillingScrap = ref<
+  Array<{ name: string; value: number; techName: string }>
+>([]);
+
+const drillingScrapRate = ref<Array<{ time: string; scrap: number }>>([]);
+const formScrap = ref<Array<{ name: string; value: number; techName: string }>>(
+  []
+);
+
+const formScrapRate = ref<Array<{ time: string; scrap: number }>>([]);
+
+const fetchDrillingScrap = async () => {
+  try {
+    const res = await getScrapDailyBytechName("钻挂PIN孔");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      drillingScrap.value = [];
+      // 遍历报废记录
+      res.data.forEach((apiItem) => {
+        drillingScrap.value.push({
+          name: apiItem.scrap.bugName,
+          value: apiItem.sunit,
+          techName: "钻孔",
+        });
+      });
+    }
+  } catch (error) {
+    ElMessage.error("获取钻孔不良分析数据失败");
+  }
+};
+
+const fetchDrillingScrapRate = async () => {
+  try {
+    const res = await getScrapRateBytechName("钻挂PIN孔");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      drillingScrapRate.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { time: string; scrap: number }) => {
+        const scrapValue =
+          typeof apiItem.scrap === "number" ? apiItem.scrap : 0;
+        drillingScrapRate.value.push({
+          time: apiItem.time,
+          scrap: Math.round(scrapValue * 100 * 100) / 100, // 转换为百分比并保留两位小数
+        });
+      });
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取钻孔总报废失败");
+  }
+};
+
+const fetchFormScrap = async () => {
+  try {
+    const res = await getScrapDailyBytechName("撕膜");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      formScrap.value = []; // 清空现有数据
+      // 遍历报废记录
+      res.data.forEach((apiItem) => {
+        formScrap.value.push({
+          name: apiItem.scrap.bugName,
+          value: apiItem.sunit,
+          techName: "成型",
+        });
+      });
+    }
+  } catch (error) {
+    ElMessage.error("获取成型不良分析数据失败");
+  }
+};
+
+const fetchFormScrapRate = async () => {
+  try {
+    const res = await getScrapRateBytechName("撕膜");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      formScrapRate.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { time: string; scrap: number }) => {
+        const scrapValue =
+          typeof apiItem.scrap === "number" ? apiItem.scrap : 0;
+        formScrapRate.value.push({
+          time: apiItem.time,
+          scrap: Math.round(scrapValue * 100 * 100) / 100, // 转换为百分比并保留两位小数
+        });
+      });
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取钻孔总报废失败");
+  }
+};
+
 const fetchDailyOutput = async () => {
   for (const item of dailyOutput.value) {
     try {
       const res = await getProcessDailyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }
@@ -368,32 +461,13 @@ const fetchMonthlyOutput = async () => {
     try {
       const res = await getProcessMonthlyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取月产量数据失败");
     }
   }
 };
 
-const handleRefresh = (title: string) => {
-  console.log(`收到来自【${title}】的刷新请求`);
-
-  // 根据不同的title执行不同逻辑
-  switch (title) {
-    case "工序出数":
-      console.log("执行工序出数数据的刷新");
-      fetchDailyOutput();
-      fetchMonthlyOutput();
-      break;
-    case "WIP":
-      console.log("执行WIP数据的刷新");
-      fetchWip();
-      break;
-    default:
-      console.log("默认刷新逻辑");
-  }
-};
 const fetchWip = async () => {
   try {
     // 创建临时数组存储新数据
@@ -433,6 +507,68 @@ const fetchWip = async () => {
     ElMessage.error("获取WIP数据失败");
   }
 };
+const fetchAttendance = async () => {
+  try {
+    const res = await getAttendance("钻孔、成型");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 使用扩展运算符保持响应式
+      attendanceData.value = {
+        ...res.data[0],
+      };
+    }
+  } catch (error) {
+    console.error("获取考勤数据失败", error);
+  }
+};
+const handleRefresh = (title: string) => {
+  console.log(`收到来自【${title}】的刷新请求`);
+
+  // 根据不同的title执行不同逻辑
+  switch (title) {
+    case "人员出勤":
+      fetchAttendance();
+      break;
+    case "工序出数":
+      fetchDailyOutput();
+      fetchMonthlyOutput();
+      break;
+    case "WIP":
+      fetchWip();
+      break;
+    case "钻孔总报废":
+      fetchDrillingScrapRate();
+      break;
+    case "钻孔不良分析":
+      fetchDrillingScrap();
+      break;
+    case "成型不良分析":
+      fetchFormScrap();
+      break;
+    case "成型总报废":
+      fetchFormScrapRate();
+      break;
+    case "设备状态":
+      console.log("执行设备状态数据的刷新");
+      fetchDeviceStatus();
+      break;
+    default:
+      console.log("默认刷新逻辑");
+  }
+};
+onMounted(async () => {
+  await fetchDailyOutput();
+  await fetchMonthlyOutput();
+  await fetchWip();
+  await fetchDrillingScrap();
+  await fetchDrillingScrapRate();
+  await fetchFormScrap();
+  await fetchFormScrapRate();
+  await fetchDeviceStatus();
+  await fetchAttendance();
+  timer = setInterval(() => {
+    fetchDeviceStatus();
+  }, 60 * 1000 * 60 * 8); // 每八小时获取一次
+});
 </script>
 
 <style scoped lang="scss">
@@ -473,7 +609,7 @@ const fetchWip = async () => {
   // 内容
   > div:nth-child(2) {
     flex: 8;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 5rem;
     box-sizing: border-box;
     overflow-y: auto; // 保持垂直滚动功能
     -webkit-overflow-scrolling: touch;

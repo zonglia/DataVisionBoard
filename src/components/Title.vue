@@ -18,7 +18,7 @@
         style="font-weight: 600; display: inline-flex; align-items: center"
         v-show="process"
       >
-        <SvgIcon name="tool" color="#409eff" size="0.65rem" /><span
+        <SvgIcon name="tool" color="#409eff" size="1.3rem" /><span style="font-size: 1.5rem;"
           >工序：{{ props.process }}</span
         >
       </div>
@@ -116,7 +116,6 @@ const goToHome = () => {
   flex-direction: column;
   .title-content {
     flex: 6;
-
     > :nth-child(2) {
       display: flex;
       flex-direction: column;
@@ -124,6 +123,16 @@ const goToHome = () => {
 
       > :nth-child(1) {
         flex: 6;
+        display: flex;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        // 桌面端布局
+        @media (min-width: 992px) {
+          font-size: 2rem;
+        }
+        @media (max-width: 992px) {
+          font-size: 4rem;
+        }
       }
       .dv-decoration5 {
         width: 60%;
@@ -147,10 +156,10 @@ const goToHome = () => {
     h2 {
       // 基础重置
       margin: 0; // 清除默认边距
-      padding-top: 0.5rem;
+      padding-top: 0.1rem;
 
       // 字体控制
-      font-size: 0.6rem;
+      font-size: 1rem;
       font-weight: 600; // 半粗体（比bold更优雅）
       letter-spacing: 0.1rem; // 字母间距
     }
@@ -160,8 +169,8 @@ const goToHome = () => {
 .title-button {
   flex: 3;
   // background-color: blue;
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
+  padding-left: 5rem;
+  padding-right: 5.5rem;
   font-size: 0.3rem;
   display: flex;
   flex-direction: row;
@@ -177,7 +186,7 @@ const goToHome = () => {
   // 桌面端布局
   @media (min-width: 992px) {
     span {
-      font-size: 0.5rem;
+      font-size: 1rem;
     }
   }
   @media (max-width: 992px) {

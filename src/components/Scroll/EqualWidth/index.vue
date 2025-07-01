@@ -26,11 +26,11 @@ const props = defineProps({
   },
   titleFontSize: {
     type: String,
-    default: "0.3rem",
+    default: "1rem",
   },
   iconSize: {
     type: String,
-    default: "0.3rem",
+    default: "1rem",
   },
   // 动态表头数据
   header: {
@@ -45,7 +45,7 @@ const props = defineProps({
   // 标题字体大小参数
   headerFontSize: {
     type: Number,
-    default: 0.2,
+    default: 0.6,
   },
   rowNum: {
     type: Number,
@@ -96,7 +96,7 @@ const handleRefresh = (title: string) => {
   .rows {
     .row-item {
       padding: 0;
-      font-size: 0.2rem;
+      font-size: 0.6rem;
       border-radius: 0.1rem;
 
       .ceil {

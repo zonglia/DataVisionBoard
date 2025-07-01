@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
+
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory
   const env = loadEnv(mode, process.cwd())

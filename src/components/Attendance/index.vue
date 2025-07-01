@@ -1,15 +1,16 @@
 <template>
-  <Card :title="props.title" :svgName="props.svgName">
+  <Card :title="props.title" :svgName="props.svgName" @refresh="handleRefresh">
     <ECharts :options="defaultOptions" />
   </Card>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, nextTick } from "vue";
 import Card from "@/components/Card/index.vue";
 import ECharts from "@/components/ECharts.vue";
 import * as echarts from "echarts";
 
+const emit = defineEmits(["refresh"]);
 const props = defineProps({
   title: {
     type: String,
@@ -90,6 +91,23 @@ const defaultOptions = computed(() => ({
     right: 10,
   },
 }));
+
+const forceRerenderFlag = ref(false);
+
+const handleRefresh = (title: string) => {
+  console.log("[ProcessOutPut] 收到title:", title);
+
+  // 触发强制重绘
+  forceRerenderFlag.value = true;
+
+  // 重置标志，以便下次点击仍能触发
+  nextTick(() => {
+    forceRerenderFlag.value = false;
+  });
+
+  // 向上传递事件
+  emit("refresh", title);
+};
 </script>
 
 <style scoped lang="scss"></style>

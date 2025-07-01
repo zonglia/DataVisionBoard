@@ -1,9 +1,9 @@
 <template>
-  <Card :title="props.title" :svgName="props.svgName">
+  <Card :title="props.title" :svgName="props.svgName" @refresh="handleRefresh">
     <div
       style="
         text-align: center;
-        font-size: 0.2rem;
+        font-size: 0.6rem;
         border-bottom: 0.0125rem solid #eaeefb;
       "
     >
@@ -20,8 +20,12 @@
         <span>保养</span>
       </span>
       <span class="status-item">
-        <span class="status-light" style="background-color: red;"></span>
+        <span class="status-light" style="background-color: red"></span>
         <span>关机</span>
+      </span>
+      <span class="status-item">
+        <span class="status-light" style="background-color: violet"></span>
+        <span>调试</span>
       </span>
     </div>
     <div class="devices-container">
@@ -35,6 +39,8 @@
               running: device.status === 1,
               maintenance: device.status === 2,
               shutdown: device.status === 3,
+              // 调试
+              fix: device.status === 4,
             }"
           ></span>
           <!-- 显示设备名称和状态文字 -->
@@ -50,6 +56,8 @@ interface Device {
   name: string;
   status: number; // 0:开机, 1:运行, 2:保养, 3:关机
 }
+
+const emit = defineEmits(["refresh"]);
 
 const props = defineProps({
   title: {
@@ -68,6 +76,13 @@ const props = defineProps({
     ],
   },
 });
+
+const handleRefresh = (title: string) => {
+  console.log("[WIP] 收到title:", title);
+
+  // 向上传递事件
+  emit("refresh", title);
+};
 </script>
 
 <style scoped lang="scss">
@@ -76,7 +91,7 @@ const props = defineProps({
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  font-size: 0.16rem;
+  font-size: 0.6rem;
   padding: 0.2rem;
   > div {
     display: inline-flex;
@@ -92,8 +107,8 @@ const props = defineProps({
 }
 .status-light {
   display: inline-block;
-  width: 0.2rem;
-  height: 0.2rem;
+  width: 0.6rem;
+  height: 0.6rem;
   // margin-right: 0.1rem;
   border-radius: 0.03rem;
   border: 0.03rem solid rgba(255, 255, 255, 0.5); /* 半透明白色边框 */
@@ -118,6 +133,10 @@ const props = defineProps({
 .shutdown {
   background-color: #f00;
   animation: blink 0.8s infinite;
+}
+
+.fix {
+  background-color: violet;
 }
 
 @keyframes blink {

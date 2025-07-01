@@ -7,6 +7,7 @@ import JiangXiN2 from '@/views/JiangXiN2/index.vue';
 import BBTAVI from '@/views/BBTAVI/index.vue'
 import AOI from '@/views/AOI/index.vue';
 import ElectroPlating from '@/views/ElectroPlating/index.vue';
+import QR from '@/views/QR/index.vue';
 import ElectroPlatingMain from '@/views/ElectroPlating/main/index.vue'
 import BBTMain from '@/views/BBTAVI/main/index.vue'
 import BBTest from '@/views/BBTAVI/test/index.vue'
@@ -48,7 +49,7 @@ export const constantRoutes = [
                 name: 'ProcessIndicators',
                 component: ProcessIndicators,
             }
-            
+
         ]
     },
     {
@@ -83,12 +84,15 @@ export const constantRoutes = [
         path: '/jiangXiN2',
         component: JiangXiN2,
     },
-  
+
     {
         path: '/aoi',
         component: AOI,
+    },
+    {
+        path: '/qrCode',
+        component: QR,
     }
-
 
 
 ]

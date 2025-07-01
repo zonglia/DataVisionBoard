@@ -1,7 +1,11 @@
 <template>
   <div class="electro-content">
     <div class="card wide-card">
-      <Attendance :attendance="6" :totalStaff="6" />
+      <Attendance
+        :attendance="attendanceData.presentEmployees"
+        :totalStaff="attendanceData.totalEmployees"
+        @refresh="handleRefresh"
+      />
     </div>
     <div class="card wide-card">
       <ProcessOutPut
@@ -19,7 +23,8 @@
     <div class="card wide-card">
       <EqualWidthScroll
         :header="[
-          '型号',
+  '型号',
+  '板类型',
           '板结构',
           '类型',
           '单位',
@@ -37,25 +42,15 @@
       <DoubleCurve
         title="电镀报废率趋势"
         svg-name="yield"
-        :categories="[
-          '24Y',
-          '25M1',
-          '25M2',
-          '25M3',
-          '25M4',
-          '25W18',
-          '5/4',
-          '5/5',
-          '5/6',
-        ]"
+        :categories="electroPlatingScrapRate.map((item) => item.time)"
         :series-data="[
           {
             name: '报废目标(%)',
-            value: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            value: Array(electroPlatingScrapRate.length).fill(0.5),
           },
           {
             name: '报废率(%)',
-            value: [1.48, 0, 0, 0, 0, 0, 0, 0, 0],
+            value: electroPlatingScrapRate.map((item) => item.scrap),
           },
         ]"
       />
@@ -76,13 +71,12 @@
           '备注',
         ]"
         :table-data="[
-          ['日蚀线1#', '1次/周', '2025/5/20', '2025/5/27', ''],
+          ['日蚀线1#', '1次/周', '2025/5/14', '2025/5/21', ''],
           ['日蚀线2#', '/', '/', '/', '调试'],
-          ['VCP线1#', '1次/周', '2025/5/19', '2025/5/26', ''],
+          ['VCP线1#', '1次/周', '2025/5/15', '2025/5/22', ''],
           ['VCP线2#', '/', '/', '/', '调试'],
-          ['电镀后处理', '1次/周', '2025/5/18', '2025/5/25', ''],
+          ['电镀后处理', '1次/周', '2025/5/16', '2025/5/23', ''],
         ]"
-        :headerFontSize="0.18"
       />
     </div>
     <div class="card">
@@ -100,18 +94,13 @@
             `${getCurrentDate()} 9:14`,
           ],
         ]"
+        :rowNum="3"
       />
     </div>
     <div class="card">
       <PieChart
         title="电镀报废分析"
-        :pie-data="[
-          { value: 0, name: '电镀磨刷堵孔报废' },
-          { value: 0, name: '电镀铜粒' },
-          { value: 0, name: '电镀板面污染' },
-          { value: 0, name: '电镀镀厚' },
-          { value: 0, name: '电镀镀层粗糙' },
-        ]"
+        :pie-data="electroPlatingPreventionScrap"
       />
     </div>
 
@@ -181,7 +170,9 @@
       />
     </div>
 
-    <div class="card"><DeviceStatus :devices="devices" /></div>
+    <div class="card">
+      <DeviceStatus :devices="devices" @refresh="handleRefresh" />
+    </div>
   </div>
 </template>
 
@@ -198,16 +189,26 @@ import {
   getProcessDailyOutPut,
   getProcessMonthlyOutPut,
 } from "@/api/processoutput/index.ts";
+
+import {
+  getScrapDailyBytechName,
+  getScrapRateBytechName,
+} from "@/api/scrap/index.ts";
+
 import type { WipItem, GroupedItem } from "@/api/wip/type";
 import { getWipByTechName } from "@/api/wip/index.ts";
+import { getDeviceStatus } from "@/api/device/index.ts";
+import { getAttendance } from "@/api/attendance/index";
+import type { AttendanceItem } from "@/api/attendance/type";
 
-const devices = [
-  { name: "VCP1#", status: 1 },
-  { name: "日蚀1#", status: 1 },
-  { name: "VCP2#", status: 3 },
-  { name: "日蚀2#", status: 3 },
-  { name: "电镀后处理", status: 1 },
-];
+const attendanceData = ref<AttendanceItem>({
+  totalEmployees: 0,
+  presentEmployees: 0,
+});
+
+const electroPlatingScrapRate = ref<Array<{ time: string; scrap: number }>>([]);
+let timer: number | null = null; // 明确声明类型为 number 或 null
+const devices = ref<Array<{ name: string; status: number }>>([]);
 
 const imgList = ref([
   {
@@ -223,24 +224,30 @@ const imgList2 = ref([
 // 获取当天日期格式化函数
 const getCurrentDate = () => {
   const today = new Date();
-  return `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+  return `${today.getFullYear()}/${today.getMonth() + 1}/${
+    today.getDate() - 1
+  }`;
 };
 
 const wip = ref<WipItem[]>([]);
 
 const dailyOutput = ref([
   { techName: "外层板电", category: "电镀", output: 0 },
+  { techName: "过超声波", category: "磨板", output: 0 },
+  { techName: "去污沉铜", category: "日蚀", output: 0 },
 ]);
 
 const monthlyOutput = ref([
   { techName: "外层板电", category: "电镀", output: 0 },
+  { techName: "过超声波", category: "磨板", output: 0 },
+  { techName: "去污沉铜", category: "日蚀", output: 0 },
 ]);
 
-onMounted(() => {
-  fetchDailyOutput();
-  fetchMonthlyOutput();
-  fetchWip();
-});
+const electroPlatingPreventionScrap = ref<
+  Array<{ name: string; value: number; techName: string }>
+>([]);
+
+
 
 const tableData = computed(() => {
   // 1. 获取所有唯一的工序类别(category)并保持原始顺序
@@ -275,6 +282,7 @@ const tableData = computed(() => {
           nospec: item.model.nospec,
           style: item.model.style,
           units: item.units,
+          tghdij: item.model.tghdij || "",
           categoryData: {},
         };
       }
@@ -290,7 +298,7 @@ const tableData = computed(() => {
       // 这样确保显示最完整的信息（后出现的值会覆盖前面的）
       if (item.model.nospec) acc[key].nospec = item.model.nospec;
       if (item.model.style) acc[key].style = item.model.style;
-
+      if (item.model.tghdij) acc[key].tghdij = item.model.tghdij;
       return acc; // 返回累积的分组数据
     },
     {}
@@ -300,6 +308,9 @@ const tableData = computed(() => {
   return Object.values(groupedData).map((item) => [
     // 3.1 第一列：产品型号
     item.pdctNo,
+
+    // 3.2 第二列：板结构
+    item.tghdij || "",
 
     // 3.2 第二列：板结构
     item.nospec,
@@ -316,14 +327,53 @@ const tableData = computed(() => {
     ...categories.map((category) => item.categoryData[category] || 0),
   ]);
 });
+const fetchDeviceStatus = async () => {
+  try {
+    const res = await getDeviceStatus("电镀");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      devices.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { name: string; status: number }) => {
+        devices.value.push({
+          name: apiItem.name,
+          status: Math.round(apiItem.status),
+        });
+      });
+      console.log("设备状态更新完成", devices.value);
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取防焊总报废失败");
+  }
+};
+const fetchElectroPlatingScrap = async () => {
+  try {
+    const res = await getScrapDailyBytechName("电镀");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 遍历报废记录
+      res.data.forEach((apiItem) => {
+        electroPlatingPreventionScrap.value.push({
+          name: apiItem.scrap.bugName,
+          value: apiItem.sunit,
+          techName: "电镀",
+        });
+      });
+    }
+  } catch (error) {
+    ElMessage.error("获取BBT不良分析失败");
+  }
+};
 
 const fetchDailyOutput = async () => {
   for (const item of dailyOutput.value) {
     try {
       const res = await getProcessDailyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }
@@ -335,32 +385,13 @@ const fetchMonthlyOutput = async () => {
     try {
       const res = await getProcessMonthlyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取月产量数据失败");
     }
   }
 };
 
-const handleRefresh = (title: string) => {
-  console.log(`收到来自【${title}】的刷新请求`);
-
-  // 根据不同的title执行不同逻辑
-  switch (title) {
-    case "工序出数":
-      console.log("执行工序出数数据的刷新");
-      fetchDailyOutput();
-      fetchMonthlyOutput();
-      break;
-    case "WIP":
-      console.log("执行WIP数据的刷新");
-      fetchWip();
-      break;
-    default:
-      console.log("默认刷新逻辑");
-  }
-};
 const fetchWip = async () => {
   try {
     // 创建临时数组存储新数据
@@ -382,6 +413,7 @@ const fetchWip = async () => {
               pdctNo: apiItem.model?.pdctNo,
               style: apiItem.model?.style,
               nospec: apiItem.model?.nospec,
+              tghdij: apiItem.model?.tghdij,
             },
             procWip: apiItem.procWip || 0,
             units: apiItem.units,
@@ -400,6 +432,85 @@ const fetchWip = async () => {
     ElMessage.error("获取WIP数据失败");
   }
 };
+
+const fetchElectroPlatingScrapRate = async () => {
+  try {
+    const res = await getScrapRateBytechName("外层板电");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      electroPlatingScrapRate.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { time: string; scrap: number }) => {
+        const scrapValue =
+          typeof apiItem.scrap === "number" ? apiItem.scrap : 0;
+        electroPlatingScrapRate.value.push({
+          time: apiItem.time,
+          scrap: Math.round(scrapValue * 100 * 100) / 100, // 转换为百分比并保留两位小数
+        });
+      });
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取防焊总报废失败");
+  }
+};
+const fetchAttendance = async () => {
+  try {
+    const res = await getAttendance("电镀");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 使用扩展运算符保持响应式
+      attendanceData.value = {
+        ...res.data[0],
+      };
+    }
+  } catch (error) {
+    console.error("获取考勤数据失败", error);
+  }
+};
+const handleRefresh = (title: string) => {
+  console.log(`收到来自【${title}】的刷新请求`);
+
+  // 根据不同的title执行不同逻辑
+  switch (title) {
+    case "人员出勤":
+      fetchAttendance();
+      break;
+    case "工序出数":
+      fetchDailyOutput();
+      fetchMonthlyOutput();
+      break;
+    case "WIP":
+      fetchWip();
+      break;
+    case "电镀报废率趋势":
+      fetchElectroPlatingScrap();
+      break;
+    case "电镀报废分析":
+      fetchElectroPlatingScrap();
+      break;
+    case "设备状态":
+      console.log("执行设备状态数据的刷新");
+      fetchDeviceStatus();
+      break;
+    default:
+      console.log("默认刷新逻辑");
+  }
+};
+onMounted(async () => {
+  await fetchDailyOutput();
+  await fetchMonthlyOutput();
+  await fetchWip();
+  await fetchElectroPlatingScrapRate();
+  await fetchElectroPlatingScrap();
+  await fetchDeviceStatus();
+  await fetchAttendance();
+  timer = setInterval(() => {
+    fetchDeviceStatus();
+  }, 60 * 1000 * 60 * 8); // 每八小时获取一次
+});
 </script>
 
 <style scoped lang="scss">

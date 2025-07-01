@@ -26,9 +26,6 @@ importers:
       element-plus:
         specifier: ^2.9.7
         version: 2.9.7(vue@3.5.13(typescript@5.7.3))
-      lib-flexible:
-        specifier: ^0.3.2
-        version: 0.3.2
       v-fit-columns:
         specifier: ^0.2.0
         version: 0.2.0
@@ -42,24 +39,15 @@ importers:
       '@types/node':
         specifier: ^22.13.10
         version: 22.13.10
-      '@types/postcss-pxtorem':
-        specifier: ^6.1.0
-        version: 6.1.0
       '@vitejs/plugin-vue':
         specifier: ^5.2.1
         version: 5.2.3(vite@6.2.2(@types/node@22.13.10)(sass@1.86.0))(vue@3.5.13(typescript@5.7.3))
       '@vue/tsconfig':
         specifier: ^0.7.0
         version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
-      amfe-flexible:
-        specifier: ^2.2.1
-        version: 2.2.1
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
-      postcss-pxtorem:
-        specifier: ^6.1.0
-        version: 6.1.0(postcss@5.2.18)
       sass:
         specifier: ^1.86.0
         version: 1.86.0
@@ -502,9 +490,6 @@ packages:
   '@types/node@22.13.10':
     resolution: {integrity: sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw==}
 
-  '@types/postcss-pxtorem@6.1.0':
-    resolution: {integrity: sha512-kHsYTjQgllOfhi3J+xunjMKUZ3APARV/JYeOOcIVLhvPVS162S8Ir8LsZwioFFyYCSnQp+aisupiSaRWVwKyDA==}
-
   '@types/svgo@2.6.4':
     resolution: {integrity: sha512-l4cmyPEckf8moNYHdJ+4wkHvFxjyW6ulm9l4YGaOxeyBWPhBOT0gvni1InpFPdzx1dKf/2s62qGITwxNWnPQng==}
 
@@ -625,9 +610,6 @@ packages:
 
   alien-signals@1.0.4:
     resolution: {integrity: sha512-DJqqQD3XcsaQcQ1s+iE2jDUZmmQpXwHiR6fCAim/w87luaW+vmLY8fMlrdkmRwzaFXhkxf3rqPCR59tKVv1MDw==}
-
-  amfe-flexible@2.2.1:
-    resolution: {integrity: sha512-L2VfvDzoETBjhRptg5u/IUuzHSuxm22JpSRb404p/TBGeRfwWmmNEbB+TFPIP/sS/+pbM18bCFH9QnMojLuPNw==}
 
   animate.css@4.1.1:
     resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
@@ -1345,9 +1327,6 @@ packages:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
 
-  lib-flexible@0.3.2:
-    resolution: {integrity: sha512-9yowMWA70tKhKdCJDaltY0mNQG4OWo7pWKScnTp9aiSxS7s20ZYlwBRE3335nweOf5qKXVC7sDxJwMPM8/MFZg==, tarball: https://registry.npmmirror.com/lib-flexible/-/lib-flexible-0.3.2.tgz}
-
   loader-utils@1.4.2:
     resolution: {integrity: sha512-I5d00Pd/jwMD2QCduo657+YM/6L3KZu++pmX9VFncxaxvHcru9jx1lBaFft+r4Mt2jK0Yhp41XlRAihzPxHNCg==}
     engines: {node: '>=4.0.0'}
@@ -1533,11 +1512,6 @@ packages:
     resolution: {integrity: sha512-Umxu+FvKMwlY6TyDzGFoSUnzW+NOfMBLyC1tAkIjgX+Z/qGspJeRjVC903D7mx7TuBpJlwti2ibXtWuA7fKMeQ==}
     peerDependencies:
       postcss: '>4 <9'
-
-  postcss-pxtorem@6.1.0:
-    resolution: {integrity: sha512-ROODSNci9ADal3zUcPHOF/K83TiCgNSPXQFSbwyPHNV8ioHIE4SaC+FPOufd8jsr5jV2uIz29v1Uqy1c4ov42g==}
-    peerDependencies:
-      postcss: ^8.0.0
 
   postcss@5.2.18:
     resolution: {integrity: sha512-zrUjRRe1bpXKsX1qAJNJjqZViErVuyEkMTRrwu4ud4sbTtIBRmtaYDrHmcGgmrbsW3MHfmtIf+vJumgQn+PrXg==}
@@ -2296,10 +2270,6 @@ snapshots:
     dependencies:
       undici-types: 6.20.0
 
-  '@types/postcss-pxtorem@6.1.0':
-    dependencies:
-      postcss: 8.5.3
-
   '@types/svgo@2.6.4':
     dependencies:
       '@types/node': 22.13.10
@@ -2460,8 +2430,6 @@ snapshots:
   acorn@8.14.1: {}
 
   alien-signals@1.0.4: {}
-
-  amfe-flexible@2.2.1: {}
 
   animate.css@4.1.1: {}
 
@@ -3312,8 +3280,6 @@ snapshots:
 
   kind-of@6.0.3: {}
 
-  lib-flexible@0.3.2: {}
-
   loader-utils@1.4.2:
     dependencies:
       big.js: 5.2.2
@@ -3506,10 +3472,6 @@ snapshots:
   possible-typed-array-names@1.1.0: {}
 
   postcss-prefix-selector@1.16.1(postcss@5.2.18):
-    dependencies:
-      postcss: 5.2.18
-
-  postcss-pxtorem@6.1.0(postcss@5.2.18):
     dependencies:
       postcss: 5.2.18
 

@@ -1,9 +1,13 @@
 <template>
   <div class="aoi-container">
-    <div><Title title="N2工厂智能化数字化管控" process="外层 AOI" /></div>
+    <div><Title title="N2工厂智能化数字化管控" process="外层、AOI" /></div>
     <div class="aoi-content">
       <div class="card wide-card">
-        <Attendance :attendance="26" :totalStaff="26" />
+        <Attendance
+          :attendance="attendanceData.presentEmployees"
+          :totalStaff="attendanceData.totalEmployees"
+          @refresh="handleRefresh"
+        />
       </div>
       <div class="card wide-card">
         <ProcessOutPut
@@ -39,45 +43,37 @@
         <DoubleCurve
           title="外层报废率和报废分析"
           svg-name="yield"
-          :categories="[
-            '24Y',
-            '25M1',
-            '25M2',
-            '25M3',
-            '25M4',
-            '5/3',
-            '5/4',
-            '5/5',
-            '5/6',
-          ]"
+          :categories="outScrapRate.map((item) => item.time)"
           :series-data="[
             {
               name: '报废目标(%)',
-              value: [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
+              value: Array(outScrapRate.length).fill(0.8),
               label: { show: false },
             },
             {
               name: '报废率(%)',
-              value: [0.67, 0, 0, 0.93, 1.12, 0, 2.0, 0.79, 0],
+              value: outScrapRate.map((item) => item.scrap),
             },
           ]"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
         <DoubleCurve
           title="AOI良率统计和不良分析"
           svg-name="yield"
-          :categories="['4/29', '4/30', '5/3', '5/4', '5/5']"
+          :categories="aoiYieldRate.map((item) => item.date)"
           :series-data="[
             {
               name: '一次良率(%)',
-              value: [83.9, 82.0, 82.7, 50.5, 51.7],
+              value: aoiYieldRate.map((item) => item.firstYield),
             },
             {
               name: '最终良率(%)',
-              value: [99.2, 99.3, 99.3, 97.9, 99.0],
+              value: aoiYieldRate.map((item) => item.finalYield),
             },
           ]"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
@@ -156,14 +152,7 @@
         />
       </div>
       <div class="card">
-        <PieChart
-          title="外层不良分析"
-          :pie-data="[
-            { value: 1.28, name: '外层赃物开路' },
-            { value: 0.16, name: '外层脏物缺口' },
-            { value: 0.1, name: '外层过蚀' },
-          ]"
-        />
+        <PieChart title="外层不良分析" :pie-data="outScrap" />
       </div>
       <div class="card">
         <PieChart
@@ -178,13 +167,15 @@
       <div class="card">
         <Carousel title="灯珠尺寸管控" :imgList="imgList2" />
       </div>
-      <div class="card"><DeviceStatus :devices="devices" /></div>
+      <div class="card">
+        <DeviceStatus :devices="devices" @refresh="handleRefresh" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onBeforeUnmount } from "vue";
 import Title from "@/components/Title.vue";
 import Attendance from "@/components/Attendance/index.vue";
 import ProcessOutPut from "@/components/ProcessOutput/index.vue";
@@ -192,13 +183,25 @@ import EqualWidthScroll from "@/components/Scroll/EqualWidth/index.vue";
 import DoubleCurve from "@/components/DoubleCurve/index.vue";
 import PieChart from "@/components/PieChart/index.vue";
 import DeviceStatus from "@/components/DeviceStatus/index.vue";
+import Carousel from "@/components/Carousel/index.vue";
 
 import {
   getProcessDailyOutPut,
   getProcessMonthlyOutPut,
 } from "@/api/processoutput/index.ts";
+
+import {
+  getScrapDailyBytechName,
+  getScrapRateBytechName,
+} from "@/api/scrap/index.ts";
+import { getAOIYield } from "@/api/yieldrate/index.ts";
+
 import type { WipItem, GroupedItem } from "@/api/wip/type";
+import type { ScrapItem } from "@/api/scrap/type";
 import { getWipByTechName } from "@/api/wip/index.ts";
+import { getAttendance } from "@/api/attendance/index";
+import type { AttendanceItem } from "@/api/attendance/type";
+import { getDeviceStatus } from "@/api/device/index.ts";
 
 const imgList = ref([
   {
@@ -214,30 +217,12 @@ const imgList2 = ref([
   },
 ]);
 
+const attendanceData = ref<AttendanceItem>({
+  totalEmployees: 0,
+  presentEmployees: 0,
+});
 const wip = ref<WipItem[]>([]);
-const devices = [
-  { name: "1#前处理", status: 3 },
-  { name: "2#前处理", status: 1 },
-
-  { name: "1#压膜机", status: 3 },
-  { name: "2#压膜机", status: 1 },
-
-  { name: "1#半自动曝光机", status: 3 },
-  { name: "2#半自动曝光机", status: 3 },
-
-  { name: "1#LDI", status: 1 },
-
-  { name: "1#蚀刻机", status: 1 },
-  { name: "2#蚀刻机", status: 3 },
-
-  { name: "1#AOI机", status: 1 },
-  { name: "2#AOI机", status: 1 },
-  { name: "3#AOI机", status: 1 },
-
-  { name: "1#VRS", status: 1 },
-  { name: "2#VRS", status: 1 },
-  { name: "3#VRS", status: 1 },
-];
+const devices = ref<Array<{ name: string; status: number }>>([]);
 
 const dailyOutput = ref([
   { techName: "外层干膜", category: "外层干膜", output: 0 },
@@ -249,11 +234,15 @@ const monthlyOutput = ref([
   { techName: "外层AOI", category: "外层AOI", output: 0 },
 ]);
 
-onMounted(() => {
-  fetchDailyOutput();
-  fetchMonthlyOutput();
-  fetchWip();
-});
+const outScrap = ref<Array<{ name: string; value: number; techName: string }>>(
+  []
+);
+
+const outScrapRate = ref<Array<{ time: string; scrap: number }>>([]);
+
+const aoiYieldRate = ref<
+  Array<{ date: string; firstYield: number; finalYield: number }>
+>([]);
 
 const tableData = computed(() => {
   // 1. 获取所有唯一的工序类别(category)并保持原始顺序
@@ -330,13 +319,106 @@ const tableData = computed(() => {
   ]);
 });
 
+const fetchAOIYield = async () => {
+  try {
+    const res = await getAOIYield();
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      aoiYieldRate.value = [];
+
+      aoiYieldRate.value = res.data.slice(0, 18).map((apiItem) => ({
+        // 转换日期格式：从 "2025-04-23" 到 "4/23"
+        date: `${new Date(apiItem.date).getMonth() + 1}/${new Date(
+          apiItem.date
+        ).getDate()}`,
+        firstYield: Math.round(apiItem.firstYield * 1000) / 10,
+        finalYield: Math.round(apiItem.finalYield * 1000) / 10,
+      }));
+    }
+  } catch (error) {
+    console.log(error);
+    ElMessage.error("获取AOI良率数据失败");
+  }
+};
+const fetchOutScrap = async () => {
+  try {
+    // 1. 并行发起两个请求
+    const [dryFilmRes, aoiRes] = await Promise.all([
+      getScrapDailyBytechName("外层干膜"),
+      getScrapDailyBytechName("外层AOI"),
+    ]);
+
+    // 2. 检查两个请求是否都成功
+    if (dryFilmRes.code !== 200 || aoiRes.code !== 200) {
+      throw new Error("API请求失败");
+    }
+
+    // 3. 合并两个数据集
+    const combinedData = [...(dryFilmRes.data || []), ...(aoiRes.data || [])];
+
+    if (combinedData.length > 0) {
+      // 4. 合并相同记录（按 dutyproc + scrapproc + bugno 分组）
+      const mergedData = combinedData.reduce(
+        (acc: Record<string, ScrapItem>, current) => {
+          const key = `${current.dutyproc}_${
+            current.scrapproc
+          }_${current.bugno.trim()}`;
+
+          if (acc[key]) {
+            acc[key].sunit += current.sunit;
+          } else {
+            acc[key] = { ...current };
+          }
+          return acc;
+        },
+        {} as Record<string, ScrapItem>
+      );
+
+      // 5. 转换为数组并填充 outScrap
+      outScrap.value = Object.values(mergedData).map((item) => ({
+        name: item.scrap.bugName,
+        value: item.sunit,
+        techName: item.scrapproc.includes("干膜") ? "外层干膜" : "外层AOI",
+      }));
+    }
+  } catch (error) {
+    ElMessage.error("获取外层不良分析失败");
+    console.error(error);
+  }
+};
+
+const fetchOutScrapRate = async () => {
+  try {
+    const res = await getScrapRateBytechName("外层干膜");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      outScrapRate.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { time: string; scrap: number }) => {
+        const scrapValue =
+          typeof apiItem.scrap === "number" ? apiItem.scrap : 0;
+        outScrapRate.value.push({
+          time: apiItem.time,
+          scrap: Math.round(scrapValue * 100 * 100) / 100, // 转换为百分比并保留两位小数
+        });
+      });
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取外层干膜总报废失败");
+  }
+};
+
 const fetchDailyOutput = async () => {
   for (const item of dailyOutput.value) {
     try {
       const res = await getProcessDailyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }
@@ -348,8 +430,7 @@ const fetchMonthlyOutput = async () => {
     try {
       const res = await getProcessMonthlyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取月产量数据失败");
     }
@@ -361,14 +442,28 @@ const handleRefresh = (title: string) => {
 
   // 根据不同的title执行不同逻辑
   switch (title) {
+    case "人员出勤":
+      fetchAttendance();
+      break;
     case "工序出数":
-      console.log("执行工序出数数据的刷新");
       fetchDailyOutput();
       fetchMonthlyOutput();
       break;
     case "WIP":
-      console.log("执行WIP数据的刷新");
       fetchWip();
+      break;
+    case "外层报废率和报废分析":
+      fetchOutScrapRate();
+      break;
+    case "外层不良分析":
+      fetchOutScrap();
+      break;
+    case "AOI良率统计和不良分析":
+      fetchAOIYield();
+      break;
+    case "设备状态":
+      console.log("执行设备状态数据的刷新");
+      fetchDeviceStatus();
       break;
     default:
       console.log("默认刷新逻辑");
@@ -379,6 +474,9 @@ const fetchWip = async () => {
     // 创建临时数组存储新数据
     const newWipData = [];
 
+    // 定义要过滤掉的 pdctNo
+    const excludedPdctNo = "01S71045C0";
+
     // 遍历现有wip数据获取对应工序的最新数据
     for (const item of dailyOutput.value) {
       const res = await getWipByTechName(item.techName.trim());
@@ -388,18 +486,22 @@ const fetchWip = async () => {
         // 将API返回的数据处理后添加到新数组
 
         newWipData.push(
-          ...res.data.map((apiItem: WipItem) => ({
-            techNo: apiItem.techNo?.trim(),
-            techName: apiItem.techName?.trim(),
-            model: {
-              pdctNo: apiItem.model?.pdctNo,
-              style: apiItem.model?.style,
-              nospec: apiItem.model?.nospec,
-            },
-            procWip: apiItem.procWip || 0,
-            units: apiItem.units,
-            category: item.category, // 保持原有category
-          }))
+          ...res.data
+            .filter(
+              (apiItem: WipItem) => apiItem.model?.pdctNo !== excludedPdctNo
+            )
+            .map((apiItem: WipItem) => ({
+              techNo: apiItem.techNo?.trim(),
+              techName: apiItem.techName?.trim(),
+              model: {
+                pdctNo: apiItem.model?.pdctNo,
+                style: apiItem.model?.style,
+                nospec: apiItem.model?.nospec,
+              },
+              procWip: apiItem.procWip || 0,
+              units: apiItem.units,
+              category: item.category, // 保持原有category
+            }))
         );
       }
     }
@@ -413,6 +515,66 @@ const fetchWip = async () => {
     ElMessage.error("获取WIP数据失败");
   }
 };
+const fetchDeviceStatus = async () => {
+  try {
+    const res = await getDeviceStatus("外层、AOI");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      devices.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { name: string; status: number }) => {
+        devices.value.push({
+          name: apiItem.name,
+          status: Math.round(apiItem.status),
+        });
+      });
+      console.log("设备状态更新完成", devices.value);
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取防焊总报废失败");
+  }
+};
+
+const fetchAttendance = async () => {
+  try {
+    const res = await getAttendance("外层、AOI");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 使用扩展运算符保持响应式
+      attendanceData.value = {
+        ...res.data[0]
+      };
+    }
+  } catch (error) {
+    console.error("获取考勤数据失败", error);
+  }
+};
+
+let timer: number | null = null; // 明确声明类型为 number 或 null
+
+onMounted(async () => {
+  await fetchDailyOutput();
+  await fetchMonthlyOutput();
+  await fetchWip();
+  await fetchOutScrap();
+  await fetchOutScrapRate();
+  await fetchDeviceStatus();
+  await fetchAOIYield();
+  await fetchAttendance();
+  timer = setInterval(() => {
+    fetchDeviceStatus();
+  }, 60 * 1000 * 60 * 8); // 每八小时获取一次
+});
+
+// 组件卸载前清除定时器
+onBeforeUnmount(() => {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -453,7 +615,7 @@ const fetchWip = async () => {
   // 内容
   > div:nth-child(2) {
     flex: 8;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 5rem;
     box-sizing: border-box;
     overflow-y: auto; // 保持垂直滚动功能
     -webkit-overflow-scrolling: touch;
@@ -481,6 +643,7 @@ const fetchWip = async () => {
       grid-column: span 3; // 不带wide-card类的普通卡片横跨3列（4个普通卡片正好占满12列）
     }
   }
+  // 移动端布局
   @media (max-width: 992px) {
     grid-auto-flow: row;
     grid-template-columns: 1fr;

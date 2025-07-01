@@ -1,7 +1,11 @@
 <template>
   <div class="BBT-content">
     <div class="card">
-      <Attendance :attendance="14" :totalStaff="14" />
+      <Attendance
+        :attendance="attendanceData.presentEmployees"
+        :totalStaff="attendanceData.totalEmployees"
+        @refresh="handleRefresh"
+      />
     </div>
     <!-- 日产出/月产出 -->
     <div class="card">
@@ -28,7 +32,6 @@
           ...new Set(wip.map((item) => item.category as string)) // 去掉重复的工序名
         ]"
         :tableData="tableData"
-        :headerFontSize="0.2"
         @refresh="
           (title:string) => {
             handleRefresh(title);
@@ -110,7 +113,9 @@
         @refresh="handleRefresh"
       />
     </div>
-    <div class="card"><DeviceStatus :devices="devices" /></div>
+    <div class="card">
+      <DeviceStatus :devices="devices" @refresh="handleRefresh" />
+    </div>
   </div>
 </template>
 
@@ -126,12 +131,18 @@ import {
   getProcessDailyOutPut,
   getProcessMonthlyOutPut,
 } from "@/api/processoutput/index.ts";
-import { getScrapDaily } from "@/api/scrap/index.ts";
-import { getYield } from "@/api/etest/index.ts";
-import { getAVIYield } from "@/api/avi/index.ts";
+import { getScrapDailyBytechName } from "@/api/scrap/index.ts";
+import { getDeviceStatus } from "@/api/device/index.ts";
+import { getBBTYield, getAVIYield } from "@/api/avi/index.ts";
 import type { WipItem, GroupedItem } from "@/api/wip/type";
 import { getWipByTechName } from "@/api/wip/index.ts";
+import { getAttendance } from "@/api/attendance/index";
+import type { AttendanceItem } from "@/api/attendance/type";
 
+const attendanceData = ref<AttendanceItem>({
+  totalEmployees: 0,
+  presentEmployees: 0,
+});
 const dailyOutput = ref([
   { techName: "电子测试", category: "BBT", output: 0 },
   { techName: "AVI", category: "AVI", output: 0 },
@@ -143,10 +154,6 @@ const monthlyOutput = ref([
   { techName: "AVI", category: "AVI", output: 0 },
   { techName: "电子测试", category: "电测", output: 0 },
 ]);
-
-const dailyScrap = ref<
-  Array<{ name: string; value: number; techName: string }>
->([]);
 
 const BBTScrap = ref<Array<{ name: string; value: number; techName: string }>>(
   []
@@ -161,58 +168,39 @@ const AVIYield = ref<
 const AVIScrap = ref<Array<{ name: string; value: number; techName: string }>>(
   []
 );
-
+let timer: number | null = null; // 明确声明类型为 number 或 null
 // 明确指定 wip 的类型
 const wip = ref<WipItem[]>([]);
-const devices = [
-  { name: "1#测试机", status: 1 },
-  { name: "2#测试机", status: 1 },
-  { name: "3#测试机", status: 3 },
-  { name: "4#测试机", status: 3 },
-  { name: "5#测试机", status: 3 },
-  { name: "6#测试机", status: 3 },
-  { name: "7#测试机", status: 3 },
-  { name: "8#测试机", status: 3 },
+const devices = ref<Array<{ name: string; status: number }>>([]);
 
-  { name: "1#飞针机", status: 1 },
-  { name: "2#飞针机", status: 3 },
-  { name: "3#飞针机", status: 3 },
-  { name: "4#飞针机", status: 3 },
-  { name: "5#飞针机", status: 3 },
 
-  { name: "1#OSP线", status: 1 },
-  { name: "2#OSP线", status: 3 },
+const fetchDeviceStatus = async () => {
+  try {
+    const res = await getDeviceStatus("BBT、AVI、包装");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      devices.value = [];
 
-  { name: "1#AVI机", status: 1 },
-  { name: "2#AVI机", status: 3 },
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { name: string; status: number }) => {
+        devices.value.push({
+          name: apiItem.name,
+          status: Math.round(apiItem.status),
+        });
+      });
+      console.log("设备状态更新完成", devices.value);
+    }
+  } catch (error) {
+    console.log(error);
 
-  { name: "1#VRS", status: 1 },
-  { name: "2#VRS", status: 1 },
-  { name: "3#VRS", status: 1 },
-  { name: "4#VRS", status: 1 },
-  { name: "5#VRS", status: 3 },
-  { name: "6#VRS", status: 3 },
-
-  { name: "包装机", status: 1 },
-  { name: "粘尘机", status: 1 },
-];
-
-onMounted(async () => {
-  await fetchDailyOutput(); // 等待数据加载
-  await fetchMonthlyOutput();
-  await fetchWip();
-  await fetchDailScrap();
-  await fetchBBTYield();
-  await fetchAVIYield();
-});
-
+    ElMessage.error("获取防焊总报废失败");
+  }
+};
 const fetchDailyOutput = async () => {
   for (const item of dailyOutput.value) {
     try {
       const res = await getProcessDailyOutPut(item.techName.trim());
-
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }
@@ -224,8 +212,7 @@ const fetchMonthlyOutput = async () => {
     try {
       const res = await getProcessMonthlyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取月产量数据失败");
     }
@@ -272,52 +259,70 @@ const fetchWip = async () => {
   }
 };
 
-const fetchDailScrap = async () => {
-  // 确保 dailyScrap 初始为空数组
-  if (dailyScrap.value.length > 0) {
-    dailyScrap.value = [];
-  }
-  for (const item of dailyOutput.value) {
-    try {
-      const res = await getScrapDaily(item.techName.trim());
-
-      if (res.code === 200 && res.data?.length > 0) {
-        // 遍历 API 返回的数据，逐个添加到 dailyScrap 数组中
-        res.data.forEach((apiItem) => {
-          dailyScrap.value.push({
-            name: apiItem.bugName.trim(),
-            value: Number(apiItem.sunit),
-            techName: item.techName.trim(), // 保留对应的工序名称
-          });
+const fetchBBTDailyScrap = async () => {
+  try {
+    const res = await getScrapDailyBytechName("电子测试");
+    BBTScrap.value = []; // 清空之前的数据
+    if (res.code === 200 && res.data?.length > 0) {
+      // 遍历报废记录
+      res.data.forEach((apiItem) => {
+        BBTScrap.value.push({
+          name: apiItem.scrap.bugName,
+          value: apiItem.sunit,
+          techName: "电子测试",
         });
-      }
-    } catch (error) {
-      ElMessage.error("获取BBT不良分析失败");
+      });
     }
+  } catch (error) {
+    ElMessage.error("获取BBT不良分析失败");
   }
-  console.log("BBT不良分析数据获取完成", dailyScrap.value);
-  BBTScrap.value = dailyScrap.value.filter(
-    (item) => item.techName === "电子测试"
-  );
+};
+const fetchAVIDailyScrap = async () => {
+  try {
+    const res = await getScrapDailyBytechName("AVI");
 
-  AVIScrap.value = dailyScrap.value.filter((item) => item.techName === "AVI");
+    if (res.code === 200 && res.data?.length > 0) {
+      AVIScrap.value = []; // 清空之前的数据
+      // 遍历报废记录
+      res.data.forEach((apiItem) => {
+        AVIScrap.value.push({
+          name: apiItem.scrap.bugName,
+          value: apiItem.sunit,
+          techName: "AVI",
+        });
+      });
+    }
+  } catch (error) {
+    ElMessage.error("获取AVI不良分析失败");
+  }
 };
 
 const fetchBBTYield = async () => {
   try {
-    const res = await getYield("电子测试");
+    const res = await getBBTYield();
     if (res.code === 200 && res.data?.length > 0) {
-      BBTYield.value = res.data.map((item) => {
-        // 转换日期格式：从 "2025-04-23" 到 "4/23"
-        const date = new Date(item.chkDate);
-        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
-
-        return {
-          date: formattedDate, // 直接存储格式化后的日期
-          firstYield: parseFloat(item.firstPassYield),
-          finalYield: parseFloat(item.finalYield),
-        };
-      });
+      BBTYield.value = []; // 清空之前的数据
+      BBTYield.value = res.data
+        .slice(0, 18)
+        .reverse()
+        .map((apiItem) => ({
+          // 转换日期格式：从 "2025-04-23" 到 "4/23"
+          date: `${new Date(apiItem.checkDate).getMonth() + 1}/${new Date(
+            apiItem.checkDate
+          ).getDate()}`,
+          firstYield:
+            Math.round(
+              ((apiItem.checkQuantity - apiItem.repqty) /
+                apiItem.checkQuantity) *
+                1000
+            ) / 10,
+          finalYield:
+            Math.round(
+              ((apiItem.checkQuantity - apiItem.mrbrest) /
+                apiItem.checkQuantity) *
+                1000
+            ) / 10,
+        }));
 
       BBTYield.value = BBTYield.value.slice(0, 18);
     }
@@ -327,22 +332,28 @@ const fetchBBTYield = async () => {
 };
 const fetchAVIYield = async () => {
   try {
-    const res = await getAVIYield("AVI");
+    const res = await getAVIYield();
     if (res.code === 200 && res.data?.length > 0) {
-      AVIYield.value = res.data.map((item) => {
-        // 转换日期格式：从 "2025-04-23" 到 "4/23"
-        const date = new Date(item.chkDate);
-        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
+      console.log("AVI良率数据:", res.data);
 
-        return {
-          date: formattedDate, // 直接存储格式化后的日期
-          firstYield: parseFloat(item.firstPassYield),
-          finalYield: parseFloat(item.finalYield),
-        };
-      });
+      AVIYield.value = []; // 清空之前的数据
+      AVIYield.value = res.data
+        .slice(0, 18)
+        .reverse()
+        .map((apiItem) => ({
+          // 转换日期格式：从 "2025-04-23" 到 "4/23"
+          date: `${new Date(apiItem.chkDate).getMonth() + 1}/${new Date(
+            apiItem.chkDate
+          ).getDate()}`,
+          firstYield:
+            Math.round((apiItem.measupQty / apiItem.chkQty) * 1000) / 10,
+          finalYield:
+            Math.round(
+              (apiItem.measupQty / (apiItem.measupQty + apiItem.sunit)) * 1000
+            ) / 10,
+        }));
 
-      BBTYield.value = BBTYield.value.slice(0, 18);
-      console.log("AVI良率数据获取成功", BBTYield.value);
+      console.log(AVIYield.value);
     }
   } catch (error) {
     ElMessage.error("获取AVI良率数据失败!");
@@ -429,6 +440,9 @@ const handleRefresh = (title: string) => {
 
   // 根据不同的title执行不同逻辑
   switch (title) {
+    case "人员出勤":
+      fetchAttendance();
+      break;
     case "工序出数":
       console.log("执行工序出数数据的刷新");
       fetchDailyOutput();
@@ -444,21 +458,55 @@ const handleRefresh = (title: string) => {
       break;
     case "AVI良率统计":
       console.log("执行AVI良率统计数据的刷新");
-      fetchAVIYield;
+      // fetchAVIYield;
       break;
     case "BBT不良分析":
       console.log("执行BBT不良分析数据的刷新");
-      fetchDailScrap;
+      fetchBBTDailyScrap();
       break;
-      case "AVI不良分析":
+    case "AVI不良分析":
       console.log("执行AVI不良分析数据的刷新");
-      fetchDailScrap;
+      fetchAVIDailyScrap();
+      break;
+    case "设备状态":
+      console.log("执行设备状态数据的刷新");
+      fetchDeviceStatus();
       break;
 
     default:
       console.log("默认刷新逻辑");
   }
 };
+
+const fetchAttendance = async () => {
+  try {
+    const res = await getAttendance("BBT、AVI、包装");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 使用扩展运算符保持响应式
+      attendanceData.value = {
+        ...res.data[0],
+      };
+    }
+  } catch (error) {
+    console.error("获取考勤数据失败", error);
+  }
+};
+
+onMounted(async () => {
+  await fetchDailyOutput(); // 等待数据加载
+  await fetchMonthlyOutput();
+  await fetchWip();
+  await fetchBBTDailyScrap();
+  await fetchAVIDailyScrap();
+  await fetchBBTYield();
+  await fetchAVIYield();
+  await fetchDeviceStatus();
+  await fetchAttendance();
+
+  timer = setInterval(() => {
+    fetchDeviceStatus();
+  }, 60 * 1000 * 60 * 8); // 每八小时获取一次
+});
 </script>
 
 <style scoped lang="scss">

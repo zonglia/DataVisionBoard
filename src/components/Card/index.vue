@@ -1,17 +1,10 @@
 <template>
-  <dv-border-box12
-    style="
-      padding: 0.25rem 0.1rem 0;
-      padding-bottom: 0;
-      box-sizing: border-box;
-      overflow: hidden;
-    "
-  >
+  <dv-border-box12 class="dv-border-box12">
     <!-- 标题＋刷新时间 -->
-    <div style="height: 0.7rem">
+    <div style="height: 2rem;">
       <!-- 标题 -->
       <div>
-        <dv-decoration7 style="height: 0.4rem">
+        <dv-decoration7>
           <SvgIcon :name="svgName" color="#409eff" :size="iconSize" /><span
             :style="{
               fontSize: titleFontSize,
@@ -31,26 +24,38 @@
         "
       >
         <div class="refresh" @click="handleRefresh">
-          <SvgIcon name="refresh" color="#409eff" size="0.3rem" />刷新
+          <SvgIcon name="refresh" color="#409eff" size="0.8rem" />刷新
         </div>
-        <div style="font-size: 0.18rem">最后刷新{{ refreshTime }}</div>
+        <div style="font-size: 0.6rem">最后刷新{{ currentRefreshTime }}</div>
       </div>
     </div>
 
-    <div style="height: calc(100% - 0.8rem);">
+    <div style="height: calc(100% - 2.3rem);">
       <slot></slot>
     </div>
   </dv-border-box12>
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from "vue";
+import { ref, onMounted } from "vue";
 
 // 定义 emit 事件
 const emit = defineEmits(["refresh"]);
-
+const currentRefreshTime = ref("");
 const handleRefresh = () => {
+  // 更新刷新时间
+  currentRefreshTime.value = formatTime();
   emit("refresh", props.title); // 确保这里传递了title
+};
+
+// 格式化时间函数
+const formatTime = () => {
+  const now = new Date();
+  return `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()} ${String(
+    now.getHours()
+  ).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(
+    now.getSeconds()
+  ).padStart(2, "0")}`;
 };
 const props = defineProps({
   title: {
@@ -63,31 +68,35 @@ const props = defineProps({
   },
   titleFontSize: {
     type: String,
-    default: "0.3rem",
+    default: "1rem",
   },
   iconSize: {
     type: String,
-    default: "0.3rem",
+    default: "1rem",
   },
+});
 
-  refreshTime: {
-    type: String,
-    default: (() => {
-      const now = new Date();
-      return `${now.getFullYear()}/${
-        now.getMonth() + 1
-      }/${now.getDate()} ${String(now.getHours()).padStart(2, "0")}:${String(
-        now.getMinutes()
-      ).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
-    })(), // 立即执行函数
-  },
+// 初始化刷新时间
+onMounted(() => {
+  currentRefreshTime.value = formatTime();
 });
 </script>
 
 <style scoped lang="scss">
+.dv-border-box12 {
+
+  padding: 0.3rem 0.3rem 0rem;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  // 移动端布局
+  @media (max-width: 992px) {
+    padding: 0.3rem 0.3rem 0rem;
+  }
+}
 .refresh {
   cursor: pointer;
-  font-size: 0.25rem;
+  font-size: 1rem;
   display: inline-flex;
   align-items: center;
 }

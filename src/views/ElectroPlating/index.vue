@@ -26,13 +26,13 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const buttons = ref([
-  {
-    bg: false,
-    fontColor: "#e18a3b",
-    border: "Border1",
-    text: "指示查询",
-    route: "/electroPlating/processIndicators", // 配置路由路径
-  },
+  // {
+  //   bg: false,
+  //   fontColor: "#e18a3b",
+  //   border: "Border1",
+  //   text: "指示查询",
+  //   route: "/electroPlating/processIndicators", // 配置路由路径
+  // },
   {
     bg: false,
     fontColor: "#e18a3b",
@@ -101,7 +101,7 @@ const handleButtonClick = (index: number) => {
   // 内容
   > div:nth-child(2) {
     flex: 8;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 5rem;
     box-sizing: border-box;
     overflow-y: auto; // 保持垂直滚动功能
     -webkit-overflow-scrolling: touch;

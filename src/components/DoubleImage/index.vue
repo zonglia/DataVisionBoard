@@ -1,8 +1,19 @@
 <template>
   <Card :title="props.title" :svgName="props.svgName">
     <div style="display: flex; gap: 0.1rem; padding: 0.05rem">
-      <div style="flex: 1" v-for="(img, index) in imgList" :key="index">
-        <img :src="img.url" alt="轮播图" style="width: 100%; height: 92%" />
+      <div
+        style="
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          padding: 0 0.2rem;
+        "
+        v-for="(img, index) in imgList"
+        :key="index"
+      >
+        <img :src="img.url" alt="轮播图" style="width: 100%; height: 100%" />
       </div>
     </div>
   </Card>

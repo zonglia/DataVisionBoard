@@ -62,6 +62,7 @@ const getFillColor = (url: string) => {
     justify-content: center;
     height: 100%;
 
+
     .carousel-image {
       width: 100%;
       height: 100%;

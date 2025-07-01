@@ -27,10 +27,11 @@ const router = useRouter();
 const buttons = [
   { label: "江西N2工厂智能展示", route: "/jiangXiN2" },
   { label: "钻孔、成型", route: "/drilling" },
-  { label: "BBT AVI 包装", route: "/bbtAvi" },
-  { label: "AOI", route: "/aoi" },
-  { label: "电镀车间", route: "/electroPlating" },
-  { label: "防焊车间", route: "/droughtPrevention" },
+  { label: "BBT、AVI、包装", route: "/bbtAvi" },
+  { label: "外层、AOI", route: "/aoi" },
+  { label: "电镀", route: "/electroPlating" },
+  { label: "防焊、文字", route: "/droughtPrevention" },
+  // { label: "二维码", route: "/qrCode" },
   // { label: '测试', route: '/test' }
 ];
 </script>

@@ -5,7 +5,7 @@ import axios from 'axios'
 //创建axios实例
 const request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API, //基础路径上会携带/api
-  timeout: 5000,
+  timeout: 50000,
 })
 
 

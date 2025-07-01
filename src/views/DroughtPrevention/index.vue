@@ -6,7 +6,11 @@
 
     <div class="drought-prevention-main">
       <div class="card wide-card">
-        <Attendance :attendance="50" :totalStaff="50" />
+        <Attendance
+          :attendance="attendanceData.presentEmployees"
+          :totalStaff="attendanceData.totalEmployees"
+          @refresh="handleRefresh"
+        />
       </div>
       <div class="card wide-card">
         <ProcessOutPut
@@ -41,64 +45,35 @@
       <div class="card">
         <DoubleCurve
           title="防焊总报废"
-          :categories="[
-            '2024',
-            '25M01',
-            '25M01',
-            '25M03',
-            '25M04',
-            '25W18',
-            '5-4',
-            '5-5',
-            '5-6',
-            '5-7',
-            '5-8',
-          ]"
+          :categories="droughtPreventionScrapRate.map((item) => item.time)"
           :series-data="[
             {
               name: '报废目标(%)',
-              value: [1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2],
+              value: Array(droughtPreventionScrapRate.length).fill(1.2), // 动态创建与数据长度相同的数组，填充1.2
             },
             {
               name: '报废率(%)',
-              value: [
-                1.68, 0.0, 0.0, 0.72, 0.8, 0.82, 0.66, 0.05, 0.0, 0.0, 0.0,
-              ],
+              value: droughtPreventionScrapRate.map((item) => item.scrap),
             },
           ]"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
         <DoubleCurve
           title="文字总报废"
-          :categories="[
-            '2024',
-            '25M01',
-            '25M02',
-            '25M03',
-            '25M04',
-            '25W18',
-            '5-4',
-            '5-5',
-            '5-6',
-            '5-7',
-            '5-8',
-          ]"
+          :categories="characterScrapRate.map((item) => item.time)"
           :series-data="[
             {
               name: '报废目标(%)',
-              value: [
-                0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15,
-                0.15,
-              ],
+              value: Array(characterScrapRate.length).fill(0.15), // 动态创建与数据长度相同的数组，填充1.5
             },
             {
               name: '报废率(%)',
-              value: [
-                0.24, 0.0, 0.0, 0.0, 0.03, 0.04, 0.05, 0.0, 0.0, 0.0, 0.0,
-              ],
+              value: characterScrapRate.map((item) => item.scrap),
             },
           ]"
+          @refresh="handleRefresh"
         />
       </div>
       <div class="card">
@@ -152,29 +127,17 @@
         />
       </div>
       <div class="card">
-        <PieChart
-          title="防焊不良分析"
-          :pie-data="[
-            { value: 0.56, name: '防焊异物' },
-            { value: 0.24, name: '防焊断桥' },
-            { value: 0.02, name: '板面不洁' },
-          ]"
-        />
+        <PieChart title="防焊不良分析" :pie-data="droughtPreventionScrap" />
       </div>
       <div class="card">
-        <PieChart
-          title="文字不良分析"
-          :pie-data="[
-            { value: 0, name: '文字污板' },
-            { value: 0, name: '文字印片' },
-            { value: 0, name: '外力损伤' },
-          ]"
-        />
+        <PieChart title="文字不良分析" :pie-data="characterScrap" />
       </div>
       <div class="card">
         <DoubleImage title="灯珠管控" :imgList="imgList2" />
       </div>
-      <div class="card"><DeviceStatus :devices="devices" /></div>
+      <div class="card">
+        <DeviceStatus :devices="devices" @refresh="handleRefresh" />
+      </div>
     </div>
   </div>
 </template>
@@ -190,52 +153,26 @@ import Carousel from "@/components/Carousel/index.vue";
 import PieChart from "@/components/PieChart/index.vue";
 import DeviceStatus from "@/components/DeviceStatus/index.vue";
 import DoubleImage from "@/components/DoubleImage/index.vue";
-
+import {
+  getScrapDailyBytechName,
+  getScrapRateBytechName,
+} from "@/api/scrap/index.ts";
 import {
   getProcessDailyOutPut,
   getProcessMonthlyOutPut,
 } from "@/api/processoutput/index.ts";
+import { getDeviceStatus } from "@/api/device/index.ts";
 import type { WipItem, GroupedItem } from "@/api/wip/type";
 import { getWipByTechName } from "@/api/wip/index.ts";
+import { getAttendance } from "@/api/attendance/index";
+import type { AttendanceItem } from "@/api/attendance/type";
 
-const attendanceLastRefreshTime = ref("");
+const attendanceData = ref<AttendanceItem>({
+  totalEmployees: 0,
+  presentEmployees: 0,
+});
 
-const handleRefreshTimeUpdated = (lastRefreshTime: string) => {
-  attendanceLastRefreshTime.value = lastRefreshTime;
-};
-// 状态配置映射
-const statusConfig = [
-  { class: "booting", text: "开机", color: "#00f" }, // 状态0
-  { class: "running", text: "运行", color: "#0f0" }, // 状态1
-  { class: "maintenance", text: "保养", color: "#ff0" }, // 状态2
-  { class: "shutdown", text: "关机", color: "#f00" }, // 状态3
-];
-const devices = [
-  { name: "1#前处理", status: 0 }, // 开机
-  { name: "2#前处理", status: 1 }, // 运行
-  { name: "1#丝印机", status: 1 },
-  { name: "2#丝印机", status: 1 },
-  { name: "3#丝印机", status: 1 },
-  { name: "4#丝印机", status: 0 },
-  { name: "1#曝光机", status: 0 },
-  { name: "2#曝光机", status: 1 },
-  { name: "3#曝光机", status: 0 },
-  { name: "1#显影机", status: 0 },
-  { name: "2#显影机", status: 1 },
-
-  { name: "1#文字机", status: 1 },
-  { name: "2#文字机", status: 0 },
-  { name: "3#文字机", status: 0 },
-  { name: "4#文字机", status: 0 },
-  { name: "5#文字机", status: 3 },
-  { name: "6#文字机", status: 0 },
-
-  { name: "1#防焊烤箱", status: 3 },
-  { name: "2#防焊烤箱", status: 0 },
-  { name: "3#防焊烤箱", status: 1 },
-  { name: "4#防焊烤箱", status: 0 },
-];
-
+let timer: number | null = null; // 明确声明类型为 number 或 null
 const imgList = ref([
   {
     url: new URL(`@/assets/image/drought/cpk01.png`, import.meta.url).href,
@@ -248,6 +185,9 @@ const imgList = ref([
   },
   {
     url: new URL(`@/assets/image/drought/cpk04.png`, import.meta.url).href,
+  },
+  {
+    url: new URL(`@/assets/image/drought/cpk05.png`, import.meta.url).href,
   },
 ]);
 
@@ -271,11 +211,19 @@ const monthlyOutput = ref([
   { techName: "文字", category: "文字", output: 0 },
 ]);
 
-onMounted(() => {
-  fetchDailyOutput();
-  fetchMonthlyOutput();
-  fetchWip();
-});
+const droughtPreventionScrap = ref<
+  Array<{ name: string; value: number; techName: string }>
+>([]);
+const characterScrap = ref<
+  Array<{ name: string; value: number; techName: string }>
+>([]);
+
+const droughtPreventionScrapRate = ref<Array<{ time: string; scrap: number }>>(
+  []
+);
+
+const characterScrapRate = ref<Array<{ time: string; scrap: number }>>([]);
+const devices = ref<Array<{ name: string; status: number }>>([]);
 
 const tableData = computed(() => {
   // 1. 获取所有唯一的工序类别(category)并保持原始顺序
@@ -357,8 +305,7 @@ const fetchDailyOutput = async () => {
     try {
       const res = await getProcessDailyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }
@@ -370,30 +317,33 @@ const fetchMonthlyOutput = async () => {
     try {
       const res = await getProcessMonthlyOutPut(item.techName.trim());
 
-      item.output =
-        res.code === 200 && res.data?.length > 0 ? res.data[0].outQty : 0;
+      item.output = res.code === 200 ? res.data.outQty : 0;
     } catch (error) {
       ElMessage.error("获取月产量数据失败");
     }
   }
 };
 
-const handleRefresh = (title: string) => {
-  console.log(`收到来自【${title}】的刷新请求`);
+const fetchDeviceStatus = async () => {
+  try {
+    const res = await getDeviceStatus("防焊、文字");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      devices.value = [];
 
-  // 根据不同的title执行不同逻辑
-  switch (title) {
-    case "工序出数":
-      console.log("执行工序出数数据的刷新");
-      fetchDailyOutput();
-      fetchMonthlyOutput();
-      break;
-    case "WIP":
-      console.log("执行WIP数据的刷新");
-      fetchWip();
-      break;
-    default:
-      console.log("默认刷新逻辑");
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { name: string; status: number }) => {
+        devices.value.push({
+          name: apiItem.name,
+          status: Math.round(apiItem.status),
+        });
+      });
+      console.log("设备状态更新完成", devices.value);
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取防焊总报废失败");
   }
 };
 const fetchWip = async () => {
@@ -435,6 +385,155 @@ const fetchWip = async () => {
     ElMessage.error("获取WIP数据失败");
   }
 };
+
+const fetchDroughtPreventionScrap = async () => {
+  try {
+    const res = await getScrapDailyBytechName("防焊");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 遍历报废记录
+      res.data.forEach((apiItem) => {
+        droughtPreventionScrap.value.push({
+          name: apiItem.scrap.bugName,
+          value: apiItem.sunit,
+          techName: "防焊",
+        });
+      });
+    }
+  } catch (error) {
+    ElMessage.error("获取BBT不良分析失败");
+  }
+};
+
+const fetchCharacterScrap = async () => {
+  try {
+    const res = await getScrapDailyBytechName("文字");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 遍历报废记录
+      res.data.forEach((apiItem) => {
+        characterScrap.value.push({
+          name: apiItem.scrap.bugName,
+          value: apiItem.sunit,
+          techName: "文字",
+        });
+      });
+    }
+  } catch (error) {
+    ElMessage.error("获取BBT不良分析失败");
+  }
+};
+
+const fetchDroughtPreventionScrapRate = async () => {
+  try {
+    const res = await getScrapRateBytechName("防焊");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      droughtPreventionScrapRate.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { time: string; scrap: number }) => {
+        const scrapValue =
+          typeof apiItem.scrap === "number" ? apiItem.scrap : 0;
+        droughtPreventionScrapRate.value.push({
+          time: apiItem.time,
+          scrap: Math.round(scrapValue * 100 * 100) / 100, // 转换为百分比并保留两位小数
+        });
+      });
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取防焊总报废失败");
+  }
+};
+
+const fetchCharacterScrapRate = async () => {
+  try {
+    const res = await getScrapRateBytechName("文字");
+
+    if (res.code === 200 && res.data?.length > 0) {
+      // 清空现有数据
+      characterScrapRate.value = [];
+
+      // 正确处理API返回的数据
+      res.data.forEach((apiItem: { time: string; scrap: number }) => {
+        const scrapValue =
+          typeof apiItem.scrap === "number" ? apiItem.scrap : 0;
+        characterScrapRate.value.push({
+          time: apiItem.time,
+          scrap: Math.round(scrapValue * 100 * 100) / 100, // 转换为百分比并保留两位小数
+        });
+      });
+    }
+  } catch (error) {
+    console.log(error);
+
+    ElMessage.error("获取防焊总报废失败");
+  }
+};
+const fetchAttendance = async () => {
+  try {
+    const res = await getAttendance("防焊、文字");
+    if (res.code === 200 && res.data?.length > 0) {
+      // 使用扩展运算符保持响应式
+      attendanceData.value = {
+        ...res.data[0],
+      };
+    }
+  } catch (error) {
+    console.error("获取考勤数据失败", error);
+  }
+};
+const handleRefresh = (title: string) => {
+  console.log(`收到来自【${title}】的刷新请求`);
+
+  // 根据不同的title执行不同逻辑
+  switch (title) {
+    case "人员出勤":
+      fetchAttendance();
+      break;
+    case "工序出数":
+      console.log("执行工序出数数据的刷新");
+      fetchDailyOutput();
+      fetchMonthlyOutput();
+      break;
+    case "WIP":
+      console.log("执行WIP数据的刷新");
+      fetchWip();
+      break;
+    case "防焊总报废":
+      console.log("执行防焊总报废数据的刷新");
+      fetchDroughtPreventionScrapRate();
+      break;
+    case "文字总报废":
+      console.log("执行文字总报废数据的刷新");
+      fetchCharacterScrapRate();
+      break;
+    case "设备状态":
+      console.log("执行设备状态数据的刷新");
+      fetchDeviceStatus();
+      break;
+
+    default:
+      console.log("默认刷新逻辑");
+  }
+};
+onMounted(async () => {
+  await fetchDailyOutput();
+  await fetchMonthlyOutput();
+  await fetchWip();
+  await fetchDroughtPreventionScrap();
+  await fetchCharacterScrap();
+  await fetchDroughtPreventionScrapRate();
+  await fetchCharacterScrapRate();
+  await fetchDeviceStatus();
+  await fetchAttendance();
+  timer = setInterval(() => {
+    fetchDeviceStatus();
+  }, 60 * 1000 * 60 * 8); // 每八小时获取一次
+});
 </script>
 
 <style scoped lang="scss">
@@ -475,7 +574,7 @@ const fetchWip = async () => {
   // 内容
   > div:nth-child(2) {
     flex: 8;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem 5rem;
     box-sizing: border-box;
     overflow-y: auto; // 保持垂直滚动功能
     -webkit-overflow-scrolling: touch;

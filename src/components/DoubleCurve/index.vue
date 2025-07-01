@@ -113,6 +113,7 @@ const defaultOptions = computed(() => {
       max: yAxisMax,
       axisLine: { show: true },
       splitLine: { show: false }, // 隐藏Y轴网格线
+      
     },
 
     series: [

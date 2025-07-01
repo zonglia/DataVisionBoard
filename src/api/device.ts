@@ -1,10 +1,6 @@
 import request from '@/utils/request'
 
 
-
-
-
-
 export const getDevicesByWorkshop = (workshopId: number) => {
     return request<any>({
         url: '/device/listByWorkshopId',

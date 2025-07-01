@@ -10,6 +10,7 @@ export interface WipItem {
     model: {
         pdctNo: string;
         style: string;
+        tghdij?: string;
         nospec: string;
     };
     procWip: number;
@@ -20,7 +21,8 @@ export interface WipItem {
 export interface GroupedItem {
     pdctNo: string;
     nospec: string;
+    tghdij?: string;
     style: string;
     units: string;
     categoryData: Record<string, number>;
-  }
+}

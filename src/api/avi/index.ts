@@ -1,12 +1,16 @@
 import request from '@/utils/request'
 
 enum API {
-    FQC_YIELD = '/jiangxi/fqc/yield',
+    BBT_YIELD = '/jiangxi/fqc/yield/bbt',
+    AVI_YIELD = '/jiangxi/fqc/yield/avi'
 }
 
-import type { YieldResponse } from './type'
+import type { BBTYieldResponse, AVIYieldResponse } from './type'
 
 
 
-export const getAVIYield = (category: string) =>
-    request.get<any, YieldResponse>(API.FQC_YIELD + `/${category}`)
+export const getBBTYield = () =>
+    request.get<any, BBTYieldResponse>(API.BBT_YIELD)
+
+export const getAVIYield = () =>
+    request.get<any, AVIYieldResponse>(API.AVI_YIELD)

@@ -1,14 +1,15 @@
 <template>
-  <Card :title="props.title" :svgName="props.svgName">
-    <ECharts :options="defaultOptions" />
+  <Card :title="props.title" :svgName="props.svgName" @click="handleRefresh">
+    <ECharts :options="defaultOptions" :force-rerender="forceRerenderFlag"/>
   </Card>
 </template>
 
 <script setup lang="ts">
-import { computed,watch } from "vue";
+import { computed, ref, nextTick } from "vue";
 import Card from "@/components/Card/index.vue";
 import ECharts from "@/components/ECharts.vue";
 
+const forceRerenderFlag = ref(false);
 const props = defineProps({
   title: {
     type: String,
@@ -24,7 +25,8 @@ const props = defineProps({
     required: true,
   },
 });
-
+// 定义组件可以发射的事件类型
+const emit = defineEmits(["refresh"]);
 const defaultOptions = computed(() => {
   return {
     tooltip: {
@@ -76,6 +78,19 @@ const defaultOptions = computed(() => {
     ],
   };
 });
+
+// 定义一个处理刷新事件的函数
+const handleRefresh = (title: string) => {
+  // 触发强制重绘
+  forceRerenderFlag.value = true;
+
+  // 重置标志，以便下次点击仍能触发
+  nextTick(() => {
+    forceRerenderFlag.value = false;
+  });
+  // 向上传递事件
+  emit("refresh", title);
+};
 
 // 定义饼图数据项类型
 type PieDataItem = {
