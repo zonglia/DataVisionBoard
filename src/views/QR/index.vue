@@ -1,34 +1,29 @@
 <template>
   <div class="qr-container">
     <div class="header">
-      <span>{{ route.query.pdctno }} 客户资料变更治具对应履历表</span>
+      <span>{{ route.query.pdctno }}#</span>
+      <span>生产型号 &nbsp;{{ displayPdctno }}</span>
     </div>
 
     <div class="table-content">
       <!-- 表头 -->
       <div class="table-header">
-        <div class="header-cell" style="width: 15%">资料接受时间</div>
-        <div class="header-cell" style="width: 31%">Gerber资料名称</div>
-        <div class="header-cell" style="width: 12%">厂内型号</div>
-        <div class="header-cell" style="width: 12%">更新内容</div>
-        <div class="header-cell" style="width: 10%">类别</div>
-        <div class="header-cell" style="width: 10%">是否需治具</div>
-        <div class="header-cell" style="width: 10%">厂内需治具</div>
+        <div class="header-cell" style="width: 8%;border-right: 1px solid #ccc;">序号</div>
+        <div class="header-cell" style="width: 23%">过程</div>
+        <div class="header-cell" style="width: 23%">设定值</div>
+        <div class="header-cell" style="width: 23%">控制范围</div>
+        <div class="header-cell" style="width: 23%">测量方法</div>
       </div>
       <!-- 表格内容 -->
       <div class="table-body">
         <div class="table-row" v-for="(item, index) in tableData" :key="index">
-          <div class="table-cell" style="width: 15%">{{ item.date }}</div>
-          <div class="table-cell" style="width: 31%">{{ item.name }}</div>
-          <div class="table-cell" style="width: 12%">{{ item.pdctno }}</div>
-          <div class="table-cell" style="width: 12%">
-            {{ item.updateContent }}
+          <div class="table-cell" style="width: 8%">{{ item.no }}</div>
+          <div class="table-cell" style="width: 23%">{{ item.process }}</div>
+          <div class="table-cell" style="width: 23%">{{ item.setting }}</div>
+          <div class="table-cell" style="width: 23%">
+            {{ item.range }}
           </div>
-          <div class="table-cell" style="width: 10%">{{ item.kind }}</div>
-          <div class="table-cell" style="width: 10%">{{ item.isNeed }}</div>
-          <div class="table-cell" style="width: 10%">
-            {{ item.zhiju || "" }}
-          </div>
+          <div class="table-cell" style="width: 23%">{{ item.fun }}</div>
         </div>
       </div>
     </div>
@@ -36,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router"; // 引入 useRoute
 import { getGerber } from "@/api/gerber/index"; // 假设有一个 API 函数获取 Gerber 数据
 import type { GerberItem } from "@/api/gerber/type"; // 假设有一个类型定义文件
@@ -44,11 +39,6 @@ import type { GerberItem } from "@/api/gerber/type"; // 假设有一个类型定
 const route = useRoute(); // 获取路由信息
 const tableData = ref<GerberItem[]>([]); // GerberItem数组
 
-// 列宽配置
-const getColumnWidth = (index: number) => {
-  const widths = ["10%", "20%", "10%", "20%", "10%", "10%", "20%"];
-  return { width: widths[index] };
-};
 // 根据 URL 参数加载数据
 onMounted(() => {
   //  http://localhost:5173/qrCode?pdctno=133
@@ -58,7 +48,10 @@ onMounted(() => {
     fetchData(); // 调用获取数据的函数
   }
 });
-
+// 计算属性确定显示的pdctno（优先使用表格数据中的）
+const displayPdctno = computed(() => {
+  return tableData.value[0]?.pdctno || route.query.pdctno || "无数据";
+});
 // 获取数据
 const fetchData = async () => {
   try {
@@ -111,6 +104,7 @@ const fetchData = async () => {
   }
   .header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */

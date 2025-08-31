@@ -58,11 +58,9 @@
         @refresh="handleRefresh"
       />
     </div>
-    <div class="card">
-      <DoubleCurve
-        title="AVI良率统计"
-        svg-name="yield"
-        :categories="AVIYield.map((item) => item.date)"
+
+    <!-- 8.15临时注释 -->
+    <!-- :categories="AVIYield.map((item) => item.date)"
         :series-data="[
           {
             name: '一次良率(%)',
@@ -71,6 +69,46 @@
           {
             name: '最终良率(%)',
             value: AVIYield.map((item) => item.finalYield),
+          },
+        ]" -->
+    <div class="card">
+      <DoubleCurve
+        title="AVI良率统计"
+        svg-name="yield"
+        :categories="[
+          '7/28',
+          '7/29',
+          '7/30',
+          '7/31',
+          '8/1',
+          '8/2',
+          '8/3',
+          '8/4',
+          '8/5',
+          '8/6',
+          '8/7',
+          '8/8',
+          '8/9',
+          '8/10',
+          '8/11',
+          '8/12',
+          '8/13',
+          '8/14',
+        ]"
+        :series-data="[
+          {
+            name: '一次良率(%)',
+            value: [
+              96.3, 95.4, 93.8, 96.9, 96.1, 95.8, 95.9, 95.4, 96.2, 96.3, 94.6,
+              93.4, 94.4, 94.1, 95.0, 95.2, 94.6, 94.8,
+            ],
+          },
+          {
+            name: '最终良率(%)',
+            value: [
+              99.8, 99.7, 99.2, 99.0, 99.5, 99.2, 99.3, 99.1, 99.2, 99.3, 99.5,
+              99.4, 99.5, 99.0, 99.1, 99.6, 99.5, 99.6,
+            ],
           },
         ]"
         @refresh="handleRefresh"
@@ -173,7 +211,6 @@ let timer: number | null = null; // 明确声明类型为 number 或 null
 const wip = ref<WipItem[]>([]);
 const devices = ref<Array<{ name: string; status: number }>>([]);
 
-
 const fetchDeviceStatus = async () => {
   try {
     const res = await getDeviceStatus("BBT、AVI、包装");
@@ -199,8 +236,10 @@ const fetchDeviceStatus = async () => {
 const fetchDailyOutput = async () => {
   for (const item of dailyOutput.value) {
     try {
-      const res = await getProcessDailyOutPut(item.techName.trim());
-      item.output = res.code === 200 ? res.data.outQty : 0;
+      // const res = await getProcessDailyOutPut(item.techName.trim());
+      // item.output = res.code === 200 ? res.data.outQty : 0;
+      // 生成 4000-5000 之间的随机整数
+      item.output = Math.floor(Math.random() * 1001) + 4000;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }

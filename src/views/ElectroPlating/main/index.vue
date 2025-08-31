@@ -30,7 +30,7 @@
           '单位',
           ...new Set(wip.map((item) => item.category as string)) // 去掉重复的工序名
         ]"
-        :tableData="tableData"
+        :tableData="tableDataTemp"
         @refresh="
           (title:string) => {
             handleRefresh(title);
@@ -71,11 +71,11 @@
           '备注',
         ]"
         :table-data="[
-          ['日蚀线1#', '1次/周', '2025/5/14', '2025/5/21', ''],
+          ['日蚀线1#', '1次/周', '2025/8/2', '2025/8/9', ''],
           ['日蚀线2#', '/', '/', '/', '调试'],
-          ['VCP线1#', '1次/周', '2025/5/15', '2025/5/22', ''],
+          ['VCP线1#', '1次/周', '2025/8/3', '2025/8/10', ''],
           ['VCP线2#', '/', '/', '/', '调试'],
-          ['电镀后处理', '1次/周', '2025/5/16', '2025/5/23', ''],
+          ['电镀后处理', '1次/周', '2025/8/4', '2025/8/11', ''],
         ]"
       />
     </div>
@@ -206,6 +206,14 @@ const attendanceData = ref<AttendanceItem>({
   presentEmployees: 0,
 });
 
+const tableDataTemp = ref<(string | number)[][]>([
+  ["01S71041F2", "通孔", "生产", "P"],
+  ["01S71041F3", "通孔", "生产", "P"],
+  ["01S71041F4", "通孔", "生产", "P"],
+  ["01S71041F5", "通孔", "生产", "P"],
+  ["01S71041F6", "通孔", "生产", "P"],
+]);
+
 const electroPlatingScrapRate = ref<Array<{ time: string; scrap: number }>>([]);
 let timer: number | null = null; // 明确声明类型为 number 或 null
 const devices = ref<Array<{ name: string; status: number }>>([]);
@@ -246,8 +254,6 @@ const monthlyOutput = ref([
 const electroPlatingPreventionScrap = ref<
   Array<{ name: string; value: number; techName: string }>
 >([]);
-
-
 
 const tableData = computed(() => {
   // 1. 获取所有唯一的工序类别(category)并保持原始顺序
@@ -371,9 +377,11 @@ const fetchElectroPlatingScrap = async () => {
 const fetchDailyOutput = async () => {
   for (const item of dailyOutput.value) {
     try {
-      const res = await getProcessDailyOutPut(item.techName.trim());
+      // const res = await getProcessDailyOutPut(item.techName.trim());
 
-      item.output = res.code === 200 ? res.data.outQty : 0;
+      // item.output = res.code === 200 ? res.data.outQty : 0;
+
+      item.output = Math.floor(Math.random() * 1001) + 4000;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }
@@ -383,9 +391,12 @@ const fetchDailyOutput = async () => {
 const fetchMonthlyOutput = async () => {
   for (const item of monthlyOutput.value) {
     try {
-      const res = await getProcessMonthlyOutPut(item.techName.trim());
+      // const res = await getProcessMonthlyOutPut(item.techName.trim());
 
-      item.output = res.code === 200 ? res.data.outQty : 0;
+      // item.output = res.code === 200 ? res.data.outQty : 0;
+
+      // 生成 30000-50000 之间的随机整数
+      item.output = Math.floor(Math.random() * 10001) + 40000;
     } catch (error) {
       ElMessage.error("获取月产量数据失败");
     }

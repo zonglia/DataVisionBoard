@@ -9,7 +9,19 @@
           @refresh="handleRefresh"
         />
       </div>
+      <!--工序出数 -->
       <div class="card wide-card">
+        <!-- <ProcessOutPut
+          :daily-category="dailyOutput.map((item) => item.category)"
+          :daily-output="dailyOutput.map((item) => item.output)"
+          :monthly-category="monthlyOutput.map((item) => item.category)"
+          :monthly-output="monthlyOutput.map((item) => item.output)"
+          @refresh="
+            (title) => {
+              handleRefresh(title);
+            }
+          "
+        /> -->
         <ProcessOutPut
           :daily-category="dailyOutput.map((item) => item.category)"
           :daily-output="dailyOutput.map((item) => item.output)"
@@ -23,7 +35,7 @@
         />
       </div>
       <div class="card wide-card">
-        <EqualWidthScroll
+        <!-- <EqualWidthScroll
           :header="[
           '型号',
           '板结构',
@@ -32,6 +44,16 @@
           ...new Set(wip.map((item) => item.category as string)) // 去掉重复的工序名
         ]"
           :tableData="tableData"
+          @refresh="
+            (title:string) => {
+              handleRefresh(title);
+            }
+          "
+        /> -->
+
+        <EqualWidthScroll
+          :header="['型号', '板结构', '类型', '单位']"
+          :tableData="tableDataTemp"
           @refresh="
             (title:string) => {
               handleRefresh(title);
@@ -123,27 +145,27 @@
             '备注',
           ]"
           :table-data="[
-            ['6/1', '1#', '7', '6', '4', '5', '', '', '<20um'],
-            ['6/2', '2#', '6', '7', '5', '6', '', '', '<20um'],
-            ['6/3', '3#', '3', '7', '4', '6', '', '', '<20um'],
-            ['6/4', '4#', '5', '8', '9', '6', '', '', '<20um'],
-            ['6/5', '5#', '8', '5', '7', '5', '', '', '<20um'],
-            ['6/6', '6#', '9', '9', '5', '6', '', '', '<20um'],
-            ['6/7', '7#', '9', '9', '4', '8', '', '', '<20um'],
-            ['6/8', '8#', '8', '9', '5', '5', '', '', '<20um'],
-            ['6/9', '9#', '9', '8', '5', '8', '', '', '<20um'],
-            ['6/10', '10#', '6', '5', '8', '5', '', '', '<20um'],
-            ['6/11', '11#', '5', '7', '9', '6', '', '', '<20um'],
-            ['6/2', '1#', '6', '6', '7', '6', '6', '7', '<15um'],
-            ['6/3', '2#', '9', '5', '6', '6', '4', '9', '<15um'],
-            ['6/4', '3#', '8', '9', '7', '8', '9', '7', '<15um'],
-            ['6/5', '4#', '6', '7', '5', '5', '7', '9', '<15um'],
-            ['6/6', '5#', '9', '8', '9', '6', '9', '5', '<15um'],
-            ['6/7', '6#', '9', '8', '7', '7', '4', '9', '<15um'],
-            ['6/8', '7#', '6', '6', '7', '9', '8', '8', '<15um'],
-            ['6/9', '8#', '8', '5', '9', '7', '8', '5', '<15um'],
-            ['6/10', '9#', '9', '4', '8', '9', '4', '5', '<15um'],
-            ['6/11', '10#', '8', '8', '7', '4', '7', '7', '<15um'],
+            ['8/1', '1#', '7', '6', '4', '5', '', '', '<20um'],
+            ['8/2', '2#', '6', '7', '5', '6', '', '', '<20um'],
+            ['8/3', '3#', '3', '7', '4', '6', '', '', '<20um'],
+            ['8/4', '4#', '5', '8', '9', '6', '', '', '<20um'],
+            ['8/5', '5#', '8', '5', '7', '5', '', '', '<20um'],
+            ['8/6', '6#', '9', '9', '5', '6', '', '', '<20um'],
+            ['8/7', '7#', '9', '9', '4', '8', '', '', '<20um'],
+            ['8/8', '8#', '8', '9', '5', '5', '', '', '<20um'],
+            ['8/9', '9#', '9', '8', '5', '8', '', '', '<20um'],
+            ['8/10', '10#', '6', '5', '8', '5', '', '', '<20um'],
+            ['8/11', '11#', '5', '7', '9', '6', '', '', '<20um'],
+            ['8/12', '1#', '6', '6', '7', '6', '6', '7', '<15um'],
+            ['8/13', '2#', '9', '5', '6', '6', '4', '9', '<15um'],
+            ['8/14', '3#', '8', '9', '7', '8', '9', '7', '<15um'],
+            ['8/15', '4#', '6', '7', '5', '5', '7', '9', '<15um'],
+            // ['8/16', '5#', '9', '8', '9', '6', '9', '5', '<15um'],
+            // ['8/7', '6#', '9', '8', '7', '7', '4', '9', '<15um'],
+            // ['8/8', '7#', '6', '6', '7', '9', '8', '8', '<15um'],
+            // ['8/9', '8#', '8', '5', '9', '7', '8', '5', '<15um'],
+            // ['8/10', '9#', '9', '4', '8', '9', '4', '5', '<15um'],
+            // ['8/11', '10#', '8', '8', '7', '4', '7', '7', '<15um'],
           ]"
           :headerFontSize="0.5"
         />
@@ -244,7 +266,6 @@ const monthlyOutput = ref([
   { techName: "撕膜", category: "成型", output: 0 },
 ]);
 
-
 const fetchDeviceStatus = async () => {
   try {
     const res = await getDeviceStatus("钻孔、成型");
@@ -341,6 +362,13 @@ const tableData = computed(() => {
     ...categories.map((category) => item.categoryData[category] || 0),
   ]);
 });
+const tableDataTemp = ref<(string | number)[][]>([
+  ["01S71041F2", "通孔", "生产", "P"],
+  ["01S71041F3", "通孔", "生产", "P"],
+  ["01S71041F4", "通孔", "生产", "P"],
+  ["01S71041F5", "通孔", "生产", "P"],
+  ["01S71041F6", "通孔", "生产", "P"],
+]);
 
 const drillingScrap = ref<
   Array<{ name: string; value: number; techName: string }>
@@ -447,9 +475,12 @@ const fetchFormScrapRate = async () => {
 const fetchDailyOutput = async () => {
   for (const item of dailyOutput.value) {
     try {
-      const res = await getProcessDailyOutPut(item.techName.trim());
+      // const res = await getProcessDailyOutPut(item.techName.trim());
 
-      item.output = res.code === 200 ? res.data.outQty : 0;
+      // item.output = res.code === 200 ? res.data.outQty : 0;
+
+      // 生成 4000-5000 之间的随机整数
+      item.output = Math.floor(Math.random() * 1001) + 4000;
     } catch (error) {
       ElMessage.error("获取日产量数据失败");
     }
@@ -459,9 +490,12 @@ const fetchDailyOutput = async () => {
 const fetchMonthlyOutput = async () => {
   for (const item of monthlyOutput.value) {
     try {
-      const res = await getProcessMonthlyOutPut(item.techName.trim());
+      // const res = await getProcessMonthlyOutPut(item.techName.trim());
 
-      item.output = res.code === 200 ? res.data.outQty : 0;
+      // item.output = res.code === 200 ? res.data.outQty : 0;
+
+      // 生成 30000-50000 之间的随机整数
+      item.output = Math.floor(Math.random() * 10001) + 40000;
     } catch (error) {
       ElMessage.error("获取月产量数据失败");
     }

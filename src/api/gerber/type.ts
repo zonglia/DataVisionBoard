@@ -1,19 +1,17 @@
 /** Gerber 数据项 */
 export interface GerberItem {
     /** 日期 (格式: YYYY-MM-DD) */
-    date: string;
+    no: string;
     /** Gerber 文件名称 */
-    name: string;
+    process: string;
     /** 产品编号/厂内型号 */
     pdctno: string;
     /** 更新内容 */
-    updateContent: string;
+    setting: string;
     /** 类别 */
-    kind: string;
+    range: string;
     /** 是否需要治具 */
-    isNeed: string;
-    /** 治具编号 (可能为 null) */
-    zhiju: string;
+    fun: string;
 }
 
 /** API 响应结构 */
